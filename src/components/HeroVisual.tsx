@@ -1,24 +1,20 @@
-import { motion } from 'framer-motion'
-
-const easeOut = [0.22, 1, 0.36, 1] as const
-
+/**
+ * Hero dashboard preview. Pure CSS — no framer-motion.
+ * Bars animate via `scaleX` (composited) instead of `width` (triggers layout).
+ */
 export function HeroVisual() {
   return (
-    <div className="relative mx-auto w-full max-w-[min(100%,700px)]">
+    <div className="relative mx-auto w-full max-w-[min(100%,700px)] hero-enter">
       <div
         className="pointer-events-none absolute -inset-8 rounded-[40px] opacity-85 blur-3xl"
         style={{
           background:
             'radial-gradient(ellipse at 24% 18%, rgb(251 191 36 / 0.30), transparent 52%), radial-gradient(ellipse at 72% 80%, rgb(244 114 182 / 0.24), transparent 50%), radial-gradient(ellipse at 48% 48%, rgb(249 115 22 / 0.12), transparent 58%)',
         }}
+        aria-hidden
       />
 
-      <motion.div
-        className="relative overflow-hidden rounded-3xl border border-champagne-200/80 bg-white/92 shadow-soft backdrop-blur-xl"
-        initial={{ opacity: 0, y: 36 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ type: 'spring', stiffness: 200, damping: 26 }}
-      >
+      <div className="relative overflow-hidden rounded-3xl border border-champagne-200/80 bg-white/95 shadow-soft">
         <div className="flex items-center gap-2 border-b border-champagne-200/60 px-5 py-3.5">
           <div className="flex gap-1.5">
             <span className="size-2.5 rounded-full bg-cherry/90" />
@@ -32,16 +28,24 @@ export function HeroVisual() {
         <div className="grid gap-5 p-5 sm:grid-cols-[1.1fr_0.9fr] sm:p-6">
           <div className="space-y-4">
             <div className="rounded-2xl border border-champagne-200/70 bg-white p-4">
-              <p className="font-sans text-[11px] font-medium uppercase tracking-[0.12em] text-ink-muted">Today</p>
-              <p className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink">24 bookings</p>
+              <p className="font-sans text-[11px] font-medium uppercase tracking-[0.12em] text-ink-muted">
+                Today
+              </p>
+              <p className="mt-2 font-display text-3xl font-semibold tracking-tight text-ink">
+                24 bookings
+              </p>
               <div className="mt-4 space-y-2">
                 {[78, 60, 42].map((w, idx) => (
-                  <div key={idx} className="h-1.5 overflow-hidden rounded-full bg-black/6">
-                    <motion.div
-                      className="h-full rounded-full bg-gradient-to-r from-cherry via-tangerine to-rose"
-                      initial={{ width: 0 }}
-                      animate={{ width: `${w}%` }}
-                      transition={{ duration: 1, delay: 0.25 + idx * 0.12, ease: easeOut }}
+                  <div
+                    key={idx}
+                    className="h-1.5 overflow-hidden rounded-full bg-black/[0.06]"
+                  >
+                    <div
+                      className="hero-bar h-full rounded-full bg-gradient-to-r from-cherry via-tangerine to-rose"
+                      style={{
+                        width: `${w}%`,
+                        animationDelay: `${0.25 + idx * 0.12}s`,
+                      }}
                     />
                   </div>
                 ))}
@@ -59,23 +63,25 @@ export function HeroVisual() {
             </div>
           </div>
           <div className="rounded-2xl border border-champagne-200/70 bg-white p-4">
-            <p className="font-sans text-[11px] font-medium uppercase tracking-[0.12em] text-ink-muted">Website</p>
+            <p className="font-sans text-[11px] font-medium uppercase tracking-[0.12em] text-ink-muted">
+              Website
+            </p>
             <div className="mt-3 space-y-3">
-              <div className="h-2 w-2/3 rounded-full bg-black/8" />
+              <div className="h-2 w-2/3 rounded-full bg-black/[0.08]" />
               <div className="grid grid-cols-3 gap-2">
                 {[0, 1, 2].map((i) => (
                   <div
                     key={i}
-                    className="aspect-4/3 rounded-lg bg-gradient-to-br from-petal/45 to-champagne-50 ring-1 ring-mango/15"
+                    className="aspect-[4/3] rounded-lg bg-gradient-to-br from-petal/45 to-champagne-50 ring-1 ring-mango/15"
                   />
                 ))}
               </div>
               <div className="h-9 rounded-xl bg-gradient-to-r from-cherry via-tangerine to-rose shadow-lg shadow-cherry/20" />
-              <div className="h-2 w-1/2 rounded-full bg-black/8" />
+              <div className="h-2 w-1/2 rounded-full bg-black/[0.08]" />
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </div>
   )
 }

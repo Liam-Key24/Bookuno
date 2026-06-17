@@ -43,8 +43,7 @@ export function HomePricingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ ...springSnappy, delay: ti * 0.08 }}
-              whileHover={{ y: -6 }}
-              className={`relative flex flex-col rounded-3xl border p-8 text-center sm:p-10 ${
+              className={`relative flex flex-col rounded-3xl border p-8 text-center transition-transform duration-300 ease-out hover:-translate-y-1.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-10 ${
                 tier.highlight
                   ? 'border-mango/40 bg-gradient-to-b from-white to-petal/25 shadow-xl shadow-cherry/15 ring-1 ring-rose/30'
                   : 'border-champagne-200/80 bg-white/95 shadow-card'
@@ -75,9 +74,14 @@ export function HomePricingSection() {
                 ))}
               </ul>
               <div className="mt-8 rounded-2xl border border-champagne-200/80 bg-champagne-50/80 px-4 py-3">
-                <p className="font-sans text-sm font-medium leading-snug text-ink">{tier.outcome}</p>
+                <p className="font-sans text-sm font-medium leading-snug text-ink">
+                  {tier.outcome}
+                </p>
               </div>
-              <PrimaryButton className="mt-10 w-full" onClick={() => navigate(`/contact/${tier.id}`)}>
+              <PrimaryButton
+                className="mt-10 w-full"
+                onClick={() => navigate(`/contact/${tier.id}`)}
+              >
                 Talk {tier.name}
               </PrimaryButton>
             </motion.div>
@@ -89,7 +93,7 @@ export function HomePricingSection() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ ...springSoft }}
+          transition={springSoft}
         >
           <div className="mx-auto flex size-12 items-center justify-center rounded-2xl bg-gradient-to-br from-petal/80 to-champagne-100/90 ring-1 ring-mango/20">
             <SealCheck className="size-7 text-tangerine" weight="duotone" aria-hidden />
@@ -101,7 +105,8 @@ export function HomePricingSection() {
             </span>
           </h3>
           <p className="mx-auto mt-3 max-w-md font-sans text-sm text-ink-muted">
-            Subs keep us in your corner. Full export or migration? We quote it clean — no surprise line items.{' '}
+            Subs keep us in your corner. Full export or migration? We quote it clean — no surprise
+            line items.{' '}
             <Link
               to="/packages#ownership"
               className="font-semibold text-tangerine underline decoration-tangerine/35 underline-offset-2"

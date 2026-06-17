@@ -1,7 +1,7 @@
 import { Handshake, Headset, SealCheck } from '@phosphor-icons/react'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { Icon } from '@phosphor-icons/react'
-import { springSnappy, springSoft } from '../motion'
+import { springSoft } from '../motion'
 
 const PILLARS: {
   Icon: Icon
@@ -53,8 +53,7 @@ export function WhatsIncludedSection() {
             hidden: {},
             show: {
               transition: {
-                staggerChildren: reduceMotion ? 0 : 0.11,
-                delayChildren: reduceMotion ? 0 : 0.05,
+                staggerChildren: reduceMotion ? 0 : 0.09,
               },
             },
           }}
@@ -65,34 +64,16 @@ export function WhatsIncludedSection() {
               <motion.li
                 key={item.title}
                 variants={{
-                  hidden: reduceMotion
-                    ? { opacity: 0 }
-                    : {
-                        opacity: 0,
-                        y: 48,
-                        x: zigLeft ? -28 : 28,
-                        rotate: zigLeft ? -4 : 4,
-                      },
+                  hidden: reduceMotion ? { opacity: 0 } : { opacity: 0, y: 28 },
                   show: {
                     opacity: 1,
                     y: 0,
-                    x: 0,
-                    rotate: zigLeft ? -1.2 : 1.2,
-                    transition: { ...springSoft, mass: 0.82 },
+                    transition: springSoft,
                   },
                 }}
-                whileHover={
-                  reduceMotion
-                    ? undefined
-                    : {
-                        rotate: 0,
-                        scale: 1.02,
-                        transition: { ...springSnappy, stiffness: 420 },
-                      }
-                }
-                className={`relative flex gap-4 overflow-hidden rounded-2xl border border-champagne-200/90 bg-white/95 p-4 shadow-sm sm:gap-5 sm:p-5 md:max-w-[92%] ${
-                  zigLeft ? 'origin-top-left md:mr-auto md:ml-0' : 'origin-top-right md:ml-auto md:mr-0'
-                } `}
+                className={`group relative flex gap-4 overflow-hidden rounded-2xl border border-champagne-200/90 bg-white/95 p-4 shadow-sm transition-transform duration-300 ease-out hover:-translate-y-1 hover:shadow-md sm:gap-5 sm:p-5 md:max-w-[92%] motion-reduce:transition-none motion-reduce:hover:translate-y-0 ${
+                  zigLeft ? 'md:mr-auto md:ml-0' : 'md:ml-auto md:mr-0'
+                }`}
               >
                 <div
                   className={`pointer-events-none absolute size-24 rounded-full bg-gradient-to-br opacity-[0.14] blur-2xl ${
@@ -100,18 +81,14 @@ export function WhatsIncludedSection() {
                   } ${item.blob}`}
                   aria-hidden
                 />
-                <motion.span
-                  className="relative z-1 flex size-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-champagne-50 to-white shadow-sm ring-2 ring-tangerine/25 sm:size-14"
-                  animate={reduceMotion ? undefined : { y: [0, -3, 0] }}
-                  transition={
-                    reduceMotion
-                      ? undefined
-                      : { duration: 3.2 + i * 0.25, repeat: Infinity, ease: 'easeInOut' }
-                  }
-                >
-                  <item.Icon className="size-7 text-tangerine sm:size-8" weight="duotone" aria-hidden />
-                </motion.span>
-                <div className="relative z-1 min-w-0 flex-1 pt-0.5 text-left">
+                <span className="relative z-[1] flex size-12 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-champagne-50 to-white shadow-sm ring-2 ring-tangerine/25 sm:size-14">
+                  <item.Icon
+                    className="size-7 text-tangerine sm:size-8"
+                    weight="duotone"
+                    aria-hidden
+                  />
+                </span>
+                <div className="relative z-[1] min-w-0 flex-1 pt-0.5 text-left">
                   <p className="font-display text-lg font-semibold leading-snug tracking-[-0.02em] text-ink sm:text-xl">
                     {item.title}
                   </p>

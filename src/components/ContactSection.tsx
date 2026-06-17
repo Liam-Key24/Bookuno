@@ -5,10 +5,14 @@ import type { FormEvent } from 'react'
 import { Link } from 'react-router-dom'
 import { BentoWatermark } from './BentoWatermark'
 import { GhostButton, PrimaryButton } from './Button'
-import { formRow2Cls, inputContactCls, labelCls, textareaContactCls } from './lead-forms/fieldStyles'
+import {
+  formRow2Cls,
+  inputContactCls,
+  labelCls,
+  textareaContactCls,
+} from './lead-forms/fieldStyles'
 import { springSoft } from '../motion'
 
-/** Placeholder number for layout / demo — replace with a real line when live. */
 const FAUX_PHONE_DISPLAY = '020 7946 0958'
 
 export function ContactSection() {
@@ -46,8 +50,8 @@ export function ContactSection() {
               Send an enquiry — we&apos;ll answer
             </h2>
             <p className="mt-3 font-sans text-sm leading-relaxed text-ink-muted md:text-base">
-              No long forms here. Ask about plans, timing, or whether we&apos;re a fit — we read every message and reply
-              by email.
+              No long forms here. Ask about plans, timing, or whether we&apos;re a fit — we read
+              every message and reply by email.
             </p>
 
             <div className="mt-7 flex items-start gap-3 rounded-2xl border border-champagne-200/85 bg-white px-4 py-3.5 shadow-sm">
@@ -55,12 +59,15 @@ export function ContactSection() {
                 <EnvelopeSimple className="size-5 text-tangerine" weight="duotone" aria-hidden />
               </span>
               <p className="font-sans text-sm leading-snug text-ink-muted">
-                Prefer the structured booking forms? Use <Link
+                Prefer the structured booking forms? Use{' '}
+                <Link
                   to="/contact/launch"
                   className="font-semibold text-tangerine underline decoration-tangerine/35 underline-offset-2"
                 >
                   Talk Launch
-                </Link> or <Link
+                </Link>{' '}
+                or{' '}
+                <Link
                   to="/contact/suite"
                   className="font-semibold text-tangerine underline decoration-tangerine/35 underline-offset-2"
                 >
@@ -98,23 +105,15 @@ export function ContactSection() {
             transition={{ ...springSoft, delay: reduceMotion ? 0 : 0.06 }}
           >
             {sent ? (
-              <motion.div
-                className="py-6 text-center"
-                initial={{ opacity: 0, y: 8 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={springSoft}
-              >
+              <div className="py-6 text-center">
                 <p className="font-sans text-sm text-ink-muted">
-                  Thanks — we&apos;ve got your enquiry. We&apos;ll answer by email as soon as we can.
+                  Thanks — we&apos;ve got your enquiry. We&apos;ll answer by email as soon as we
+                  can.
                 </p>
-                <GhostButton
-                  type="button"
-                  className="mt-5"
-                  onClick={() => setSent(false)}
-                >
+                <GhostButton type="button" className="mt-5" onClick={() => setSent(false)}>
                   Send another enquiry
                 </GhostButton>
-              </motion.div>
+              </div>
             ) : (
               <form className="flex flex-col gap-6" onSubmit={handleSubmit} noValidate>
                 <div className={formRow2Cls}>
@@ -128,6 +127,7 @@ export function ContactSection() {
                       type="text"
                       autoComplete="name"
                       required
+                      maxLength={120}
                       className={inputContactCls}
                       placeholder="Your name"
                     />
@@ -142,6 +142,7 @@ export function ContactSection() {
                       type="email"
                       autoComplete="email"
                       required
+                      maxLength={200}
                       className={inputContactCls}
                       placeholder="you@business.com"
                     />
@@ -156,6 +157,7 @@ export function ContactSection() {
                     name="message"
                     required
                     rows={5}
+                    maxLength={5000}
                     className={textareaContactCls}
                     placeholder="What you’d like to know — we’ll reply here."
                   />

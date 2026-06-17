@@ -1,6 +1,10 @@
 import { motion, useReducedMotion } from 'framer-motion'
-import { springSoft, springSnappy } from '../motion'
-import { OfferMockupBookings, OfferMockupLaunch, OfferMockupWebsite } from './WhatWeOfferMockups'
+import { springSoft } from '../motion'
+import {
+  OfferMockupBookings,
+  OfferMockupLaunch,
+  OfferMockupWebsite,
+} from './WhatWeOfferMockups'
 
 const easeOut = [0.22, 1, 0.36, 1] as const
 
@@ -43,7 +47,7 @@ export function WhatWeOfferSection() {
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgb(251_146_60/0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgb(251_146_60/0.06)_1px,transparent_1px)] bg-[length:48px_48px] [mask-image:radial-gradient(ellipse_80%_70%_at_50%_20%,black,transparent)] opacity-70"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgb(251_146_60/0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgb(251_146_60/0.06)_1px,transparent_1px)] bg-[length:48px_48px] opacity-70 [mask-image:radial-gradient(ellipse_80%_70%_at_50%_20%,black,transparent)]"
         aria-hidden
       />
 
@@ -77,40 +81,20 @@ export function WhatWeOfferSection() {
           variants={{
             hidden: {},
             show: {
-              transition: {
-                staggerChildren: reduceMotion ? 0 : 0.12,
-                delayChildren: reduceMotion ? 0 : 0.08,
-              },
+              transition: { staggerChildren: reduceMotion ? 0 : 0.1 },
             },
           }}
         >
           {BLOCKS.map((block, i) => {
             const Mockup = MOCKUPS[i]
-
             return (
               <motion.article
                 key={block.title}
                 variants={{
-                  hidden: reduceMotion
-                    ? { opacity: 0 }
-                    : { opacity: 0, y: 28, rotate: i === 1 ? 0 : i === 0 ? -1 : 1 },
-                  show: {
-                    opacity: 1,
-                    y: 0,
-                    rotate: 0,
-                    transition: { ...springSoft, mass: 0.9 },
-                  },
+                  hidden: reduceMotion ? { opacity: 0 } : { opacity: 0, y: 28 },
+                  show: { opacity: 1, y: 0, transition: springSoft },
                 }}
-                whileHover={
-                  reduceMotion
-                    ? undefined
-                    : {
-                        y: -10,
-                        scale: 1.02,
-                        transition: springSnappy,
-                      }
-                }
-                className="group relative flex w-full max-w-md flex-col self-center overflow-hidden rounded-3xl border border-champagne-200/80 bg-white/90 p-6 shadow-lg shadow-champagne-200/35 ring-1 ring-white/90 backdrop-blur-sm sm:max-w-none sm:p-7"
+                className="group relative flex w-full max-w-md flex-col self-center overflow-hidden rounded-3xl border border-champagne-200/80 bg-white/90 p-6 shadow-lg shadow-champagne-200/35 ring-1 ring-white/90 transition-transform duration-300 ease-out hover:-translate-y-2 motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:max-w-none sm:p-7"
               >
                 <div
                   className={`pointer-events-none absolute -right-12 -top-12 size-40 rounded-full bg-gradient-to-br ${block.accent} opacity-[0.14] blur-2xl transition-opacity duration-500 group-hover:opacity-[0.22]`}
@@ -122,11 +106,7 @@ export function WhatWeOfferSection() {
                     {block.title}
                   </h3>
 
-                  <div
-                    className={`relative mx-auto mt-6 w-full max-w-[280px] shrink-0 sm:max-w-[300px] ${
-                      reduceMotion ? '' : 'transition-transform duration-500 group-hover:scale-[1.03]'
-                    }`}
-                  >
+                  <div className="relative mx-auto mt-6 w-full max-w-[280px] shrink-0 transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100 sm:max-w-[300px]">
                     <Mockup />
                   </div>
 

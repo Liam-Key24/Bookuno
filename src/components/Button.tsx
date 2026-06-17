@@ -1,53 +1,41 @@
-import { motion } from 'framer-motion'
-import type { ReactNode } from 'react'
-import { springSnappy } from '../motion'
+import type { ButtonHTMLAttributes, ReactNode } from 'react'
+
+type ButtonProps = Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'children'> & {
+  children: ReactNode
+  className?: string
+}
+
+const baseCls =
+  'inline-flex items-center justify-center rounded-full font-sans text-sm font-medium tracking-wide transition-[transform,box-shadow,background-color,border-color,color] duration-200 ease-out will-change-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-champagne-50 active:scale-[0.97] motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100'
+
+const primaryCls =
+  'bg-gradient-to-r from-cherry via-tangerine to-rose px-7 py-3.5 text-white shadow-[0_10px_40px_-4px_rgb(239_68_68/0.45)] ring-1 ring-white/20 hover:-translate-y-0.5 hover:scale-[1.04] focus-visible:ring-sun/70'
+
+const ghostCls =
+  'border border-champagne-200/80 bg-white/90 px-7 py-3.5 text-ink shadow-sm hover:-translate-y-0.5 hover:scale-[1.03] hover:border-mango/50 hover:bg-white focus-visible:ring-rose/40'
 
 export function PrimaryButton({
   children,
   className = '',
-  onClick,
   type = 'button',
-}: {
-  children: ReactNode
-  className?: string
-  onClick?: () => void
-  type?: 'button' | 'submit'
-}) {
+  ...rest
+}: ButtonProps) {
   return (
-    <motion.button
-      type={type}
-      onClick={onClick}
-      className={`inline-flex items-center justify-center rounded-full bg-gradient-to-r from-cherry via-tangerine to-rose px-7 py-3.5 font-sans text-sm font-medium tracking-wide text-white shadow-[0_10px_40px_-4px_rgb(239_68_68/0.45)] ring-1 ring-white/20 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-sun/70 focus-visible:ring-offset-2 focus-visible:ring-offset-champagne-50 ${className}`}
-      whileHover={{ scale: 1.06, y: -3 }}
-      whileTap={{ scale: 0.97 }}
-      transition={{ type: 'spring', stiffness: 450, damping: 20 }}
-    >
+    <button type={type} className={`${baseCls} ${primaryCls} ${className}`} {...rest}>
       {children}
-    </motion.button>
+    </button>
   )
 }
 
 export function GhostButton({
   children,
   className = '',
-  onClick,
   type = 'button',
-}: {
-  children: ReactNode
-  className?: string
-  onClick?: () => void
-  type?: 'button' | 'submit'
-}) {
+  ...rest
+}: ButtonProps) {
   return (
-    <motion.button
-      type={type}
-      onClick={onClick}
-      className={`inline-flex items-center justify-center rounded-full border border-champagne-200/80 bg-white/90 px-7 py-3.5 font-sans text-sm font-medium tracking-wide text-ink shadow-sm backdrop-blur transition hover:border-mango/50 hover:bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-rose/40 focus-visible:ring-offset-2 focus-visible:ring-offset-champagne-50 ${className}`}
-      whileHover={{ scale: 1.04, y: -2 }}
-      whileTap={{ scale: 0.98 }}
-      transition={springSnappy}
-    >
+    <button type={type} className={`${baseCls} ${ghostCls} ${className}`} {...rest}>
       {children}
-    </motion.button>
+    </button>
   )
 }

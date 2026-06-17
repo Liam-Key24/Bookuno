@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { PainBentoVisual } from './PainBentoVisuals'
-import { springSoft, springSnappy } from '../motion'
+import { springSoft } from '../motion'
 
 const ITEMS: {
   tag: string
@@ -34,7 +34,7 @@ const ITEMS: {
   },
 ]
 
-const gridSpans = [
+const GRID_SPANS = [
   'md:col-span-3',
   'md:col-span-3',
   'md:col-span-2',
@@ -69,27 +69,19 @@ export function WhoPainPoints() {
           aria-label="Common situations we help with"
         >
           {ITEMS.map((item, i) => (
-            <li key={item.tag} className={`flex min-h-[22rem] flex-col sm:min-h-[26rem] md:min-h-[28rem] ${gridSpans[i]}`}>
+            <li
+              key={item.tag}
+              className={`flex min-h-[22rem] flex-col sm:min-h-[26rem] md:min-h-[28rem] ${GRID_SPANS[i]}`}
+            >
               <motion.div
-                className="flex h-full min-h-0 w-full flex-1 flex-col overflow-hidden rounded-2xl border border-champagne-200/90 bg-white shadow-sm ring-1 ring-champagne-100/80"
+                className="group flex h-full min-h-0 w-full flex-1 flex-col overflow-hidden rounded-2xl border border-champagne-200/90 bg-white shadow-sm ring-1 ring-champagne-100/80 transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0"
                 initial={reduceMotion ? false : { opacity: 0, y: 28 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-12% 0px' }}
                 transition={{
                   ...springSoft,
-                  delay: reduceMotion ? 0 : i * 0.07,
-                  mass: 0.82,
+                  delay: reduceMotion ? 0 : i * 0.06,
                 }}
-                whileHover={
-                  reduceMotion
-                    ? undefined
-                    : {
-                        y: -5,
-                        scale: 1.012,
-                        boxShadow: '0 24px 48px -12px rgb(200 100 80 / 0.12)',
-                        transition: springSnappy,
-                      }
-                }
               >
                 <div
                   className="relative min-h-0 w-full flex-1 overflow-hidden rounded-t-2xl bg-champagne-100/80"
@@ -101,10 +93,12 @@ export function WhoPainPoints() {
                 </div>
 
                 <div className="shrink-0 border-t border-champagne-100 px-6 pb-8 pt-7 md:px-8 md:pt-8">
-                  <p className="font-display text-2xl font-semibold leading-[1.12] tracking-[-0.03em] text-ink md:text-[1.9rem] lg:text-[2.05rem] md:leading-[1.1]">
+                  <p className="font-display text-2xl font-semibold leading-[1.12] tracking-[-0.03em] text-ink md:text-[1.9rem] md:leading-[1.1] lg:text-[2.05rem]">
                     {item.tag}
                   </p>
-                  <p className="mt-4 font-sans text-sm leading-relaxed text-ink-muted md:text-[15px]">{item.text}</p>
+                  <p className="mt-4 font-sans text-sm leading-relaxed text-ink-muted md:text-[15px]">
+                    {item.text}
+                  </p>
                 </div>
               </motion.div>
             </li>

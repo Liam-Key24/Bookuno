@@ -71,18 +71,13 @@ export function StatsProsSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: i * 0.06, ease: easeOut }}
-              whileHover={{ y: -4 }}
-              className="relative flex min-h-[13rem] flex-col items-center overflow-hidden rounded-2xl border border-champagne-200/80 bg-white/95 px-7 pb-9 pt-10 text-center shadow-md shadow-black/[0.04] transition-shadow duration-300 hover:shadow-lg md:min-h-[14rem]"
+              className="group relative flex min-h-[13rem] flex-col items-center overflow-hidden rounded-2xl border border-champagne-200/80 bg-white/95 px-7 pb-9 pt-10 text-center shadow-md shadow-black/[0.04] transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-1 hover:shadow-lg motion-reduce:transition-none motion-reduce:hover:translate-y-0 md:min-h-[14rem]"
             >
               <div
                 className={`absolute inset-x-0 top-0 h-1 bg-gradient-to-r ${TOP_ACCENT[i]}`}
                 aria-hidden
               />
-              <s.icon
-                className="size-12 text-tangerine"
-                weight="duotone"
-                aria-hidden
-              />
+              <s.icon className="size-12 text-tangerine" weight="duotone" aria-hidden />
               <p className="mt-8 font-display text-[1.65rem] font-semibold leading-tight tracking-tight text-ink md:text-[1.85rem]">
                 {s.stat}
               </p>

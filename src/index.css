@@ -53,13 +53,59 @@
   }
 }
 
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes hero-bar {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 @layer utilities {
   .animate-feedback-marquee {
     animation: feedback-marquee 50s linear infinite;
   }
 
+  /* One-shot, GPU-friendly entrance — replaces several framer-motion wrappers. */
+  .hero-enter > * {
+    opacity: 0;
+    animation: fade-up 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  .hero-enter > *:nth-child(1) { animation-delay: 0.05s; }
+  .hero-enter > *:nth-child(2) { animation-delay: 0.15s; }
+  .hero-enter > *:nth-child(3) { animation-delay: 0.22s; }
+  .hero-enter > *:nth-child(4) { animation-delay: 0.32s; }
+
+  .hero-bar {
+    transform-origin: left center;
+    animation: hero-bar 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  .panel-fade {
+    animation: fade-up 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .animate-feedback-marquee {
+      animation: none;
+    }
+    .hero-enter > *,
+    .hero-bar,
+    .panel-fade {
+      opacity: 1;
+      transform: none;
       animation: none;
     }
   }

@@ -3,6 +3,29 @@ import { fadeUp } from '../motion'
 import { BentoWatermark } from './BentoWatermark'
 import { FaqItem } from './FaqItem'
 
+const FAQS = [
+  {
+    q: 'Do I build it myself?',
+    a: 'No — we design and build. Plans include hosting and maintenance. Full ownership handover is a separate one-time quote if you want it later.',
+  },
+  {
+    q: 'Enterprise booking or PMS software?',
+    a: 'No — it’s a lean booking management layer plus your site (salons, dining, spas). If you need hospital-grade scheduling or deep POS integration, we’ll say if we’re not the fit.',
+  },
+  {
+    q: 'Subscription vs handover?',
+    a: 'Launch (£65/mo) and Suite (£149/mo) cover hosting, maintenance, and in-scope changes. Full transfer/migration/handover is quoted separately.',
+  },
+  {
+    q: 'Changes after launch?',
+    a: 'Yes — request edits and we queue them per your plan.',
+  },
+  {
+    q: 'Already have a site?',
+    a: 'We can migrate or rebuild — we’ll scope it on a call.',
+  },
+] as const
+
 export function HomeFaqSection() {
   return (
     <section
@@ -24,26 +47,9 @@ export function HomeFaqSection() {
           <p className="mt-2 font-sans text-sm text-ink-muted">Tap to open.</p>
         </motion.div>
         <div className="mt-10 flex flex-col gap-3">
-          <FaqItem
-            question="Do I build it myself?"
-            answer="No — we design and build. Plans include hosting and maintenance. Full ownership handover is a separate one-time quote if you want it later."
-          />
-          <FaqItem
-            question="Enterprise booking or PMS software?"
-            answer="No — it’s a lean booking management layer plus your site (salons, dining, spas). If you need hospital-grade scheduling or deep POS integration, we’ll say if we’re not the fit."
-          />
-          <FaqItem
-            question="Subscription vs handover?"
-            answer="Launch (£65/mo) and Suite (£149/mo) cover hosting, maintenance, and in-scope changes. Full transfer/migration/handover is quoted separately."
-          />
-          <FaqItem
-            question="Changes after launch?"
-            answer="Yes — request edits and we queue them per your plan."
-          />
-          <FaqItem
-            question="Already have a site?"
-            answer="We can migrate or rebuild — we’ll scope it on a call."
-          />
+          {FAQS.map((f) => (
+            <FaqItem key={f.q} question={f.q} answer={f.a} />
+          ))}
         </div>
       </div>
     </section>

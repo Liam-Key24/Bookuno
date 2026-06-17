@@ -2,7 +2,7 @@ import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import { BentoWatermark } from './BentoWatermark'
 import { PrimaryButton } from './Button'
-import { fadeUp, springSnappy } from '../motion'
+import { fadeUp } from '../motion'
 
 export function HomeFinalCtaSection() {
   const navigate = useNavigate()
@@ -24,17 +24,11 @@ export function HomeFinalCtaSection() {
           <p className="mx-auto mt-5 max-w-md font-sans text-base text-ink-muted md:text-lg">
             Free call — Launch vs Suite, what&apos;s included, handover options.
           </p>
-          <motion.div
-            className="mt-10 flex flex-wrap justify-center gap-4"
-            initial={{ opacity: 0, y: 12 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={springSnappy}
-          >
+          <div className="mt-10 flex flex-wrap justify-center gap-4">
             <PrimaryButton className="px-10 py-4 text-base" onClick={() => navigate('/#pricing')}>
               Get started
             </PrimaryButton>
-          </motion.div>
+          </div>
         </motion.div>
       </div>
     </section>

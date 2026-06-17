@@ -1,63 +1,49 @@
-import { motion } from 'framer-motion'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import type { ReactNode } from 'react'
 import { GhostButton, PrimaryButton } from './Button'
-import { springSnappy } from '../motion'
+
+const navLinkCls = ({ isActive }: { isActive: boolean }) =>
+  isActive ? 'font-semibold text-ink' : 'text-ink-muted transition hover:text-ink'
 
 export function Layout({ children }: { children: ReactNode }) {
   const navigate = useNavigate()
 
-  const link = ({ isActive }: { isActive: boolean }) =>
-    isActive ? 'font-semibold text-ink' : 'text-ink-muted transition hover:text-ink'
-
   return (
     <div className="relative overflow-x-hidden">
-      <div className="pointer-events-none fixed inset-0 -z-10">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_70%_at_50%_-15%,rgb(251_191_36/0.28),transparent)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_45%_at_95%_5%,rgb(244_114_182/0.14),transparent)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_40%_at_0%_100%,rgb(249_115_22/0.1),transparent)]" />
-        <motion.div
-          className="absolute -left-32 top-1/4 size-96 rounded-full bg-gradient-to-br from-mango/30 via-rose/20 to-transparent blur-3xl"
-          animate={{ y: [0, 24, 0], rotate: [0, 6, -2, 0], scale: [1, 1.05, 1] }}
-          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className="absolute -right-24 bottom-1/4 size-[22rem] rounded-full bg-gradient-to-br from-champagne-200/60 via-sun/15 to-petal/20 blur-3xl"
-          animate={{ y: [0, -20, 0], x: [0, -14, 0] }}
-          transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.div
-          className="absolute bottom-1/3 left-1/3 size-64 rounded-full bg-gradient-to-br from-cherry/20 to-transparent blur-3xl"
-          animate={{ opacity: [0.4, 0.75, 0.4], scale: [1, 1.15, 1] }}
-          transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-        />
-      </div>
+      {/*
+        Static decorative background. Was previously three infinite framer-motion
+        blobs + three radial gradients — each animation forced continuous paint
+        of large `blur-3xl` surfaces. Static gradients composite once and cost
+        ~0 per frame.
+      */}
+      <div
+        className="pointer-events-none fixed inset-0 -z-10 bg-[radial-gradient(ellipse_100%_70%_at_50%_-15%,rgb(251_191_36/0.28),transparent),radial-gradient(ellipse_70%_45%_at_95%_5%,rgb(244_114_182/0.14),transparent),radial-gradient(ellipse_55%_40%_at_0%_100%,rgb(249_115_22/0.1),transparent),radial-gradient(ellipse_30%_30%_at_10%_40%,rgb(251_146_60/0.18),transparent_70%),radial-gradient(ellipse_30%_30%_at_90%_70%,rgb(244_114_182/0.14),transparent_70%)]"
+        aria-hidden
+      />
 
-      <header className="sticky top-0 z-50 border-b border-champagne-200/60 bg-champagne-50/85 backdrop-blur-xl">
+      <header className="sticky top-0 z-50 border-b border-champagne-200/60 bg-champagne-50/95">
         <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3 sm:gap-4 sm:px-6 sm:py-4">
-          <motion.div whileHover={{ scale: 1.03 }} transition={springSnappy}>
-            <Link
-              to="/"
-            className="font-display text-lg font-semibold tracking-[-0.02em] text-ink sm:text-2xl"
-            >
-              Bookuno
-            </Link>
-          </motion.div>
+          <Link
+            to="/"
+            className="font-display text-lg font-semibold tracking-[-0.02em] text-ink transition-transform hover:scale-[1.03] sm:text-2xl"
+          >
+            Bookuno
+          </Link>
 
           <nav
             className="hidden flex-1 justify-center gap-5 font-sans text-sm font-medium sm:flex sm:gap-6"
             aria-label="Main"
           >
-            <NavLink to="/packages" className={link}>
+            <NavLink to="/packages" className={navLinkCls}>
               Packages
             </NavLink>
-            <NavLink to="/work" className={link}>
+            <NavLink to="/work" className={navLinkCls}>
               Work
             </NavLink>
-            <NavLink to="/compare" className={link}>
+            <NavLink to="/compare" className={navLinkCls}>
               Compare
             </NavLink>
-            <NavLink to="/enquiries" className={link}>
+            <NavLink to="/enquiries" className={navLinkCls}>
               Enquiries
             </NavLink>
             <a href="/enquiries#faq" className="text-ink-muted transition hover:text-ink">
@@ -86,16 +72,16 @@ export function Layout({ children }: { children: ReactNode }) {
           className="mx-auto flex max-w-6xl items-center gap-4 overflow-x-auto px-4 pb-3 font-sans text-xs font-medium text-ink-muted scrollbar-hide sm:hidden"
           aria-label="Mobile"
         >
-          <NavLink to="/packages" className={link}>
+          <NavLink to="/packages" className={navLinkCls}>
             Packages
           </NavLink>
-          <NavLink to="/work" className={link}>
+          <NavLink to="/work" className={navLinkCls}>
             Work
           </NavLink>
-          <NavLink to="/compare" className={link}>
+          <NavLink to="/compare" className={navLinkCls}>
             Compare
           </NavLink>
-          <NavLink to="/enquiries" className={link}>
+          <NavLink to="/enquiries" className={navLinkCls}>
             Enquiries
           </NavLink>
           <a href="/enquiries#faq" className="whitespace-nowrap transition hover:text-ink">
@@ -128,9 +114,7 @@ export function Layout({ children }: { children: ReactNode }) {
             Enquiries
           </Link>
         </p>
-        <p className="mt-6 text-xs text-white/35">
-          © {new Date().getFullYear()} Bookuno
-        </p>
+        <p className="mt-6 text-xs text-white/35">© {new Date().getFullYear()} Bookuno</p>
       </footer>
     </div>
   )

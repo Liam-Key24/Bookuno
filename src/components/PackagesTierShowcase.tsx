@@ -1,95 +1,42 @@
+import type { Icon as IconType } from '@phosphor-icons/react'
 import { CheckFat, Key, RocketLaunch, Sparkle } from '@phosphor-icons/react'
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useNavigate } from 'react-router-dom'
 import type { HandoverTier, SubscriptionTier } from '../data/pricingTiers'
 import { OWNERSHIP_HANDOVER, SUBSCRIPTION_TIERS } from '../data/pricingTiers'
-import { springSnappy, springSoft } from '../motion'
+import { springSoft } from '../motion'
 import { GhostButton, PrimaryButton } from './Button'
 
-const tierIcon = (id: string) => {
-  if (id === 'launch') return RocketLaunch
-  if (id === 'suite') return Sparkle
-  return Key
+const TIER_ICON: Record<string, IconType> = {
+  launch: RocketLaunch,
+  suite: Sparkle,
+  handover: Key,
 }
 
-const cardVariants = {
-  hidden: (reduce: boolean) =>
-    reduce
-      ? { opacity: 0, y: 16 }
-      : { opacity: 0, y: 36, rotate: -1.5, scale: 0.97 },
-  show: (reduce: boolean) =>
-    reduce
-      ? { opacity: 1, y: 0 }
-      : {
-          opacity: 1,
-          y: 0,
-          rotate: 0,
-          scale: 1,
-          transition: springSoft,
-        },
+function TierIcon({ id, className }: { id: string; className: string }) {
+  const Icon = TIER_ICON[id] ?? Key
+  return <Icon className={className} weight="duotone" aria-hidden />
 }
 
-const listContainer = {
-  hidden: {},
-  show: {
-    transition: { staggerChildren: 0.04 },
-  },
-}
-
-const listItem = {
-  hidden: { opacity: 0, x: -10 },
-  show: { opacity: 1, x: 0, transition: springSnappy },
-}
-
-function SubscriptionCard({
-  tier,
-  reduceMotion,
-}: {
-  tier: SubscriptionTier
-  reduceMotion: boolean | null
-}) {
+function SubscriptionCard({ tier }: { tier: SubscriptionTier }) {
   const navigate = useNavigate()
-  const Icon = tierIcon(tier.id)
-  const rm = !!reduceMotion
 
   return (
     <motion.article
-      custom={rm}
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="show"
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
-      whileHover={
-        rm
-          ? undefined
-          : {
-              y: -8,
-              scale: tier.highlight ? 1.02 : 1.015,
-              transition: springSnappy,
-            }
-      }
-      className={`relative flex h-full flex-col rounded-3xl border p-6 text-left shadow-lg transition-shadow sm:p-8 ${
+      transition={springSoft}
+      className={`group relative flex h-full flex-col rounded-3xl border p-6 text-left shadow-lg transition-[transform,box-shadow] duration-300 ease-out hover:-translate-y-2 motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-8 ${
         tier.highlight
           ? 'z-[1] border-mango/45 bg-gradient-to-b from-white via-white to-petal/20 shadow-xl shadow-cherry/10 ring-2 ring-rose/25 md:-mt-2 md:scale-[1.02]'
           : 'border-champagne-200/90 bg-white/95 shadow-card ring-1 ring-champagne-100/80'
       }`}
     >
       {tier.highlight && (
-        <motion.span
-          className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border border-white/30 bg-gradient-to-r from-cherry via-tangerine to-rose px-4 py-1.5 font-sans text-[10px] font-semibold uppercase tracking-[0.18em] text-white shadow-lg"
-          animate={
-            rm
-              ? undefined
-              : { y: [0, -3, 0] }
-          }
-          transition={
-            rm
-              ? undefined
-              : { duration: 3.2, repeat: Infinity, ease: 'easeInOut' }
-          }
-        >
+        <span className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full border border-white/30 bg-gradient-to-r from-cherry via-tangerine to-rose px-4 py-1.5 font-sans text-[10px] font-semibold uppercase tracking-[0.18em] text-white shadow-lg">
           Most picked
-        </motion.span>
+        </span>
       )}
 
       <div className="flex items-start gap-3">
@@ -100,10 +47,9 @@ function SubscriptionCard({
               : 'bg-champagne-50 ring-1 ring-champagne-200/80'
           }`}
         >
-          <Icon
+          <TierIcon
+            id={tier.id}
             className={`size-7 ${tier.highlight ? 'text-cherry' : 'text-tangerine'}`}
-            weight="duotone"
-            aria-hidden
           />
         </span>
         <div className="min-w-0">
@@ -133,20 +79,14 @@ function SubscriptionCard({
       </p>
       <p className="mt-1 font-sans text-xs text-ink-muted">Hosting &amp; maintenance in scope.</p>
 
-      <motion.ul
-        className="mt-6 flex-1 space-y-2.5"
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        variants={listContainer}
-      >
+      <ul className="mt-6 flex-1 space-y-2.5">
         {tier.items.map((li) => (
-          <motion.li key={li} variants={listItem} className="flex gap-2.5 font-sans text-sm text-ink-muted">
+          <li key={li} className="flex gap-2.5 font-sans text-sm text-ink-muted">
             <CheckFat className="mt-0.5 size-5 shrink-0 text-mango" weight="fill" aria-hidden />
             <span>{li}</span>
-          </motion.li>
+          </li>
         ))}
-      </motion.ul>
+      </ul>
 
       <div className="mt-6 rounded-2xl border border-champagne-200/80 bg-champagne-50/80 px-4 py-3">
         <p className="font-sans text-sm font-medium leading-snug text-ink">{tier.outcome}</p>
@@ -159,33 +99,26 @@ function SubscriptionCard({
   )
 }
 
-function HandoverCard({
-  tier,
-  reduceMotion,
-}: {
-  tier: HandoverTier
-  reduceMotion: boolean | null
-}) {
+function HandoverCard({ tier }: { tier: HandoverTier }) {
   const navigate = useNavigate()
-  const Icon = tierIcon(tier.id)
-  const rm = !!reduceMotion
 
   return (
     <motion.article
       id="ownership"
-      custom={rm}
-      variants={cardVariants}
-      initial="hidden"
-      whileInView="show"
+      initial={{ opacity: 0, y: 28 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
-      whileHover={rm ? undefined : { y: -6, transition: springSnappy }}
-      className="relative flex h-full flex-col rounded-3xl border border-dashed border-tangerine/45 bg-gradient-to-br from-champagne-50/95 to-white p-6 text-left shadow-md ring-2 ring-tangerine/10 sm:p-8"
+      transition={springSoft}
+      className="relative flex h-full flex-col rounded-3xl border border-dashed border-tangerine/45 bg-gradient-to-br from-champagne-50/95 to-white p-6 text-left shadow-md ring-2 ring-tangerine/10 transition-transform duration-300 ease-out hover:-translate-y-1.5 motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-8"
     >
-      <div className="absolute -right-6 -top-6 size-24 rounded-full bg-gradient-to-br from-sun/25 to-mango/10 blur-2xl" aria-hidden />
+      <div
+        className="absolute -right-6 -top-6 size-24 rounded-full bg-gradient-to-br from-sun/25 to-mango/10 blur-2xl"
+        aria-hidden
+      />
 
       <div className="flex items-start gap-3">
         <span className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-white ring-1 ring-tangerine/25">
-          <Icon className="size-7 text-tangerine" weight="duotone" aria-hidden />
+          <TierIcon id={tier.id} className="size-7 text-tangerine" />
         </span>
         <div className="min-w-0">
           <h3 className="font-display text-2xl font-semibold tracking-[-0.02em] text-ink">
@@ -213,20 +146,14 @@ function HandoverCard({
       </p>
       <p className="mt-1 font-sans text-xs text-ink-muted">Scoped after we know your stack.</p>
 
-      <motion.ul
-        className="mt-6 flex-1 space-y-2.5"
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        variants={listContainer}
-      >
+      <ul className="mt-6 flex-1 space-y-2.5">
         {tier.items.map((li) => (
-          <motion.li key={li} variants={listItem} className="flex gap-2.5 font-sans text-sm text-ink-muted">
+          <li key={li} className="flex gap-2.5 font-sans text-sm text-ink-muted">
             <CheckFat className="mt-0.5 size-5 shrink-0 text-tangerine" weight="fill" aria-hidden />
             <span>{li}</span>
-          </motion.li>
+          </li>
         ))}
-      </motion.ul>
+      </ul>
 
       <div className="mt-6 rounded-2xl border border-tangerine/20 bg-white/90 px-4 py-3">
         <p className="font-sans text-sm font-medium leading-snug text-ink">{tier.outcome}</p>
@@ -240,8 +167,6 @@ function HandoverCard({
 }
 
 export function PackagesTierShowcase() {
-  const reduceMotion = useReducedMotion()
-
   return (
     <section
       id="tiers"
@@ -265,7 +190,8 @@ export function PackagesTierShowcase() {
             id="packages-tiers-heading"
             className="font-display text-3xl font-semibold tracking-[-0.02em] text-ink md:text-[2.35rem]"
           >
-            Three ways to work with us — <span className="italic text-tangerine">same craft</span>, different runway.
+            Three ways to work with us —{' '}
+            <span className="italic text-tangerine">same craft</span>, different runway.
           </h2>
           <p className="mt-4 font-sans text-sm leading-relaxed text-ink-muted md:text-base">
             Subscriptions keep us in your corner, and handover is optional when you want the keys.
@@ -273,21 +199,15 @@ export function PackagesTierShowcase() {
         </motion.div>
 
         <div className="mt-14 grid gap-8 lg:grid-cols-3 lg:items-stretch lg:gap-6">
-          <SubscriptionCard tier={SUBSCRIPTION_TIERS[0]} reduceMotion={reduceMotion} />
-          <SubscriptionCard tier={SUBSCRIPTION_TIERS[1]} reduceMotion={reduceMotion} />
-          <HandoverCard tier={OWNERSHIP_HANDOVER} reduceMotion={reduceMotion} />
+          <SubscriptionCard tier={SUBSCRIPTION_TIERS[0]} />
+          <SubscriptionCard tier={SUBSCRIPTION_TIERS[1]} />
+          <HandoverCard tier={OWNERSHIP_HANDOVER} />
         </div>
 
-        <motion.p
-          className="mx-auto mt-10 max-w-lg text-center font-sans text-xs text-ink-muted md:text-sm"
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, ...springSoft }}
-        >
+        <p className="mx-auto mt-10 max-w-lg text-center font-sans text-xs text-ink-muted md:text-sm">
           Monthly plans include hosting &amp; care in scope. Handover is quoted separately — no
           surprise line items.
-        </motion.p>
+        </p>
       </div>
     </section>
   )

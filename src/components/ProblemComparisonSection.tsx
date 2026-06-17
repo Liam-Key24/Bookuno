@@ -7,14 +7,13 @@ import {
   RocketLaunch,
   UsersThree,
 } from '@phosphor-icons/react'
-import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useState } from 'react'
 import type { Icon } from '@phosphor-icons/react'
 
 const easeOut = [0.22, 1, 0.36, 1] as const
 
-const BOOKUNO_PRICING_ROW =
-  'No bolt ons, no extra fees, get whats on the tin. '
+const BOOKUNO_PRICING_ROW = 'No bolt ons, no extra fees, get whats on the tin. '
 
 const ROW_ICONS: Icon[] = [
   UsersThree,
@@ -163,19 +162,12 @@ export function ProblemComparisonSection({
 }) {
   const [active, setActive] = useState(0)
   const current = COMPARISONS[active]
-  const reduceMotion = useReducedMotion()
-
-  const panelTransition = reduceMotion
-    ? { duration: 0 }
-    : { duration: 0.22, ease: easeOut }
 
   return (
     <section
       id="compare"
       className={`scroll-mt-24 border-champagne-200/70 bg-gradient-to-b from-white/80 via-champagne-50/60 to-petal/20 ${
-        embedded
-          ? 'border-t border-b py-16 md:py-20'
-          : 'border-y py-20'
+        embedded ? 'border-t border-b py-16 md:py-20' : 'border-y py-20'
       }`}
       aria-labelledby={embedded ? undefined : 'compare-heading'}
       aria-label={embedded ? 'Compare approaches by platform' : undefined}
@@ -207,13 +199,7 @@ export function ProblemComparisonSection({
           </p>
         )}
 
-        <motion.div
-          className={embedded ? 'mt-0' : 'mt-10'}
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-30px' }}
-          transition={{ duration: 0.45, ease: easeOut, delay: 0.04 }}
-        >
+        <div className={embedded ? 'mt-0' : 'mt-10'}>
           <div
             className="flex flex-wrap justify-center gap-2 sm:gap-2.5"
             role="tablist"
@@ -254,50 +240,49 @@ export function ProblemComparisonSection({
               </div>
             </div>
 
-            <AnimatePresence initial={false} mode="wait">
-              <motion.div
-                key={current.id}
-                role="tabpanel"
-                id={`compare-panel-${current.id}`}
-                aria-labelledby={`compare-tab-${current.id}`}
-                initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={reduceMotion ? undefined : { opacity: 0, y: -6 }}
-                transition={panelTransition}
-                className="divide-y divide-champagne-100/90"
-              >
-                {current.rows.map((row, ri) => {
-                  const Icon = ROW_ICONS[ri]
-                  return (
-                    <div
-                      key={`${current.id}-${row.label}`}
-                      className={`grid gap-4 px-4 py-5 sm:grid-cols-[5.5rem_1fr_1fr] sm:items-center sm:gap-5 sm:px-5 ${
-                        ri % 2 === 0 ? 'bg-white/80' : 'bg-champagne-50/40'
-                      }`}
-                    >
-                      <div className="flex flex-col items-center gap-1.5 text-center sm:items-center sm:justify-center sm:gap-2">
-                        <Icon
-                          className="size-6 shrink-0 text-tangerine sm:size-7"
-                          weight="duotone"
-                          aria-hidden
-                        />
-                        <span className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-ink-muted">
-                          {row.label}
-                        </span>
-                      </div>
-                      <p className="text-balance text-center font-sans text-[13px] font-semibold leading-relaxed text-ink sm:px-1 sm:text-[14px]">
-                        {row.bookuno}
-                      </p>
-                      <p className="text-balance text-center font-sans text-[13px] leading-relaxed text-ink-muted sm:px-1 sm:text-[14px]">
-                        {row.other}
-                      </p>
+            {/*
+              Tab panel: re-mounting via `key={current.id}` retriggers a tiny
+              CSS fade. Cheaper than AnimatePresence + framer-motion for what
+              amounts to a 200ms opacity flicker.
+            */}
+            <div
+              key={current.id}
+              role="tabpanel"
+              id={`compare-panel-${current.id}`}
+              aria-labelledby={`compare-tab-${current.id}`}
+              className="panel-fade divide-y divide-champagne-100/90"
+            >
+              {current.rows.map((row, ri) => {
+                const Icon = ROW_ICONS[ri]
+                return (
+                  <div
+                    key={`${current.id}-${row.label}`}
+                    className={`grid gap-4 px-4 py-5 sm:grid-cols-[5.5rem_1fr_1fr] sm:items-center sm:gap-5 sm:px-5 ${
+                      ri % 2 === 0 ? 'bg-white/80' : 'bg-champagne-50/40'
+                    }`}
+                  >
+                    <div className="flex flex-col items-center gap-1.5 text-center sm:items-center sm:justify-center sm:gap-2">
+                      <Icon
+                        className="size-6 shrink-0 text-tangerine sm:size-7"
+                        weight="duotone"
+                        aria-hidden
+                      />
+                      <span className="font-sans text-[10px] font-bold uppercase tracking-[0.16em] text-ink-muted">
+                        {row.label}
+                      </span>
                     </div>
-                  )
-                })}
-              </motion.div>
-            </AnimatePresence>
+                    <p className="text-balance text-center font-sans text-[13px] font-semibold leading-relaxed text-ink sm:px-1 sm:text-[14px]">
+                      {row.bookuno}
+                    </p>
+                    <p className="text-balance text-center font-sans text-[13px] leading-relaxed text-ink-muted sm:px-1 sm:text-[14px]">
+                      {row.other}
+                    </p>
+                  </div>
+                )
+              })}
+            </div>
           </div>
-        </motion.div>
+        </div>
       </div>
     </section>
   )
