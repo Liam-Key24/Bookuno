@@ -7,6 +7,7 @@ Next.js + Tailwind marketing site. Folder name remains Bookluno.
 - `npm run dev` — local dev server
 - `npm run build` — production build
 - `npm start` — run production server
+- `npm run verify:lead-idempotency` — focused Supabase idempotency / RLS checks (needs `.env.local`)
 
 ## Stack
 
@@ -14,7 +15,7 @@ Next.js + Tailwind marketing site. Folder name remains Bookluno.
 - React
 - Tailwind CSS
 - Phosphor Icons
-- Supabase (lead storage)
+- Supabase (lead storage + email delivery records)
 - Resend (founder notify + prospect confirmation)
 - Cloudflare Turnstile (bot protection)
 - Upstash Redis (serverless rate limiting)
@@ -24,6 +25,8 @@ Next.js + Tailwind marketing site. Folder name remains Bookluno.
 Contact form posts to `POST /api/leads` (server-only). The Supabase **service-role** key is used only in server code (`src/lib/supabaseAdmin.ts` / API routes). It must never appear in `NEXT_PUBLIC_*` variables or client bundles.
 
 Use the Supabase Table Editor as the founder lead dashboard. Public users must not be able to read, update, or list leads.
+
+Each form attempt generates one client **idempotency key**. Replays of the same key return a safe success without creating another lead or resending emails. Email send slots are stored in `lead_email_deliveries` (unique per lead + kind).
 
 ### 1. Environment
 
@@ -45,34 +48,38 @@ Copy `.env.example` to `.env.local` and fill in:
 | `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Optional Plausible domain |
 | `ANALYTICS_WEBHOOK_URL` | Optional server analytics webhook |
 
-### 2. Supabase `leads` table + RLS
+### 2. Supabase schema (version-controlled migrations)
 
-In the Supabase SQL editor:
+Migrations live in `supabase/migrations/`:
 
-```sql
-create table if not exists public.leads (
-  id uuid primary key default gen_random_uuid(),
-  created_at timestamptz not null default now(),
-  name text not null,
-  email text not null,
-  business_name text,
-  business_type text,
-  message text not null,
-  source text not null default 'website'
-);
+1. `20260822223000_leads_baseline.sql` — documents the existing `public.leads` table + RLS (safe `IF NOT EXISTS`; does **not** delete live data).
+2. `20260822223100_lead_idempotency_and_email_deliveries.sql` — adds unique `idempotency_key` on leads and `lead_email_deliveries` for send-at-most-once emails.
 
-alter table public.leads enable row level security;
+#### Bringing the already-created remote `leads` table under version control
 
--- No policies for anon/authenticated = public clients cannot SELECT/INSERT/UPDATE/DELETE.
--- The Next.js API inserts with the service role, which bypasses RLS by design.
+If `public.leads` was created earlier in the dashboard/MCP:
+
+1. Keep the live table — do **not** drop or truncate it.
+2. Apply the baseline migration (no-op if the table already matches).
+3. Apply the idempotency migration (adds `idempotency_key`, backfills any existing rows as `legacy-<id>`, creates `lead_email_deliveries`).
+4. Confirm RLS remains enabled with **no** public policies on `leads` or `lead_email_deliveries`.
+
+Apply with the Supabase CLI (recommended):
+
+```bash
+npx supabase link --project-ref YOUR_PROJECT_REF
+npx supabase db push
 ```
+
+Or paste each file from `supabase/migrations/` into the Supabase SQL editor in filename order.
 
 Confirm in Supabase:
 
-1. RLS is **enabled** on `public.leads`.
+1. RLS is **enabled** on `public.leads` and `public.lead_email_deliveries`.
 2. There are **no** policies granting `anon` or `authenticated` `SELECT`, `INSERT`, `UPDATE`, or `DELETE`.
-3. Only the service role (server) writes leads.
-4. Do **not** put the service-role key in any public/client env var.
+3. Only the service role (server) writes leads / delivery records.
+4. `leads.idempotency_key` is unique; `(lead_id, kind)` is unique on `lead_email_deliveries`.
+5. Do **not** put the service-role key in any public/client env var.
 
 ### 3. Cloudflare Turnstile
 
@@ -120,17 +127,29 @@ Before launch, complete this checklist:
 - [ ] Prospect confirmation arrives in the submitter inbox (check spam)
 - [ ] Failed Turnstile / rate-limit / validation returns a safe error (no thank-you page)
 - [ ] Successful submit still redirects to `/thank-you` only after save + emails succeed
+- [ ] Duplicate submit with the same idempotency key does not create a second lead or resend emails
+- [ ] Failed email rows appear in `lead_email_deliveries` (`status = failed`) for manual review
 - [ ] Supabase RLS confirmed: public cannot read/list/update leads
 
 ### Submission behaviour
 
-1. Validates fields server-side (length + type checks).
+1. Validates fields server-side (length + type checks) including a UUID idempotency key.
 2. Rejects honeypot fills.
 3. Rate-limits by hashed IP via Upstash.
 4. Verifies Turnstile server-side.
-5. Inserts the lead with the service role.
-6. Emails founder + prospect via Resend.
-7. Returns success only when save + emails succeed (no fake success UI).
+5. Inserts the lead with the service role (unique `idempotency_key`).
+6. On duplicate key: returns `{ ok: true, id }` for the existing lead (no second insert).
+7. Claims founder + prospect delivery rows; sends via Resend at most once each; records failures for manual review (no automatic retry loops).
+8. Returns success only when save + emails succeed on first create (no fake success UI). Replays of the same key return safe success without resending.
+
+### Focused verification
+
+```bash
+npm run build
+npm run verify:lead-idempotency
+```
+
+Optionally set `SUPABASE_ANON_KEY` in `.env.local` so the script can prove public SELECT is blocked. This script does **not** replace a manual Turnstile / Upstash / live Resend browser test.
 
 ## Launch trust & analytics
 

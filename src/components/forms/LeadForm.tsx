@@ -2,7 +2,7 @@
 
 import { Turnstile } from '@marsidev/react-turnstile'
 import { useRouter } from 'next/navigation'
-import { useState, type FormEvent } from 'react'
+import { useRef, useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/Button'
 import { trackEvent } from '@/lib/analytics'
 
@@ -19,9 +19,22 @@ const businessTypes = [
   { value: 'other', label: 'Other' },
 ] as const
 
+function createIdempotencyKey() {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID()
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (char) => {
+    const random = (Math.random() * 16) | 0
+    const value = char === 'x' ? random : (random & 0x3) | 0x8
+    return value.toString(16)
+  })
+}
+
 export function LeadForm() {
   const router = useRouter()
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
+  // One key per form attempt — reused on manual retry; no automatic retry loops.
+  const idempotencyKeyRef = useRef<string>(createIdempotencyKey())
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [businessName, setBusinessName] = useState('')
@@ -59,6 +72,7 @@ export function LeadForm() {
           businessType,
           message,
           turnstileToken,
+          idempotencyKey: idempotencyKeyRef.current,
           website,
         }),
       })

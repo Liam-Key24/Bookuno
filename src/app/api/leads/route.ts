@@ -1,7 +1,11 @@
 import { NextResponse } from 'next/server'
 import { getClientIp, hashIp } from '@/lib/clientIp'
 import { assertLeadRateLimit } from '@/lib/leadRateLimit'
-import { sendLeadEmails } from '@/lib/sendLeadEmails'
+import {
+  createOrGetLeadByIdempotencyKey,
+  ensureLeadEmailsOnce,
+  isValidIdempotencyKey,
+} from '@/lib/leadSubmission'
 import { getSupabaseAdmin } from '@/lib/supabaseAdmin'
 import { verifyTurnstileToken } from '@/lib/verifyTurnstile'
 
@@ -18,6 +22,7 @@ type LeadBody = {
   businessType?: unknown
   message?: unknown
   turnstileToken?: unknown
+  idempotencyKey?: unknown
   website?: unknown // honeypot
 }
 
@@ -53,6 +58,7 @@ export async function POST(request: Request) {
   const businessType = asTrimmedString(body.businessType).toLowerCase()
   const message = asTrimmedString(body.message)
   const turnstileToken = asTrimmedString(body.turnstileToken)
+  const idempotencyKey = asTrimmedString(body.idempotencyKey)
 
   if (name.length < 2 || name.length > MAX_NAME) {
     return safeError('Please enter your name.', 400)
@@ -72,6 +78,10 @@ export async function POST(request: Request) {
 
   if (message.length < 10 || message.length > MAX_MESSAGE) {
     return safeError('Please add a short message (10–4000 characters).', 400)
+  }
+
+  if (!isValidIdempotencyKey(idempotencyKey)) {
+    return safeError('Invalid submission. Please refresh and try again.', 400)
   }
 
   if (!turnstileToken) {
@@ -112,41 +122,46 @@ export async function POST(request: Request) {
     }
 
     const supabase = getSupabaseAdmin()
-    const { data, error } = await supabase
-      .from('leads')
-      .insert({
-        name,
-        email,
-        business_name: businessName || null,
-        business_type: businessType || null,
-        message,
-        source: 'website',
-      })
-      .select('id')
-      .single()
-
-    if (error || !data) {
-      console.error('Supabase lead insert failed:', error)
-      return safeError('Could not save your message. Please try again.', 500)
-    }
+    let lead
+    let created: boolean
 
     try {
-      await sendLeadEmails({
+      ;({ lead, created } = await createOrGetLeadByIdempotencyKey(supabase, {
         name,
         email,
         businessName,
         businessType,
         message,
+        idempotencyKey,
+        source: 'website',
+      }))
+    } catch (insertError) {
+      console.error('Supabase lead insert failed:', insertError)
+      return safeError('Could not save your message. Please try again.', 500)
+    }
+
+    // Replay of the same idempotency key: safe success, no second lead, no email resend.
+    if (!created) {
+      const emailResult = await ensureLeadEmailsOnce(supabase, lead)
+      // ensureLeadEmailsOnce skips when delivery rows already exist (sent or failed).
+      void emailResult
+      return NextResponse.json({ ok: true, id: lead.id })
+    }
+
+    const emailResult = await ensureLeadEmailsOnce(supabase, lead)
+
+    if (emailResult.founder === 'failed' || emailResult.prospect === 'failed') {
+      console.error('Lead email delivery failed (recorded for manual review):', {
+        leadId: lead.id,
+        ...emailResult,
       })
-    } catch (emailError) {
-      console.error('Lead email failed after insert:', emailError)
       return safeError(
         'Your details were received, but email confirmation failed. Please email us directly or try again.',
         502,
       )
     }
 
-    return NextResponse.json({ ok: true, id: data.id })
+    return NextResponse.json({ ok: true, id: lead.id })
   } catch (error) {
     console.error('Lead submission failed:', error)
     return safeError('Something went wrong. Please try again in a moment.', 500)

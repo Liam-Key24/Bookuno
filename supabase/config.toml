@@ -1,0 +1,10 @@
+# Supabase local/CLI config (minimal).
+# Remote Meridian project already has `public.leads`; migrations are the source of truth going forward.
+# Link with: npx supabase link --project-ref <project-ref>
+# Then push with: npx supabase db push
+# Or apply SQL manually in the Supabase SQL editor from supabase/migrations/.
+
+project_id = "uibtkxlnhqxmesgfooui"
+
+[api]
+enabled = true
