@@ -59,7 +59,7 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2">
-          <Button href="#contact" size="sm" className="hidden shrink-0 sm:inline-flex">
+          <Button href="/#contact" size="sm" className="hidden shrink-0 sm:inline-flex">
             Get in touch
             <ArrowUpRight size={16} weight="bold" className="text-meridian-accent" />
           </Button>
@@ -98,7 +98,7 @@ export function Navbar() {
           </ul>
 
           <div className="border-t border-meridian-surface-strong p-[0.75rem] sm:hidden">
-            <Button href="#contact" size="sm" className="w-full" onClick={() => setOpen(false)}>
+            <Button href="/#contact" size="sm" className="w-full" onClick={() => setOpen(false)}>
               Get in touch
               <ArrowUpRight size={16} weight="bold" className="text-meridian-accent" />
             </Button>
