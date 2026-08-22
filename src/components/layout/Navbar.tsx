@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useEffect, useId, useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { navLinks } from '@/components/layout/navLinks'
+import { trackEvent } from '@/lib/analytics'
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
@@ -59,7 +60,12 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-2">
-          <Button href="/#contact" size="sm" className="hidden shrink-0 sm:inline-flex">
+          <Button
+            href="/#contact"
+            size="sm"
+            className="hidden shrink-0 sm:inline-flex"
+            onClick={() => trackEvent('cta_click', { location: 'navbar', label: 'Get in touch' })}
+          >
             Get in touch
             <ArrowUpRight size={16} weight="bold" className="text-meridian-accent" />
           </Button>
@@ -98,7 +104,15 @@ export function Navbar() {
           </ul>
 
           <div className="border-t border-meridian-surface-strong p-[0.75rem] sm:hidden">
-            <Button href="/#contact" size="sm" className="w-full" onClick={() => setOpen(false)}>
+            <Button
+              href="/#contact"
+              size="sm"
+              className="w-full"
+              onClick={() => {
+                trackEvent('cta_click', { location: 'navbar_mobile', label: 'Get in touch' })
+                setOpen(false)
+              }}
+            >
               Get in touch
               <ArrowUpRight size={16} weight="bold" className="text-meridian-accent" />
             </Button>

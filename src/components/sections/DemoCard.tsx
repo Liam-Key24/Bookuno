@@ -1,6 +1,9 @@
-import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr'
+'use client'
+
+import { ArrowUpRight } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/Button'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
+import { trackEvent } from '@/lib/analytics'
 import type { demoTemplates } from '@/components/sections/demoTemplatesData'
 
 type Demo = (typeof demoTemplates)[number]
@@ -37,7 +40,14 @@ export function DemoCard({ demo }: DemoCardProps) {
       </p>
 
       <div className="mt-[1.25rem] flex flex-wrap items-center gap-[0.65rem]">
-        <Button href="/#contact" size="sm" variant="accent">
+        <Button
+          href="/#contact"
+          size="sm"
+          variant="accent"
+          onClick={() =>
+            trackEvent('cta_click', { location: 'demo_card', demo: demo.id, label: demo.ctaLabel })
+          }
+        >
           {demo.ctaLabel}
           <ArrowUpRight size={14} weight="bold" />
         </Button>

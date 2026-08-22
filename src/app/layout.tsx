@@ -1,5 +1,7 @@
 import type { Metadata } from 'next'
 import { Plus_Jakarta_Sans } from 'next/font/google'
+import { PlausibleLoader } from '@/components/analytics/PlausibleLoader'
+import { CookieNotice } from '@/components/layout/CookieNotice'
 import { Footer } from '@/components/layout/Footer'
 import { Navbar } from '@/components/layout/Navbar'
 import './globals.css'
@@ -27,6 +29,8 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <CookieNotice />
+        <PlausibleLoader />
       </body>
     </html>
   )

@@ -69,3 +69,31 @@ On each successful submit Meridian:
 4. Redirects to `/thank-you` only after those steps succeed.
 
 If saving or emailing fails, the form shows an error and does **not** show a fake success state.
+
+## Launch trust & analytics
+
+### Legal & contact pages
+
+- `/privacy` — Privacy Policy
+- `/terms` — Terms of Service
+- `/contact` — Contact details
+- Cookie notice — essential preference + optional analytics consent
+
+### Analytics (consent-gated)
+
+Events only fire after “Accept analytics”:
+
+| Event | When |
+| --- | --- |
+| `cta_click` | Primary CTAs (navbar, demo cards) |
+| `lead_submit_success` | Contact form succeeds |
+| `external_booking_click` | Outbound booking-tool links |
+
+Configuration (all optional):
+
+| Variable | Purpose |
+| --- | --- |
+| `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Loads Plausible only after consent |
+| `ANALYTICS_WEBHOOK_URL` | Server-only webhook for first-party `/api/analytics` events |
+
+No analytics secrets belong in client bundles. Rejecting analytics still allows the site to work; only the consent preference is stored locally.

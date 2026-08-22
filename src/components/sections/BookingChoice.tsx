@@ -1,4 +1,5 @@
 import { ArrowsLeftRight, LinkSimple, Path } from '@phosphor-icons/react/dist/ssr'
+import { TrackedLink } from '@/components/analytics/TrackedLink'
 import { Section } from '@/components/sections/Section'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 
@@ -18,6 +19,13 @@ const choices = [
     title: 'Use both',
     body: 'Offer your existing book button and Meridian requests side by side — useful when some services or tables need a human check first.',
   },
+] as const
+
+const providerLinks = [
+  { label: 'Fresha', href: 'https://www.fresha.com' },
+  { label: 'Treatwell', href: 'https://www.treatwell.co.uk' },
+  { label: 'OpenTable', href: 'https://www.opentable.com' },
+  { label: 'Calendly', href: 'https://calendly.com' },
 ] as const
 
 export function BookingChoice() {
@@ -61,6 +69,27 @@ export function BookingChoice() {
               </li>
             ))}
           </ul>
+
+          <div className="mt-[1.5rem]">
+            <p className="text-xs font-medium tracking-tight text-meridian-muted">
+              Example tools we can link out to
+            </p>
+            <ul className="mt-[0.65rem] flex flex-wrap gap-[0.5rem]">
+              {providerLinks.map((provider) => (
+                <li key={provider.href}>
+                  <TrackedLink
+                    href={provider.href}
+                    external
+                    event="external_booking_click"
+                    eventProps={{ provider: provider.label }}
+                    className="inline-flex rounded-full bg-meridian-surface px-[0.85rem] py-[0.4rem] text-xs font-medium tracking-tight text-meridian-ink transition-colors hover:bg-meridian-surface-strong"
+                  >
+                    {provider.label}
+                  </TrackedLink>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         <div className="flex justify-center lg:justify-end lg:pt-[3.5rem]">

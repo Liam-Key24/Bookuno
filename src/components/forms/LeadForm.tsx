@@ -3,6 +3,7 @@
 import { useRouter } from 'next/navigation'
 import { useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/Button'
+import { trackEvent } from '@/lib/analytics'
 
 const fieldClassName =
   'w-full rounded-[20px] border-0 bg-white px-[1rem] py-[0.85rem] text-sm text-meridian-ink outline-none ring-1 ring-white/20 placeholder:text-meridian-ink/40 focus-visible:ring-2 focus-visible:ring-meridian-accent/70'
@@ -55,6 +56,7 @@ export function LeadForm() {
         return
       }
 
+      trackEvent('lead_submit_success', { source: 'contact_form' })
       router.push('/thank-you')
     } catch {
       setError('Network error. Please check your connection and try again.')

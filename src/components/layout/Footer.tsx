@@ -16,8 +16,15 @@ const offerLinks = [
 
 const startLinks = [
   { label: 'Get in touch', href: '/#contact', highlight: true },
+  { label: 'Contact details', href: '/contact', highlight: false },
   { label: 'About Meridian', href: '/about', highlight: false },
   { label: 'Email us', href: 'mailto:hello@meridian.studio', highlight: false },
+] as const
+
+const legalLinks = [
+  { label: 'Privacy Policy', href: '/privacy' },
+  { label: 'Terms of Service', href: '/terms' },
+  { label: 'Contact', href: '/contact' },
 ] as const
 
 const socialLinks = [
@@ -63,7 +70,11 @@ export function Footer() {
             </form>
 
             <p className="mt-[0.75rem] text-xs leading-relaxed text-meridian-muted">
-              By subscribing, you agree to hear from Meridian. No spam — just useful updates.
+              By subscribing, you agree to hear from Meridian and our{' '}
+              <Link href="/privacy" className="underline-offset-2 hover:underline">
+                Privacy Policy
+              </Link>
+              . No spam — just useful updates.
             </p>
 
             <ul className="mt-[1.5rem] flex items-center gap-[0.75rem]">
@@ -106,6 +117,25 @@ export function Footer() {
               </FooterLink>
             ))}
           </FooterColumn>
+        </div>
+
+        <div className="mt-[2.5rem] flex flex-col gap-[1rem] border-t border-meridian-surface-strong pt-[1.5rem] md:flex-row md:items-center md:justify-between">
+          <p className="text-xs text-meridian-muted">
+            © {new Date().getFullYear()} Meridian. Managed websites for independent salons,
+            barbers & restaurants.
+          </p>
+          <ul className="flex flex-wrap gap-x-[1rem] gap-y-[0.5rem]">
+            {legalLinks.map((link) => (
+              <li key={link.href}>
+                <Link
+                  href={link.href}
+                  className="text-xs tracking-tight text-meridian-muted transition-colors hover:text-meridian-deep"
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
         </div>
 
         <div className="mt-[3.5rem] md:mt-[4.5rem]">
