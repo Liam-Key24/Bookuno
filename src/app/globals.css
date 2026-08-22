@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+@theme {
+  --color-meridian-ink: #0f1720;
+  --color-meridian-muted: #5b6570;
+  --color-meridian-deep: #16697a;
+  --color-meridian-mid: #489fb5;
+  --color-meridian-soft: #82c0cc;
+  --color-meridian-accent: #ffa62b;
+  --color-meridian-surface: #f4f7f8;
+  --color-meridian-surface-strong: #e8eef0;
+  --radius-meridian: 20px;
+  --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
+}
+
 :root {
   color-scheme: light;
 }
@@ -12,4 +25,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background: #ffffff;
+  color: var(--color-meridian-ink);
+  font-family: var(--font-sans);
 }
