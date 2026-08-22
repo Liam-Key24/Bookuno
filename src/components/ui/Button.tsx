@@ -10,7 +10,8 @@ type ButtonProps = {
   variant?: ButtonVariant
   size?: ButtonSize
   className?: string
-} & Omit<ComponentPropsWithoutRef<'button'>, 'children' | 'className'>
+  onClick?: ComponentPropsWithoutRef<'button'>['onClick']
+} & Omit<ComponentPropsWithoutRef<'button'>, 'children' | 'className' | 'onClick'>
 
 const variantClasses: Record<ButtonVariant, string> = {
   soft: 'bg-meridian-surface text-meridian-ink hover:bg-meridian-surface-strong',
@@ -29,6 +30,7 @@ export function Button({
   size = 'md',
   className = '',
   type = 'button',
+  onClick,
   ...props
 }: ButtonProps) {
   const classes = [
@@ -43,14 +45,18 @@ export function Button({
 
   if (href) {
     return (
-      <Link href={href} className={classes}>
+      <Link
+        href={href}
+        className={classes}
+        onClick={onClick as ComponentPropsWithoutRef<'a'>['onClick']}
+      >
         {children}
       </Link>
     )
   }
 
   return (
-    <button type={type} className={classes} {...props}>
+    <button type={type} className={classes} onClick={onClick} {...props}>
       {children}
     </button>
   )

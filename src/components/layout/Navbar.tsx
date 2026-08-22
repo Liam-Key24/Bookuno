@@ -1,25 +1,46 @@
-import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr'
-import Link from 'next/link'
-import { Button } from '@/components/ui/Button'
+'use client'
 
-const navLinks = [
-  { label: 'Features', href: '#features' },
-  { label: 'Home', href: '/' },
-  { label: 'About Us', href: '#about' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'Templates', href: '#templates' },
-] as const
+import { ArrowUpRight, List, X } from '@phosphor-icons/react'
+import Link from 'next/link'
+import { useEffect, useId, useState } from 'react'
+import { Button } from '@/components/ui/Button'
+import { navLinks } from '@/components/layout/navLinks'
 
 export function Navbar() {
+  const [open, setOpen] = useState(false)
+  const menuId = useId()
+
+  useEffect(() => {
+    if (!open) return
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+    return () => window.removeEventListener('keydown', onKeyDown)
+  }, [open])
+
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 768px)')
+    const onChange = () => {
+      if (media.matches) setOpen(false)
+    }
+
+    media.addEventListener('change', onChange)
+    return () => media.removeEventListener('change', onChange)
+  }, [])
+
   return (
-    <header className="w-full bg-white">
+    <header className="relative z-50 w-full bg-white">
       <nav
         aria-label="Primary"
-        className="mx-auto flex w-full max-w-6xl items-center justify-between gap-6 px-6 py-5 md:px-8"
+        className="flex w-full items-center justify-between gap-4 px-[1.5rem] py-[1.25rem] md:px-[2.5rem] lg:px-[3rem]"
       >
         <Link
           href="/"
           className="shrink-0 text-[1.05rem] font-semibold tracking-tight text-meridian-ink"
+          onClick={() => setOpen(false)}
         >
           Meridian
         </Link>
@@ -37,11 +58,53 @@ export function Navbar() {
           ))}
         </ul>
 
-        <Button href="#contact" size="sm" className="shrink-0">
-          Get in touch
-          <ArrowUpRight size={16} weight="bold" className="text-meridian-accent" />
-        </Button>
+        <div className="flex items-center gap-2">
+          <Button href="#contact" size="sm" className="hidden shrink-0 sm:inline-flex">
+            Get in touch
+            <ArrowUpRight size={16} weight="bold" className="text-meridian-accent" />
+          </Button>
+
+          <button
+            type="button"
+            className="inline-flex size-10 items-center justify-center rounded-[20px] bg-meridian-surface text-meridian-ink transition-colors hover:bg-meridian-surface-strong md:hidden"
+            aria-expanded={open}
+            aria-controls={menuId}
+            aria-label={open ? 'Close menu' : 'Open menu'}
+            onClick={() => setOpen((value) => !value)}
+          >
+            {open ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}
+          </button>
+        </div>
       </nav>
+
+      <div
+        id={menuId}
+        hidden={!open}
+        className="absolute inset-x-0 top-full px-[1.5rem] pb-[1.25rem] md:hidden"
+      >
+        <div className="overflow-hidden rounded-[20px] border border-meridian-surface-strong bg-white shadow-[0_18px_40px_rgb(15_23_32_/_0.08)]">
+          <ul className="flex flex-col p-[0.75rem]">
+            {navLinks.map((link) => (
+              <li key={link.label}>
+                <Link
+                  href={link.href}
+                  className="block rounded-[16px] px-[1rem] py-[0.85rem] text-sm font-medium tracking-tight text-meridian-ink transition-colors hover:bg-meridian-surface hover:text-meridian-deep"
+                  onClick={() => setOpen(false)}
+                >
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          <div className="border-t border-meridian-surface-strong p-[0.75rem] sm:hidden">
+            <Button href="#contact" size="sm" className="w-full" onClick={() => setOpen(false)}>
+              Get in touch
+              <ArrowUpRight size={16} weight="bold" className="text-meridian-accent" />
+            </Button>
+          </div>
+        </div>
+      </div>
     </header>
   )
 }
