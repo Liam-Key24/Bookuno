@@ -1,22 +1,14 @@
 # Dependencies
 node_modules
 
-# Expo
-.expo
+# Next.js
+.next
+out
+
+# Build
 dist
-web-build
-expo-env.d.ts
-
-# Native
-*.jks
-*.p8
-*.p12
-*.key
-*.mobileprovision
-*.orig.*
-
-# Metro
-.metro-health-check*
+dist-ssr
+*.local
 
 # Logs
 logs
@@ -26,11 +18,14 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Env / local
-*.local
+# Env
 .env
 .env.*
 !.env.example
+
+# TypeScript
+next-env.d.ts
+*.tsbuildinfo
 
 # Editor
 .vscode/*

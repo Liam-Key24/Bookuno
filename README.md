@@ -1,16 +1,16 @@
 # Meridian
 
-Expo + NativeWind marketing app. Folder name remains Bookluno.
+Next.js + Tailwind marketing site. Folder name remains Bookluno.
 
 ## Scripts
 
-- `npm start` — Expo dev server
-- `npm run web` — web
-- `npm run ios` — iOS
-- `npm run android` — Android
+- `npm run dev` — local dev server
+- `npm run build` — production build
+- `npm start` — run production server
 
 ## Stack
 
-- Expo (React Native)
-- NativeWind (Tailwind CSS)
-- Phosphor Icons (`phosphor-react-native`)
+- Next.js (App Router)
+- React
+- Tailwind CSS
+- Phosphor Icons (`@phosphor-icons/react`)
