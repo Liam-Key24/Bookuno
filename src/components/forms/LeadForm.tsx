@@ -1,5 +1,6 @@
 'use client'
 
+import { Turnstile } from '@marsidev/react-turnstile'
 import { useRouter } from 'next/navigation'
 import { useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/Button'
@@ -20,17 +21,31 @@ const businessTypes = [
 
 export function LeadForm() {
   const router = useRouter()
+  const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [businessName, setBusinessName] = useState('')
   const [businessType, setBusinessType] = useState('')
   const [message, setMessage] = useState('')
+  const [website, setWebsite] = useState('') // honeypot
+  const [turnstileToken, setTurnstileToken] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setError(null)
+
+    if (!siteKey) {
+      setError('Security check is not configured. Please try again later.')
+      return
+    }
+
+    if (!turnstileToken) {
+      setError('Please complete the security check.')
+      return
+    }
+
     setPending(true)
 
     try {
@@ -43,6 +58,8 @@ export function LeadForm() {
           businessName,
           businessType,
           message,
+          turnstileToken,
+          website,
         }),
       })
 
@@ -53,6 +70,7 @@ export function LeadForm() {
       if (!response.ok || !payload?.ok) {
         setError(payload?.error || 'Something went wrong. Please try again.')
         setPending(false)
+        setTurnstileToken('')
         return
       }
 
@@ -61,11 +79,16 @@ export function LeadForm() {
     } catch {
       setError('Network error. Please check your connection and try again.')
       setPending(false)
+      setTurnstileToken('')
     }
   }
 
   return (
-    <form onSubmit={onSubmit} className="mx-auto w-full max-w-[36rem] text-left" noValidate>
+    <form
+      onSubmit={onSubmit}
+      className="relative mx-auto w-full max-w-[36rem] text-left"
+      noValidate
+    >
       <div className="grid gap-[1rem] sm:grid-cols-2">
         <div className="sm:col-span-1">
           <label htmlFor="lead-name" className={labelClassName}>
@@ -149,7 +172,40 @@ export function LeadForm() {
             placeholder="Tell us about your salon, barbershop, or restaurant."
           />
         </div>
+
+        {/* Honeypot — hidden from humans */}
+        <div
+          aria-hidden="true"
+          className="absolute -left-[9999px] top-auto h-0 w-0 overflow-hidden"
+        >
+          <label htmlFor="lead-website">Website</label>
+          <input
+            id="lead-website"
+            name="website"
+            type="text"
+            tabIndex={-1}
+            autoComplete="off"
+            value={website}
+            onChange={(event) => setWebsite(event.target.value)}
+          />
+        </div>
       </div>
+
+      {siteKey ? (
+        <div className="mt-[1.25rem]">
+          <Turnstile
+            siteKey={siteKey}
+            onSuccess={setTurnstileToken}
+            onExpire={() => setTurnstileToken('')}
+            onError={() => setTurnstileToken('')}
+            options={{ theme: 'light' }}
+          />
+        </div>
+      ) : (
+        <p className="mt-[1.25rem] text-sm text-white/70" role="status">
+          Security check unavailable until Turnstile keys are configured.
+        </p>
+      )}
 
       {error ? (
         <p

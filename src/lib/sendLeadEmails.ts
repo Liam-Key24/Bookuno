@@ -8,12 +8,34 @@ export type LeadEmailPayload = {
   message: string
 }
 
+const DEV_TEST_SENDERS = new Set([
+  'onboarding@resend.dev',
+  'delivered@resend.dev',
+])
+
 function getResend() {
   const apiKey = process.env.RESEND_API_KEY
   if (!apiKey) {
     throw new Error('Missing RESEND_API_KEY')
   }
   return new Resend(apiKey)
+}
+
+function parseFromAddress(fromEmail: string) {
+  const match = fromEmail.match(/<([^>]+)>/)
+  return (match?.[1] || fromEmail).trim().toLowerCase()
+}
+
+export function assertProductionSender(fromEmail: string) {
+  const address = parseFromAddress(fromEmail)
+
+  if (process.env.NODE_ENV === 'production') {
+    if (DEV_TEST_SENDERS.has(address) || address.endsWith('@resend.dev')) {
+      throw new Error(
+        'Production requires a verified Meridian domain sender in RESEND_FROM_EMAIL (not @resend.dev).',
+      )
+    }
+  }
 }
 
 export async function sendLeadEmails(lead: LeadEmailPayload) {
@@ -23,6 +45,8 @@ export async function sendLeadEmails(lead: LeadEmailPayload) {
   if (!founderEmail || !fromEmail) {
     throw new Error('Missing FOUNDER_EMAIL or RESEND_FROM_EMAIL')
   }
+
+  assertProductionSender(fromEmail)
 
   const resend = getResend()
 
