@@ -11,7 +11,8 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: 'Meridian',
-  description: 'Meridian — schedule a meeting with us.',
+  description:
+    'Managed websites for independent salons, barbers, and restaurants — hosting, updates, enquiry handling, and human support.',
 }
 
 export default function RootLayout({

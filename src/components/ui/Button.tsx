@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import type { ComponentPropsWithoutRef, ReactNode } from 'react'
 
-type ButtonVariant = 'soft' | 'accent'
+type ButtonVariant = 'soft' | 'accent' | 'onDeep'
 type ButtonSize = 'md' | 'sm'
 
 type ButtonProps = {
@@ -16,6 +16,7 @@ type ButtonProps = {
 const variantClasses: Record<ButtonVariant, string> = {
   soft: 'bg-meridian-surface text-meridian-ink hover:bg-meridian-surface-strong',
   accent: 'bg-meridian-accent text-meridian-ink hover:brightness-105',
+  onDeep: 'bg-white/10 text-white hover:bg-white/15',
 }
 
 const sizeClasses: Record<ButtonSize, string> = {
