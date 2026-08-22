@@ -252,3 +252,38 @@ export async function ensureLeadEmailsOnce(
 
   return result
 }
+
+/** Safe client-facing copy — never include provider/internal error details. */
+export const LEAD_DELIVERY_ISSUE_MESSAGE =
+  'We received your enquiry, but there was a problem sending the confirmation email. We still have your details and will follow up personally — no need to submit again.'
+
+export type LeadEmailDeliveryState = 'complete' | 'delivery_issue'
+
+/**
+ * Reads recorded delivery rows. Does not send or retry.
+ * Complete only when both founder + prospect are marked sent.
+ */
+export async function getLeadEmailDeliveryState(
+  supabase: SupabaseClient,
+  leadId: string,
+): Promise<LeadEmailDeliveryState> {
+  const { data, error } = await supabase
+    .from('lead_email_deliveries')
+    .select('kind, status')
+    .eq('lead_id', leadId)
+
+  if (error) {
+    console.error('Could not load lead_email_deliveries:', error)
+    return 'delivery_issue'
+  }
+
+  const byKind = new Map((data ?? []).map((row) => [row.kind as LeadEmailKind, row.status as string]))
+  const founder = byKind.get('founder_notification')
+  const prospect = byKind.get('prospect_confirmation')
+
+  if (founder === 'sent' && prospect === 'sent') {
+    return 'complete'
+  }
+
+  return 'delivery_issue'
+}

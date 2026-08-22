@@ -140,7 +140,8 @@ Before launch, complete this checklist:
 5. Inserts the lead with the service role (unique `idempotency_key`).
 6. On duplicate key: returns `{ ok: true, id }` for the existing lead (no second insert).
 7. Claims founder + prospect delivery rows; sends via Resend at most once each; records failures for manual review (no automatic retry loops).
-8. Returns success only when save + emails succeed on first create (no fake success UI). Replays of the same key return safe success without resending.
+8. If either email is not fully sent, returns a truthful `{ received: true, confirmationDelivery: "failed" }` response (same on idempotent retries) — never a generic success that hides the failure, and never provider error details.
+9. Full success (`confirmationDelivery: "sent"`) only when both delivery rows are `sent`. The form shows reassuring copy and does **not** redirect to `/thank-you` when confirmation delivery failed.
 
 ### Focused verification
 

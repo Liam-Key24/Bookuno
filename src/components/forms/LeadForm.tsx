@@ -43,11 +43,13 @@ export function LeadForm() {
   const [website, setWebsite] = useState('') // honeypot
   const [turnstileToken, setTurnstileToken] = useState('')
   const [error, setError] = useState<string | null>(null)
+  const [deliveryNotice, setDeliveryNotice] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setError(null)
+    setDeliveryNotice(null)
 
     if (!siteKey) {
       setError('Security check is not configured. Please try again later.')
@@ -78,8 +80,25 @@ export function LeadForm() {
       })
 
       const payload = (await response.json().catch(() => null)) as
-        | { error?: string; ok?: boolean }
+        | {
+            error?: string
+            ok?: boolean
+            received?: boolean
+            confirmationDelivery?: 'sent' | 'failed'
+            message?: string
+          }
         | null
+
+      // Enquiry saved but confirmation email failed — stay on form, no thank-you, no auto-retry.
+      if (payload?.received && payload.confirmationDelivery === 'failed') {
+        setDeliveryNotice(
+          payload.message ||
+            'We received your enquiry, but there was a problem sending the confirmation email. We still have your details and will follow up personally — no need to submit again.',
+        )
+        setPending(false)
+        setTurnstileToken('')
+        return
+      }
 
       if (!response.ok || !payload?.ok) {
         setError(payload?.error || 'Something went wrong. Please try again.')
@@ -221,6 +240,15 @@ export function LeadForm() {
         </p>
       )}
 
+      {deliveryNotice ? (
+        <p
+          role="status"
+          className="mt-[1rem] rounded-[20px] bg-white/15 px-[1rem] py-[0.85rem] text-sm leading-relaxed text-white"
+        >
+          {deliveryNotice}
+        </p>
+      ) : null}
+
       {error ? (
         <p
           role="alert"
@@ -231,11 +259,18 @@ export function LeadForm() {
       ) : null}
 
       <div className="mt-[1.25rem] flex flex-col gap-[0.75rem] sm:flex-row sm:items-center">
-        <Button type="submit" variant="accent" disabled={pending} className="disabled:opacity-60">
+        <Button
+          type="submit"
+          variant="accent"
+          disabled={pending || Boolean(deliveryNotice)}
+          className="disabled:opacity-60"
+        >
           {pending ? 'Sending…' : 'Send message'}
         </Button>
         <p className="text-xs text-white/55">
-          We only show success after your message is saved and confirmation is sent.
+          {deliveryNotice
+            ? 'Your enquiry is already with us — submitting again will not resend emails.'
+            : 'We take you to the thank-you page only after your enquiry is saved and confirmation is sent.'}
         </p>
       </div>
     </form>

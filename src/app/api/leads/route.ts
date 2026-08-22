@@ -4,7 +4,9 @@ import { assertLeadRateLimit } from '@/lib/leadRateLimit'
 import {
   createOrGetLeadByIdempotencyKey,
   ensureLeadEmailsOnce,
+  getLeadEmailDeliveryState,
   isValidIdempotencyKey,
+  LEAD_DELIVERY_ISSUE_MESSAGE,
 } from '@/lib/leadSubmission'
 import { getSupabaseAdmin } from '@/lib/supabaseAdmin'
 import { verifyTurnstileToken } from '@/lib/verifyTurnstile'
@@ -36,6 +38,20 @@ function isValidEmail(email: string) {
 
 function safeError(message: string, status: number) {
   return NextResponse.json({ error: message }, { status })
+}
+
+/** Enquiry saved; confirmation email did not fully succeed. Same for first try and idempotent retries. */
+function deliveryIssueResponse(leadId: string) {
+  return NextResponse.json(
+    {
+      ok: true,
+      id: leadId,
+      received: true,
+      confirmationDelivery: 'failed',
+      message: LEAD_DELIVERY_ISSUE_MESSAGE,
+    },
+    { status: 200 },
+  )
 }
 
 export async function POST(request: Request) {
@@ -140,28 +156,26 @@ export async function POST(request: Request) {
       return safeError('Could not save your message. Please try again.', 500)
     }
 
-    // Replay of the same idempotency key: safe success, no second lead, no email resend.
-    if (!created) {
-      const emailResult = await ensureLeadEmailsOnce(supabase, lead)
-      // ensureLeadEmailsOnce skips when delivery rows already exist (sent or failed).
-      void emailResult
-      return NextResponse.json({ ok: true, id: lead.id })
+    // Attempt sends at most once; replays skip existing delivery rows (no auto-retry).
+    await ensureLeadEmailsOnce(supabase, lead)
+
+    const deliveryState = await getLeadEmailDeliveryState(supabase, lead.id)
+
+    if (deliveryState === 'delivery_issue') {
+      if (created) {
+        console.error('Lead email delivery incomplete (recorded for manual review):', {
+          leadId: lead.id,
+        })
+      }
+      return deliveryIssueResponse(lead.id)
     }
 
-    const emailResult = await ensureLeadEmailsOnce(supabase, lead)
-
-    if (emailResult.founder === 'failed' || emailResult.prospect === 'failed') {
-      console.error('Lead email delivery failed (recorded for manual review):', {
-        leadId: lead.id,
-        ...emailResult,
-      })
-      return safeError(
-        'Your details were received, but email confirmation failed. Please email us directly or try again.',
-        502,
-      )
-    }
-
-    return NextResponse.json({ ok: true, id: lead.id })
+    return NextResponse.json({
+      ok: true,
+      id: lead.id,
+      received: true,
+      confirmationDelivery: 'sent',
+    })
   } catch (error) {
     console.error('Lead submission failed:', error)
     return safeError('Something went wrong. Please try again in a moment.', 500)
