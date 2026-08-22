@@ -1,5 +1,6 @@
 import { BookingChoice } from '@/components/sections/BookingChoice'
 import { ContactCta } from '@/components/sections/ContactCta'
+import { DemoTemplates } from '@/components/sections/DemoTemplates'
 import { FoundingOffer } from '@/components/sections/FoundingOffer'
 import { Hero } from '@/components/sections/Hero'
 import { HowItWorks } from '@/components/sections/HowItWorks'
@@ -14,6 +15,7 @@ export default function HomePage() {
       <WhatMeridianDoes />
       <BookingChoice />
       <HowItWorks />
+      <DemoTemplates />
       <FoundingOffer />
       <ContactCta />
     </main>
