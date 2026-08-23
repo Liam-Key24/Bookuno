@@ -23,6 +23,9 @@ pnpm-debug.log*
 .env.*
 !.env.example
 
+# Newsletter HTML previews (local only)
+.newsletter-preview
+
 # TypeScript
 next-env.d.ts
 *.tsbuildinfo

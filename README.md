@@ -8,6 +8,8 @@ Next.js + Tailwind marketing site. Folder name remains Bookluno.
 - `npm run build` — production build
 - `npm start` — run production server
 - `npm run verify:lead-idempotency` — focused Supabase idempotency / RLS checks (needs `.env.local`)
+- `npm run newsletter:preview -- emails/campaigns/2026-08-welcome.html` — render campaign HTML with sample data
+- `npm run newsletter:send -- emails/campaigns/2026-08-welcome.html --dry-run` — dry-run campaign send
 
 ## Stack
 
@@ -45,6 +47,7 @@ Copy `.env.example` to `.env.local` and fill in:
 | `UPSTASH_REDIS_REST_URL` | Upstash Redis REST URL |
 | `UPSTASH_REDIS_REST_TOKEN` | Upstash Redis REST token |
 | `LEAD_IP_HASH_SALT` | Secret salt for hashing IPs used as rate-limit keys |
+| `NEWSLETTER_POSTAL_ADDRESS` | Physical/business address shown in marketing email footers |
 | `NEXT_PUBLIC_PLAUSIBLE_DOMAIN` | Optional Plausible domain |
 | `ANALYTICS_WEBHOOK_URL` | Optional server analytics webhook |
 
@@ -151,6 +154,60 @@ npm run verify:lead-idempotency
 ```
 
 Optionally set `SUPABASE_ANON_KEY` in `.env.local` so the script can prove public SELECT is blocked. This script does **not** replace a manual Turnstile / Upstash / live Resend browser test.
+
+## Newsletter (promotional, double opt-in)
+
+Footer signup posts to `POST /api/newsletter/subscribe` (server-only). Confirms via `GET /api/newsletter/confirm?token=…` and unsubscribes via `GET|POST /api/newsletter/unsubscribe?token=…`.
+
+### Schema
+
+Migration: `supabase/migrations/20260823090000_newsletter_subscribers.sql`
+
+- `newsletter_subscribers` — unique email; status `pending` | `subscribed` | `unsubscribed`; confirmation + unsubscribe tokens; consent timestamp; RLS on, **no** public policies
+- `newsletter_campaign_sends` — Resend message IDs / send status for campaign runs
+
+Service-role only. Never put `SUPABASE_SERVICE_ROLE_KEY` in `NEXT_PUBLIC_*`.
+
+### Consent & privacy
+
+- Explicit checkbox consent is required before subscribe
+- Copy states this is **promotional** email (not booking/transactional)
+- Privacy Policy link is required on the form
+- Confirmation email is sent only after signup; status becomes `subscribed` only after the confirm link is used
+- Campaign emails include a visible unsubscribe link, postal address (`NEWSLETTER_POSTAL_ADDRESS`), plain-text fallback, and `List-Unsubscribe` / `List-Unsubscribe-Post` headers
+
+### Preview a campaign
+
+```bash
+node scripts/preview-newsletter.mjs emails/campaigns/2026-08-welcome.html
+# or
+npm run newsletter:preview -- emails/campaigns/2026-08-founding-offer.html --out /tmp/meridian-preview.html
+```
+
+### Dry run (no sends)
+
+```bash
+node --env-file=.env.local scripts/send-newsletter.mjs emails/campaigns/2026-08-welcome.html --dry-run
+```
+
+Loads only `subscribed` contacts, renders sample sizes, writes nothing to Resend.
+
+### Live send (explicit confirm required)
+
+```bash
+node --env-file=.env.local scripts/send-newsletter.mjs emails/campaigns/2026-08-welcome.html --confirm-send
+node --env-file=.env.local scripts/send-newsletter.mjs emails/campaigns/2026-08-welcome.html --subject "Custom subject" --confirm-send
+```
+
+Live mode refuses to run without `--confirm-send`. Batches ≤ 50 with a short delay; stops after repeated provider errors; never logs email addresses, tokens, or API keys.
+
+### Unsubscribe
+
+Each subscriber has a random `unsubscribe_token`. Links hit `/api/newsletter/unsubscribe?token=…` (GET or POST). Status becomes `unsubscribed` immediately; revisiting the link is safe. Campaign HTML and Resend headers both use this URL.
+
+### Resend domain + DNS
+
+Same as lead capture: verify the Meridian sending domain in Resend, set `RESEND_FROM_EMAIL` to that domain in production (not `@resend.dev`), and publish **SPF**, **DKIM**, and **DMARC** records before live campaigns.
 
 ## Launch trust & analytics
 

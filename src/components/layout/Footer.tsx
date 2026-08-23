@@ -6,6 +6,7 @@ import {
 } from '@phosphor-icons/react/dist/ssr'
 import Link from 'next/link'
 import type { ReactNode } from 'react'
+import { NewsletterSignupForm } from '@/components/forms/NewsletterSignupForm'
 import { navLinks } from '@/components/layout/navLinks'
 
 const offerLinks = [
@@ -40,42 +41,7 @@ export function Footer() {
       <div className="w-full rounded-[20px] bg-meridian-surface px-[1.5rem] py-[2.5rem] md:px-[2.5rem] md:py-[3rem] lg:px-[3rem] lg:py-[3.5rem]">
         <div className="grid gap-[2.5rem] lg:grid-cols-[minmax(0,1.35fr)_repeat(3,minmax(0,0.7fr))] lg:gap-[2rem]">
           <div className="max-w-[24rem]">
-            <p className="text-sm font-semibold tracking-tight text-meridian-ink">
-              Join our newsletter to stay up to date on the latest news and updates.
-            </p>
-
-            <form
-              action="mailto:hello@meridian.studio"
-              method="get"
-              className="relative mt-[1.25rem]"
-            >
-              <label htmlFor="footer-email" className="sr-only">
-                Email address
-              </label>
-              <input
-                id="footer-email"
-                name="body"
-                type="email"
-                required
-                placeholder="Enter your email."
-                className="w-full rounded-full border-0 bg-white py-[0.85rem] pl-[1.15rem] pr-[7.5rem] text-sm text-meridian-ink outline-none ring-1 ring-meridian-surface-strong placeholder:text-meridian-muted focus-visible:ring-2 focus-visible:ring-meridian-mid/40"
-              />
-              <input type="hidden" name="subject" value="Meridian newsletter" />
-              <button
-                type="submit"
-                className="absolute top-1/2 right-[0.35rem] -translate-y-1/2 rounded-full bg-meridian-ink px-[1.1rem] py-[0.55rem] text-sm font-medium text-white transition-colors hover:bg-meridian-deep"
-              >
-                Subscribe
-              </button>
-            </form>
-
-            <p className="mt-[0.75rem] text-xs leading-relaxed text-meridian-muted">
-              By subscribing, you agree to hear from Meridian and our{' '}
-              <Link href="/privacy" className="underline-offset-2 hover:underline">
-                Privacy Policy
-              </Link>
-              . No spam — just useful updates.
-            </p>
+            <NewsletterSignupForm />
 
             <ul className="mt-[1.5rem] flex items-center gap-[0.75rem]">
               {socialLinks.map(({ label, href, Icon }) => (

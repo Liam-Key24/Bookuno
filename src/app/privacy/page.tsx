@@ -24,6 +24,10 @@ export default function PrivacyPage() {
           and message).
         </li>
         <li>
+          Newsletter signup details (email, optional first name, and a timestamp of your explicit
+          promotional-email consent) when you subscribe from the site footer.
+        </li>
+        <li>
           A local preference for analytics consent (stored in your browser).
         </li>
         <li>
@@ -38,17 +42,19 @@ export default function PrivacyPage() {
       </h2>
       <p>
         Lead details are used to reply about the Meridian founding offer, send a confirmation
-        email, and notify our founder inbox. Analytics (only with consent) help us understand
-        which calls to action are useful.
+        email, and notify our founder inbox. Newsletter details are used only for optional
+        promotional updates after you confirm your email; you can unsubscribe at any time via the
+        link in each campaign. Analytics (only with consent) help us understand which calls to
+        action are useful.
       </p>
 
       <h2 className="text-base font-semibold tracking-tight text-meridian-ink sm:text-lg">
         Storage & processors
       </h2>
       <p>
-        Leads are stored in Supabase. Transactional emails are sent with Resend. Optional
-        analytics may use a first-party endpoint and, if configured, Plausible. We do not sell
-        your personal information.
+        Leads and newsletter subscribers are stored in Supabase. Transactional and promotional
+        emails are sent with Resend. Optional analytics may use a first-party endpoint and, if
+        configured, Plausible. We do not sell your personal information.
       </p>
 
       <h2 className="text-base font-semibold tracking-tight text-meridian-ink sm:text-lg">
