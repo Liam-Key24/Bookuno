@@ -2,31 +2,31 @@ import { Section } from '@/components/sections/Section'
 
 const problems = [
   {
-    title: 'The site never gets finished',
-    body: 'You’re booking clients, answering messages, and running the floor. The website stays half-done or out of date.',
+    title: 'Too many separate tools',
+    body: 'Websites, booking tools, payment add-ons, hosting, email platforms—it can all get a bit much.',
   },
   {
-    title: 'Enquiries slip through',
-    body: 'DMs, missed calls, and messy inbox threads make it hard to know who wants a cut, a table, or a follow-up.',
+    title: 'Another dashboard? No thanks.',
+    body: 'You didn’t start your business to manage five different bits of software every evening.',
   },
   {
-    title: 'Tech shouldn’t be another job',
-    body: 'Hosting, updates, and little fixes steal evenings you should spend on the business — or off the clock.',
+    title: 'Tech that steals your night',
+    body: 'Plugins, patches and little fixes steal time you should spend with customers—or off the clock.',
   },
 ] as const
 
 const benefits = [
   {
-    title: 'A site that looks open for business',
-    body: 'Polished pages that match your brand and make it easy for new clients to trust you online.',
+    title: 'One friendly home online',
+    body: 'Your website, bookings, payments and customer marketing sit together under your brand.',
   },
   {
-    title: 'Requests handled cleanly',
-    body: 'Booking and enquiry flows that capture the right details so you can approve and confirm without chaos.',
+    title: 'Less fiddling. More bookings.',
+    body: 'You send the details. Merevo does the clicking—setup, launch and the technical upkeep.',
   },
   {
     title: 'Someone in your corner',
-    body: 'Hosting, updates, and human support stay with Meridian — so you can stay with your clients.',
+    body: 'Hosting, maintenance and Merevo technical support stay with us, so you can stay with your customers.',
   },
 ] as const
 
@@ -35,14 +35,15 @@ export function ProblemBenefit() {
     <Section id="about" className="bg-white">
       <div className="max-w-[40rem]">
         <p className="text-sm font-medium tracking-tight text-meridian-deep">
-          For independent salons, barbers & restaurants
+          For independent service businesses
         </p>
         <h2 className="mt-[0.75rem] text-[1.85rem] font-semibold tracking-tight text-meridian-ink sm:text-[2.25rem]">
-          Busy owners don’t need another tool to babysit.
+          You didn’t start your business to manage five different bits of software.
         </h2>
         <p className="mt-[1rem] text-base leading-relaxed text-meridian-muted sm:text-[1.05rem]">
-          Meridian is for people who already run a great local business — and want the
-          website to pull its weight without turning into a second job.
+          Merevo puts the useful parts together—website, bookings, payments and customer
+          marketing—and helps manage them for you. You run the business. We’ll handle the website
+          bits.
         </p>
       </div>
 
@@ -65,7 +66,7 @@ export function ProblemBenefit() {
 
         <div className="rounded-[20px] bg-meridian-deep p-[1.5rem] text-white md:p-[1.75rem]">
           <h3 className="text-sm font-semibold tracking-tight text-meridian-soft">
-            What changes with Meridian
+            What changes with Merevo
           </h3>
           <ul className="mt-[1.25rem] space-y-[1.25rem]">
             {benefits.map((item) => (

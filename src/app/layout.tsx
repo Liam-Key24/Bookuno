@@ -13,9 +13,12 @@ const plusJakarta = Plus_Jakarta_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Meridian',
+  title: {
+    default: 'Merevo — Your website, bookings, payments and customer marketing',
+    template: '%s | Merevo',
+  },
   description:
-    'Managed websites for independent salons, barbers, and restaurants — hosting, updates, enquiry handling, and human support.',
+    'Merevo is a managed website, booking, payments and customer-growth platform for service businesses. Set up and looked after for you — £50 a month.',
 }
 
 export default function RootLayout({
@@ -24,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="en-GB">
       <body className={`${plusJakarta.variable} font-sans antialiased`}>
         <Navbar />
         {children}
