@@ -36,7 +36,7 @@ export function Navbar() {
     <header className="relative z-50 w-full bg-white">
       <nav
         aria-label="Primary"
-        className="flex w-full items-center justify-between gap-4 px-4 py-4 md:px-5 lg:px-6"
+        className="flex w-full items-center justify-between gap-3 px-2.5 py-3 md:px-3 lg:px-4"
       >
         <Link
           href="/"
@@ -89,7 +89,7 @@ export function Navbar() {
       <div
         id={menuId}
         hidden={!open}
-        className="absolute inset-x-0 top-full px-4 pb-4 md:hidden"
+        className="absolute inset-x-0 top-full px-2.5 pb-3 md:hidden"
       >
         <div className="overflow-hidden rounded-meridian border border-meridian-surface-strong bg-white shadow-[0_18px_40px_rgb(15_23_32_/_0.08)]">
           <ul className="flex flex-col p-[0.75rem]">

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { EnvelopeSimple, MapPin, ChatCircle } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '@/components/ui/Button'
 import { Reveal } from '@/components/motion/Reveal'
+import { SectionCaption } from '@/components/sections/SectionCaption'
 import { CONTACT_EMAIL, CONTACT_LABEL } from '@/lib/site'
 
 export const metadata: Metadata = {
@@ -12,17 +13,17 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <main className="bg-white">
-      <section className="w-full px-4 py-16 md:px-5 md:py-24 lg:px-6">
-        <div className="mx-auto grid max-w-[96rem] gap-6 rounded-meridian bg-meridian-surface p-6 md:grid-cols-2 md:gap-10 md:p-10 lg:p-12">
+      <section className="w-full">
+        <div className="m-2 grid w-auto gap-4 rounded-meridian bg-meridian-soft p-5 md:grid-cols-2 md:gap-8 md:p-7 lg:p-8">
           <Reveal>
-            <p className="caption-quirk">// Talk to Merevo //</p>
-            <h1 className="mt-5 font-display text-[2.2rem] font-bold tracking-tight text-meridian-ink sm:text-[2.75rem]">
+            <SectionCaption className="text-meridian-ink/70">Talk to Merevo</SectionCaption>
+            <h1 className="mt-4 font-display text-[2rem] font-bold tracking-tight text-meridian-ink sm:text-[2.5rem]">
               Say hello
             </h1>
-            <p className="mt-4 max-w-[28rem] text-base leading-relaxed text-meridian-muted">
+            <p className="mt-3 max-w-[28rem] text-base leading-relaxed text-meridian-ink/75">
               Independent service businesses—reach out about getting started. We reply personally.
             </p>
-            <Button href="/#contact" variant="accent" className="mt-8">
+            <Button href="/#contact" variant="accent" className="mt-6">
               Get started with Merevo
             </Button>
           </Reveal>

@@ -42,20 +42,20 @@ export default function AboutPage() {
         illustrationBrief="Warm portrait of a local service business owner with a soft teal glow."
       />
 
-      <section className="w-full px-4 pb-20 md:px-5 md:pb-28 lg:px-6 lg:pb-32">
-        <div className="mx-auto grid max-w-[96rem] gap-4 md:grid-cols-3">
+      <section className="w-full bg-meridian-surface px-4 py-12 sm:px-6 md:px-8 md:py-16 lg:px-10">
+        <div className="mx-auto grid max-w-[72rem] gap-3 md:grid-cols-3">
           {cards.map((card, index) => (
-            <Reveal key={card.title} delayMs={index * 80}>
-              <article className="flex h-full min-h-[20rem] flex-col rounded-meridian bg-meridian-surface p-6 md:p-8">
+            <Reveal key={card.title} delayMs={index * 70}>
+              <article className="flex h-full min-h-[16rem] flex-col rounded-meridian bg-white p-4 md:p-5">
                 <IllustrationSlot
                   label={card.label}
                   brief={card.brief}
-                  className="mb-8 aspect-[4/3] max-w-none bg-[#9aa7b0]"
+                  className="mb-5 aspect-[4/3] max-w-none bg-meridian-soft"
                 />
-                <h2 className="mt-auto font-display text-2xl font-bold tracking-tight text-meridian-ink">
+                <h2 className="mt-auto font-display text-xl font-bold tracking-tight text-meridian-ink md:text-2xl">
                   {card.title}
                 </h2>
-                <p className="mt-3 text-xs font-medium tracking-[0.14em] text-meridian-muted uppercase">
+                <p className="mt-2 text-xs font-medium tracking-[0.14em] text-meridian-muted uppercase">
                   {card.caption}
                 </p>
               </article>

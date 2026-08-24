@@ -7,7 +7,6 @@ import { useState, type FormEvent } from 'react'
 export function NewsletterSignupForm() {
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
   const [email, setEmail] = useState('')
-  const [firstName, setFirstName] = useState('')
   const [consent, setConsent] = useState(false)
   const [website, setWebsite] = useState('') // honeypot
   const [turnstileToken, setTurnstileToken] = useState('')
@@ -43,7 +42,6 @@ export function NewsletterSignupForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           email,
-          firstName,
           consent,
           turnstileToken,
           website,
@@ -67,7 +65,6 @@ export function NewsletterSignupForm() {
           'Thanks — if this email can be subscribed, we have sent a confirmation link. Please check your inbox.',
       )
       setEmail('')
-      setFirstName('')
       setConsent(false)
       setTurnstileToken('')
       setPending(false)
@@ -79,53 +76,30 @@ export function NewsletterSignupForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="relative mt-[1.25rem]" noValidate>
+    <form onSubmit={onSubmit} className="relative" noValidate>
       <p className="text-sm font-semibold tracking-tight text-meridian-ink">
         Join our newsletter for occasional promotional updates.
       </p>
-      <p className="mt-[0.5rem] text-xs leading-relaxed text-meridian-muted">
-        This is optional marketing email from Merevo — product news and founding-offer notes for
-        independent service businesses. Not transactional booking mail.
-      </p>
 
-      <div className="mt-[1rem] grid gap-[0.75rem]">
-        <div>
-          <label htmlFor="newsletter-first-name" className="sr-only">
-            First name (optional)
-          </label>
-          <input
-            id="newsletter-first-name"
-            name="firstName"
-            type="text"
-            autoComplete="given-name"
-            value={firstName}
-            onChange={(event) => setFirstName(event.target.value)}
-            placeholder="First name (optional)"
-            disabled={pending || Boolean(success)}
-            className="w-full rounded-meridian border-0 bg-white px-[1.15rem] py-[0.85rem] text-sm text-meridian-ink outline-none ring-1 ring-meridian-surface-strong placeholder:text-meridian-muted focus-visible:ring-2 focus-visible:ring-meridian-mid/40 disabled:opacity-60"
-          />
-        </div>
-
-        <div>
-          <label htmlFor="newsletter-email" className="sr-only">
-            Email address
-          </label>
-          <input
-            id="newsletter-email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-            value={email}
-            onChange={(event) => setEmail(event.target.value)}
-            placeholder="Enter your email"
-            disabled={pending || Boolean(success)}
-            className="w-full rounded-meridian border-0 bg-white px-[1.15rem] py-[0.85rem] text-sm text-meridian-ink outline-none ring-1 ring-meridian-surface-strong placeholder:text-meridian-muted focus-visible:ring-2 focus-visible:ring-meridian-mid/40 disabled:opacity-60"
-          />
-        </div>
+      <div className="mt-[0.85rem]">
+        <label htmlFor="newsletter-email" className="sr-only">
+          Email address
+        </label>
+        <input
+          id="newsletter-email"
+          name="email"
+          type="email"
+          autoComplete="email"
+          required
+          value={email}
+          onChange={(event) => setEmail(event.target.value)}
+          placeholder="Enter your email"
+          disabled={pending || Boolean(success)}
+          className="w-full rounded-meridian border-0 bg-white px-[1.15rem] py-[0.85rem] text-sm text-meridian-ink outline-none ring-1 ring-meridian-surface-strong placeholder:text-meridian-muted focus-visible:ring-2 focus-visible:ring-meridian-mid/40 disabled:opacity-60"
+        />
       </div>
 
-      <label className="mt-[0.85rem] flex cursor-pointer items-start gap-[0.6rem] text-xs leading-relaxed text-meridian-muted">
+      <label className="mt-[0.75rem] flex cursor-pointer items-start gap-[0.6rem] text-xs leading-relaxed text-meridian-muted">
         <input
           type="checkbox"
           name="consent"
@@ -162,7 +136,7 @@ export function NewsletterSignupForm() {
       </div>
 
       {siteKey ? (
-        <div className="mt-[0.85rem]">
+        <div className="mt-[0.75rem]">
           <Turnstile
             siteKey={siteKey}
             onSuccess={setTurnstileToken}
@@ -172,7 +146,7 @@ export function NewsletterSignupForm() {
           />
         </div>
       ) : (
-        <p className="mt-[0.85rem] text-xs text-meridian-muted" role="status">
+        <p className="mt-[0.75rem] text-xs text-meridian-muted" role="status">
           Security check unavailable until Turnstile keys are configured.
         </p>
       )}
@@ -180,7 +154,7 @@ export function NewsletterSignupForm() {
       {error ? (
         <p
           role="alert"
-          className="mt-[0.75rem] rounded-meridian bg-meridian-ink/5 px-[0.85rem] py-[0.65rem] text-xs text-meridian-ink"
+          className="mt-[0.65rem] rounded-meridian bg-meridian-ink/5 px-[0.85rem] py-[0.65rem] text-xs text-meridian-ink"
         >
           {error}
         </p>
@@ -189,7 +163,7 @@ export function NewsletterSignupForm() {
       {success ? (
         <p
           role="status"
-          className="mt-[0.75rem] rounded-meridian bg-meridian-deep/10 px-[0.85rem] py-[0.65rem] text-xs leading-relaxed text-meridian-ink"
+          className="mt-[0.65rem] rounded-meridian bg-meridian-deep/10 px-[0.85rem] py-[0.65rem] text-xs leading-relaxed text-meridian-ink"
         >
           {success}
         </p>
@@ -198,7 +172,7 @@ export function NewsletterSignupForm() {
       <button
         type="submit"
         disabled={pending || Boolean(success)}
-        className="mt-[0.85rem] w-full rounded-meridian bg-meridian-ink px-[1.1rem] py-[0.7rem] text-sm font-medium text-white transition-colors hover:bg-meridian-deep disabled:opacity-60 sm:w-auto"
+        className="mt-[0.75rem] w-full rounded-meridian bg-meridian-ink px-[1.1rem] py-[0.7rem] text-sm font-medium text-white transition-colors hover:bg-meridian-deep disabled:opacity-60 sm:w-auto"
       >
         {pending ? 'Subscribing…' : success ? 'Check your inbox' : 'Subscribe'}
       </button>

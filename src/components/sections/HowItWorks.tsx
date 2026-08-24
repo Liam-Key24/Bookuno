@@ -1,61 +1,114 @@
+import { ArrowRight } from '@phosphor-icons/react/dist/ssr'
 import { Section } from '@/components/sections/Section'
 import { SectionCaption } from '@/components/sections/SectionCaption'
+import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 import { Reveal } from '@/components/motion/Reveal'
 
 const steps = [
   {
-    step: '01',
+    label: 'STEP ONE',
     title: 'Pick your look',
-    caption: 'CHOOSE A POLISHED MEREVO TEMPLATE',
+    tagline: 'Choose a polished Merevo template',
+    illustration: {
+      label: 'Template pick',
+      brief: 'Illustration: browsing polished Merevo template thumbnails',
+    },
   },
   {
-    step: '02',
+    label: 'STEP TWO',
     title: 'Send your bits',
-    caption: 'LOGO, COLOURS, SERVICES, HOURS, IMAGES',
+    tagline: 'Logo, colours, services, hours, images',
+    illustration: {
+      label: 'Brand bits',
+      brief: 'Illustration: logo, colours and content pieces being handed over',
+    },
   },
   {
-    step: '03',
+    label: 'STEP THREE',
     title: 'Connect the essentials',
-    caption: 'BOOKINGS, DOMAIN AND STRIPE',
+    tagline: 'Bookings, domain and Stripe',
+    illustration: {
+      label: 'Connections',
+      brief: 'Illustration: bookings, domain and Stripe linking into place',
+    },
   },
   {
-    step: '04',
+    label: 'STEP FOUR',
     title: 'Pop the kettle on',
-    caption: 'WE BRING IT TOGETHER. YOU REVIEW AND LAUNCH',
+    tagline: 'We bring it together; you review and launch',
+    illustration: {
+      label: 'Launch ready',
+      brief: 'Illustration: kettle on while the site comes together for review',
+    },
   },
 ] as const
 
 export function HowItWorks() {
   return (
-    <Section className="bg-meridian-surface">
-      <Reveal className="max-w-[40rem]">
+    <Section withPanel panelClassName="bg-meridian-surface">
+      <Reveal className="mx-auto max-w-[36rem] text-center">
         <SectionCaption>How setup works</SectionCaption>
-        <h2 className="mt-5 font-display text-[2rem] font-bold tracking-tight text-meridian-ink sm:text-[2.75rem]">
+        <h2 className="mt-4 font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
           Pick a template. Send your bits. We’ll bring it together.
         </h2>
-        <p className="mt-4 text-base leading-relaxed text-meridian-muted">
+        <p className="mt-3 text-base leading-relaxed text-meridian-muted">
           Quick setup. Very little work from you. No plugin head-scratching.
         </p>
       </Reveal>
 
-      <ol className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {steps.map((item, index) => (
-          <Reveal key={item.title} delayMs={index * 70} as="li">
-            <article className="flex h-full min-h-[16rem] flex-col justify-between rounded-meridian bg-white p-8 md:min-h-[18rem] md:p-9">
-              <p className="font-display text-sm font-bold tracking-tight text-meridian-soft">
-                {item.step}
-              </p>
-              <div>
-                <h3 className="font-display text-xl font-bold tracking-tight text-meridian-ink md:text-2xl">
-                  {item.title}
-                </h3>
-                <p className="mt-3 text-xs font-medium tracking-[0.14em] text-meridian-muted uppercase">
-                  {item.caption}
+      <ol className="mx-auto mt-10 grid grid-cols-1 gap-5 sm:mt-12 sm:grid-cols-2 sm:gap-6 lg:grid-cols-4 lg:gap-5">
+        {steps.map((step, index) => {
+          const showDesktopArrow = index < steps.length - 1
+          const showTabletArrow = index % 2 === 0 && index < steps.length - 1
+
+          return (
+            <Reveal
+              key={step.title}
+              delayMs={index * 70}
+              as="li"
+              className="relative"
+            >
+              <article className="flex h-full flex-col rounded-meridian bg-white px-4 pb-5 pt-5 sm:px-5 sm:pb-6 sm:pt-6">
+                <p className="text-[0.7rem] font-semibold tracking-[0.14em] text-meridian-muted uppercase">
+                  {step.label}
                 </p>
-              </div>
-            </article>
-          </Reveal>
-        ))}
+                <h3 className="mt-2 font-display text-xl font-bold tracking-tight text-meridian-ink md:text-[1.35rem]">
+                  {step.title}
+                </h3>
+
+                <div className="my-5 flex flex-1 items-center justify-center">
+                  <IllustrationSlot
+                    label={step.illustration.label}
+                    brief={step.illustration.brief}
+                    className="aspect-[5/4] max-w-none rounded-[8px] bg-meridian-ink px-4 py-6"
+                  />
+                </div>
+
+                <p className="mt-auto text-sm leading-relaxed text-meridian-muted">
+                  {step.tagline}
+                </p>
+              </article>
+
+              {showDesktopArrow ? (
+                <span
+                  className="pointer-events-none absolute top-[46%] -right-2.5 z-10 hidden size-8 -translate-y-1/2 items-center justify-center rounded-full border border-meridian-ink/10 bg-white text-meridian-deep shadow-[0_4px_12px_rgb(15_23_32_/_0.06)] lg:flex"
+                  aria-hidden
+                >
+                  <ArrowRight size={14} weight="bold" />
+                </span>
+              ) : null}
+
+              {showTabletArrow ? (
+                <span
+                  className="pointer-events-none absolute top-[46%] -right-3 z-10 flex size-8 -translate-y-1/2 items-center justify-center rounded-full border border-meridian-ink/10 bg-white text-meridian-deep shadow-[0_4px_12px_rgb(15_23_32_/_0.06)] sm:flex lg:hidden"
+                  aria-hidden
+                >
+                  <ArrowRight size={14} weight="bold" />
+                </span>
+              ) : null}
+            </Reveal>
+          )
+        })}
       </ol>
     </Section>
   )

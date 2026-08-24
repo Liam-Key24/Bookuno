@@ -42,9 +42,9 @@ export function CookieNotice() {
     <div
       role="dialog"
       aria-label="Cookie preferences"
-      className="fixed inset-x-0 bottom-0 z-[60] px-4 pb-4 md:px-5 lg:px-6"
+      className="fixed inset-x-0 bottom-0 z-[60] px-2.5 pb-2.5 md:px-3 lg:px-4"
     >
-      <div className="mx-auto flex w-full max-w-[96rem] flex-col gap-4 rounded-meridian border border-meridian-surface-strong bg-white p-5 shadow-[0_18px_40px_rgb(15_23_32_/_0.12)] md:flex-row md:items-center md:justify-between md:p-6">
+      <div className="mx-auto flex w-full max-w-[96rem] flex-col gap-3 rounded-meridian border border-meridian-surface-strong bg-white p-4 shadow-[0_18px_40px_rgb(15_23_32_/_0.12)] md:flex-row md:items-center md:justify-between md:p-5">
         <p className="max-w-[42rem] text-sm leading-relaxed text-meridian-muted">
           We use a necessary preference cookie for this choice, plus optional privacy-conscious
           analytics (CTA clicks and successful form sends) if you allow it. See our{' '}

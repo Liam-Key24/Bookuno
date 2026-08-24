@@ -1,6 +1,15 @@
 import type { Metadata } from 'next'
+import {
+  CalendarCheck,
+  CreditCard,
+  EnvelopeSimple,
+  Globe,
+  Headset,
+  Monitor,
+} from '@phosphor-icons/react/dist/ssr'
 import { PageCta } from '@/components/sections/PageCta'
 import { PageIntro } from '@/components/sections/PageIntro'
+import { InfoCard } from '@/components/sections/InfoCard'
 import { Reveal } from '@/components/motion/Reveal'
 
 export const metadata: Metadata = {
@@ -10,12 +19,12 @@ export const metadata: Metadata = {
 }
 
 const points = [
-  { title: 'Website', caption: 'TEMPLATE PERSONALISED FOR YOUR BRAND' },
-  { title: 'Bookings', caption: 'ON YOUR SITE — NOT A MARKETPLACE' },
-  { title: 'Payments', caption: 'STRIPE. FEES APPLY SEPARATELY.' },
-  { title: 'Marketing', caption: 'STAY IN TOUCH WITHOUT THE FAFF' },
-  { title: 'Hosting & support', caption: 'MAINTENANCE AND MEREVO HELP INCLUDED' },
-  { title: 'Domain', caption: 'ONE STANDARD DOMAIN FOR YEAR ONE' },
+  { icon: Monitor, title: 'Website', caption: 'TEMPLATE PERSONALISED FOR YOUR BRAND' },
+  { icon: CalendarCheck, title: 'Bookings', caption: 'ON YOUR SITE — NOT A MARKETPLACE' },
+  { icon: CreditCard, title: 'Payments', caption: 'STRIPE. FEES APPLY SEPARATELY.' },
+  { icon: EnvelopeSimple, title: 'Marketing', caption: 'STAY IN TOUCH WITHOUT THE FAFF' },
+  { icon: Headset, title: 'Hosting & support', caption: 'MAINTENANCE AND MEREVO HELP INCLUDED' },
+  { icon: Globe, title: 'Domain', caption: 'ONE STANDARD DOMAIN FOR YEAR ONE' },
 ] as const
 
 export default function FeaturesPage() {
@@ -29,18 +38,16 @@ export default function FeaturesPage() {
         illustrationBrief="Friendly diagram of website, bookings, payments, marketing and support tiles."
       />
 
-      <section className="w-full px-4 pb-20 md:px-5 md:pb-28 lg:px-6 lg:pb-32">
-        <ul className="mx-auto grid max-w-[96rem] gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <section className="w-full bg-white px-4 py-12 sm:px-6 md:px-8 md:py-16 lg:px-10">
+        <ul className="mx-auto grid max-w-[72rem] gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {points.map((point, index) => (
-            <Reveal key={point.title} delayMs={index * 60} as="li">
-              <article className="flex h-full min-h-[14rem] flex-col justify-end rounded-meridian bg-meridian-surface p-8 md:min-h-[16rem] md:p-10">
-                <h2 className="font-display text-2xl font-bold tracking-tight text-meridian-ink">
-                  {point.title}
-                </h2>
-                <p className="mt-3 text-xs font-medium tracking-[0.14em] text-meridian-muted uppercase">
-                  {point.caption}
-                </p>
-              </article>
+            <Reveal key={point.title} delayMs={index * 50} as="li">
+              <InfoCard
+                icon={point.icon}
+                title={point.title}
+                caption={point.caption}
+                tone="surface"
+              />
             </Reveal>
           ))}
         </ul>

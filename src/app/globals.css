@@ -41,16 +41,12 @@ h3,
 }
 
 .caption-quirk {
-  display: inline-flex;
-  align-items: center;
-  border: 1px solid color-mix(in srgb, var(--color-meridian-ink) 12%, transparent);
-  border-radius: 999px;
-  padding: 0.35rem 0.85rem;
-  font-size: 0.72rem;
-  font-weight: 500;
-  letter-spacing: 0.02em;
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
   color: var(--color-meridian-muted);
-  background: #ffffff;
 }
 
 .reveal {
@@ -77,4 +73,26 @@ h3,
     transform: none;
     transition: none;
   }
+}
+
+/* Turnstile: style any host-page links Cloudflare injects beside the iframe
+   (Troubleshoot / help). Cross-origin iframe contents cannot be restyled. */
+.lead-form-turnstile {
+  font-family: var(--font-sans);
+  color: var(--color-meridian-muted);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.lead-form-turnstile a {
+  font-family: inherit;
+  color: var(--color-meridian-deep);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+.lead-form-turnstile a:hover,
+.lead-form-turnstile a:focus-visible {
+  color: var(--color-meridian-ink);
+  text-decoration: underline;
 }

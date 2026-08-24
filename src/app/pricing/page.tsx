@@ -35,31 +35,33 @@ export default function PricingPage() {
         </Button>
       </PageIntro>
 
-      <section className="w-full px-4 pb-20 md:px-5 md:pb-28 lg:px-6 lg:pb-32">
-        <Reveal className="mx-auto max-w-[96rem] rounded-meridian bg-meridian-surface p-6 md:p-10 lg:p-12">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-            <h2 className="font-display text-xl font-bold tracking-tight text-meridian-ink md:text-2xl">
-              What’s covered
-            </h2>
-            <p className="font-display text-4xl font-bold tracking-tight text-meridian-ink md:text-5xl">
-              £50<span className="text-lg font-medium text-meridian-muted"> / month</span>
+      <section className="w-full bg-white">
+        <Reveal className="m-2 w-auto rounded-meridian bg-meridian-surface px-5 py-8 md:px-8 md:py-10 lg:px-10 lg:py-12">
+          <div className="mx-auto max-w-[72rem]">
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+              <h2 className="font-display text-xl font-bold tracking-tight text-meridian-ink md:text-2xl">
+                What’s covered
+              </h2>
+              <p className="font-display text-4xl font-bold tracking-tight text-meridian-ink md:text-5xl">
+                £50<span className="text-lg font-medium text-meridian-muted"> / month</span>
+              </p>
+            </div>
+            <p className="mt-4 max-w-[40rem] text-sm leading-relaxed text-meridian-muted md:text-base">
+              The £150 is not an extra setup fee. Founding customers keep £50/month while subscribed.
+              Stripe processing fees apply separately.
             </p>
+            <ul className="mt-6 grid gap-3 sm:grid-cols-2">
+              {included.map((item) => (
+                <li
+                  key={item}
+                  className="flex items-center gap-3 text-sm text-meridian-muted sm:text-base"
+                >
+                  <Check size={18} weight="bold" className="shrink-0 text-meridian-mid" aria-hidden />
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
-          <p className="mt-5 max-w-[40rem] text-sm leading-relaxed text-meridian-muted md:text-base">
-            The £150 is not an extra setup fee. Founding customers keep £50/month while subscribed.
-            Stripe processing fees apply separately.
-          </p>
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2">
-            {included.map((item) => (
-              <li
-                key={item}
-                className="flex items-center gap-3 text-sm text-meridian-muted sm:text-base"
-              >
-                <Check size={18} weight="bold" className="shrink-0 text-meridian-mid" aria-hidden />
-                {item}
-              </li>
-            ))}
-          </ul>
         </Reveal>
       </section>
 

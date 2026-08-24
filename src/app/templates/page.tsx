@@ -22,8 +22,8 @@ export default function TemplatesPage() {
         illustrationBrief="Two mini browser frames side by side with a shared Book button glow."
       />
 
-      <section className="w-full px-4 pb-20 md:px-5 md:pb-28 lg:px-6 lg:pb-32">
-        <div className="mx-auto grid max-w-[96rem] gap-4 md:grid-cols-2">
+      <section className="w-full bg-white px-4 py-12 sm:px-6 md:px-8 md:py-16 lg:px-10">
+        <div className="mx-auto grid max-w-[72rem] gap-3 md:grid-cols-2">
           {demoTemplates.map((demo, index) => (
             <Reveal key={demo.id} delayMs={index * 90}>
               <DemoCard demo={demo} />

@@ -3,14 +3,11 @@ type SectionCaptionProps = {
   className?: string
 }
 
-/** Quirky framed caption, e.g. "// Less faff. More bookings. //" */
+/** Plain eyebrow label above a section title. */
 export function SectionCaption({ children, className = '' }: SectionCaptionProps) {
-  const text = children.trim()
-  const labelled = text.startsWith('//') ? text : `// ${text} //`
-
   return (
     <p className={['caption-quirk', className].filter(Boolean).join(' ')}>
-      {labelled}
+      {children.trim()}
     </p>
   )
 }

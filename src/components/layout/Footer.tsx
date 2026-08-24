@@ -39,13 +39,13 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="w-full bg-meridian-accent px-4 py-4 md:px-5 md:py-5 lg:px-6">
-      <div className="w-full rounded-meridian bg-meridian-surface px-5 py-10 md:px-8 md:py-12 lg:px-10 lg:py-14">
-        <div className="grid gap-[2.5rem] lg:grid-cols-[minmax(0,1.35fr)_repeat(3,minmax(0,0.7fr))] lg:gap-[2rem]">
+    <footer className="w-full bg-meridian-accent px-2.5 py-2.5 md:px-3 md:py-3 lg:px-4">
+      <div className="w-full rounded-meridian bg-meridian-surface px-4 py-6 md:px-6 md:py-7 lg:px-8 lg:py-8">
+        <div className="grid gap-[1.75rem] lg:grid-cols-[minmax(0,1.35fr)_repeat(3,minmax(0,0.7fr))] lg:gap-[1.5rem]">
           <div className="max-w-[24rem]">
             <NewsletterSignupForm />
 
-            <ul className="mt-[1.5rem] flex items-center gap-[0.75rem]">
+            <ul className="mt-[1rem] flex items-center gap-[0.75rem]">
               {socialLinks.map(({ label, href, Icon }) => (
                 <li key={label}>
                   <a
@@ -87,7 +87,7 @@ export function Footer() {
           </FooterColumn>
         </div>
 
-        <div className="mt-[2.5rem] flex flex-col gap-[1rem] border-t border-meridian-surface-strong pt-[1.5rem] md:flex-row md:items-center md:justify-between">
+        <div className="mt-[1.75rem] flex flex-col gap-[0.75rem] border-t border-meridian-surface-strong pt-[1rem] md:flex-row md:items-center md:justify-between">
           <p className="text-xs text-meridian-muted">
             © {new Date().getFullYear()} Merevo. Your website, bookings, payments and customer
             marketing—managed for service businesses.
@@ -106,7 +106,7 @@ export function Footer() {
           </ul>
         </div>
 
-        <div className="mt-[3.5rem] md:mt-[4.5rem]">
+        <div className="mt-[2.25rem] md:mt-[3rem]">
           <p className="font-display select-none text-[clamp(3.5rem,18vw,12rem)] leading-none font-bold tracking-tight text-meridian-accent lowercase">
             merevo
             <sup className="ml-[0.15em] align-super text-[0.18em] font-medium">®</sup>
@@ -127,7 +127,7 @@ function FooterColumn({
   return (
     <div>
       <h2 className="text-sm font-semibold tracking-tight text-meridian-ink">{title}</h2>
-      <ul className="mt-[1rem] space-y-[0.75rem]">{children}</ul>
+      <ul className="mt-[0.75rem] space-y-[0.55rem]">{children}</ul>
     </div>
   )
 }

@@ -21,7 +21,7 @@ const faqs = [
   {
     question: 'What do I need to provide?',
     answer:
-      'Name, logo, colours, images, services and prices, hours, contact details, domain preferences, and Stripe connection info.',
+      'Info, logo, colours, images, services and prices, hours, contact details, domain preferences, and Stripe connection info.',
   },
   {
     question: 'How does the £150 work?',
@@ -78,19 +78,19 @@ export function Faq() {
     <Section id="faq" className="bg-meridian-surface">
       <Reveal className="max-w-[40rem]">
         <SectionCaption>Straight answers</SectionCaption>
-        <h2 className="mt-5 font-display text-[2rem] font-bold tracking-tight text-meridian-ink sm:text-[2.75rem]">
+        <h2 className="mt-4 font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
           FAQ, without the jargon.
         </h2>
       </Reveal>
 
-      <dl className="mt-14 space-y-3">
+      <dl className="mt-8 space-y-2.5">
         {faqs.map((item, index) => (
           <Reveal key={item.question} delayMs={Math.min(index * 30, 240)}>
-            <div className="rounded-meridian bg-white px-6 py-5 md:px-8 md:py-6">
+            <div className="rounded-meridian bg-white px-5 py-4 md:px-6 md:py-5">
               <dt className="font-display text-base font-bold tracking-tight text-meridian-ink md:text-lg">
                 {item.question}
               </dt>
-              <dd className="mt-2 text-sm leading-relaxed text-meridian-muted">{item.answer}</dd>
+              <dd className="mt-1.5 text-sm leading-relaxed text-meridian-muted">{item.answer}</dd>
             </div>
           </Reveal>
         ))}

@@ -11,10 +11,10 @@ export function DemoTemplates() {
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <Reveal className="max-w-[40rem]">
           <SectionCaption>Templates, not from scratch</SectionCaption>
-          <h2 className="mt-5 font-display text-[2rem] font-bold tracking-tight text-meridian-ink sm:text-[2.75rem]">
+          <h2 className="mt-4 font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
             Made for your business. Without making everything from scratch.
           </h2>
-          <p className="mt-4 text-base leading-relaxed text-meridian-muted">
+          <p className="mt-3 text-base leading-relaxed text-meridian-muted">
             Pick a look, send your bits, and we’ll bring it together.
           </p>
         </Reveal>
@@ -28,7 +28,7 @@ export function DemoTemplates() {
         </Reveal>
       </div>
 
-      <div className="mt-14 grid gap-4 md:grid-cols-2">
+      <div className="mt-8 grid gap-3 md:grid-cols-2">
         {demoTemplates.map((demo, index) => (
           <Reveal key={demo.id} delayMs={index * 90}>
             <DemoCard demo={demo} />
