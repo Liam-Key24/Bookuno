@@ -40,7 +40,7 @@ export function buildUnsubscribeUrl(token: string) {
 export function getNewsletterPostalAddress() {
   return (
     process.env.NEWSLETTER_POSTAL_ADDRESS ||
-    '[Meridian business address — set NEWSLETTER_POSTAL_ADDRESS]'
+    '[Merevo business address — set NEWSLETTER_POSTAL_ADDRESS]'
   )
 }
 
@@ -75,7 +75,7 @@ export function validateNewsletterSignupInput(input: {
   if (!input.consent) {
     return {
       ok: false as const,
-      error: 'Please confirm you want to receive Meridian promotional emails.',
+      error: `Please confirm you want to receive ${SITE_NAME} promotional emails.`,
     }
   }
 

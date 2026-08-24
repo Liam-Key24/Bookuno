@@ -1,33 +1,38 @@
 import Link from 'next/link'
 import { Section } from '@/components/sections/Section'
+import { SectionCaption } from '@/components/sections/SectionCaption'
 import { DemoCard } from '@/components/sections/DemoCard'
 import { demoTemplates } from '@/components/sections/demoTemplatesData'
+import { Reveal } from '@/components/motion/Reveal'
 
 export function DemoTemplates() {
   return (
     <Section id="templates" className="bg-white">
-      <div className="flex flex-col gap-[1rem] md:flex-row md:items-end md:justify-between">
-        <div className="max-w-[36rem]">
-          <p className="text-sm font-medium tracking-tight text-meridian-deep">Demo templates</p>
-          <h2 className="mt-[0.75rem] text-[1.85rem] font-semibold tracking-tight text-meridian-ink sm:text-[2.25rem]">
-            Two fictional sites. Built to feel bookable.
+      <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+        <Reveal className="max-w-[40rem]">
+          <SectionCaption>Templates, not from scratch</SectionCaption>
+          <h2 className="mt-5 font-display text-[2rem] font-bold tracking-tight text-meridian-ink sm:text-[2.75rem]">
+            Made for your business. Without making everything from scratch.
           </h2>
-          <p className="mt-[1rem] text-base leading-relaxed text-meridian-muted sm:text-[1.05rem]">
-            Quick showcases of the polished websites Meridian manages for independent salons and
-            barbers — with booking CTAs front and centre.
+          <p className="mt-4 text-base leading-relaxed text-meridian-muted">
+            Pick a look, send your bits, and we’ll bring it together.
           </p>
-        </div>
-        <Link
-          href="/templates"
-          className="text-sm font-medium tracking-tight text-meridian-deep transition-colors hover:text-meridian-ink"
-        >
-          View templates page
-        </Link>
+        </Reveal>
+        <Reveal delayMs={80}>
+          <Link
+            href="/templates"
+            className="text-sm font-medium tracking-tight text-meridian-deep transition-colors duration-300 hover:text-meridian-ink"
+          >
+            View templates page
+          </Link>
+        </Reveal>
       </div>
 
-      <div className="mt-[2.5rem] grid gap-[1.25rem] md:grid-cols-2">
-        {demoTemplates.map((demo) => (
-          <DemoCard key={demo.id} demo={demo} />
+      <div className="mt-14 grid gap-4 md:grid-cols-2">
+        {demoTemplates.map((demo, index) => (
+          <Reveal key={demo.id} delayMs={index * 90}>
+            <DemoCard demo={demo} />
+          </Reveal>
         ))}
       </div>
     </Section>

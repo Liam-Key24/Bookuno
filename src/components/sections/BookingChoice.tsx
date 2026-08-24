@@ -1,75 +1,61 @@
-import { Buildings, Globe, SealCheck } from '@phosphor-icons/react/dist/ssr'
 import { Section } from '@/components/sections/Section'
+import { SectionCaption } from '@/components/sections/SectionCaption'
+import { Reveal } from '@/components/motion/Reveal'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 
 const points = [
   {
-    icon: Buildings,
-    title: 'Your branding, front and centre',
-    body: 'Customers land on your site—your name, your look, your services—not a shared marketplace profile.',
+    title: 'Your branding',
+    caption: 'CUSTOMERS LAND ON YOUR SITE, NOT SOMEBODY ELSE’S',
   },
   {
-    icon: Globe,
-    title: 'Your own online home',
-    body: 'Bookings happen through your website and domain, so the relationship stays with your business.',
+    title: 'Your online home',
+    caption: 'BOOKINGS STAY WITH YOUR BUSINESS AND DOMAIN',
   },
   {
-    icon: SealCheck,
-    title: 'Made for your business—without building from scratch',
-    body: 'Pick a polished Merevo template, send your business bits, and we bring it all together.',
+    title: 'Template, not from scratch',
+    caption: 'QUICK, DEPENDABLE AND AFFORDABLE TO SET UP',
   },
 ] as const
 
 export function BookingChoice() {
   return (
     <Section id="booking" className="bg-white">
-      <div className="grid items-start gap-[2rem] lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:gap-[2.5rem]">
+      <div className="grid items-start gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16">
         <div>
-          <p className="text-sm font-medium tracking-tight text-meridian-deep">
-            Your own branded home
-          </p>
-          <h2 className="mt-[0.75rem] max-w-[30rem] text-[1.85rem] font-semibold tracking-tight text-meridian-ink sm:text-[2.25rem]">
-            Send customers to your business—not somebody else’s marketplace.
-          </h2>
-          <p className="mt-[1rem] max-w-[34rem] text-base leading-relaxed text-meridian-muted sm:text-[1.05rem]">
-            Merevo gives each business its own branded website and customer experience. Your
-            branding, your services and your bookings, all in one proper online home.
-          </p>
+          <Reveal>
+            <SectionCaption>Your own branded home</SectionCaption>
+            <h2 className="mt-5 max-w-[28rem] font-display text-[2rem] font-bold tracking-tight text-meridian-ink sm:text-[2.75rem]">
+              Send customers to you—not a marketplace.
+            </h2>
+            <p className="mt-4 max-w-[32rem] text-base leading-relaxed text-meridian-muted">
+              Your branding, your services, your bookings. One proper online home.
+            </p>
+          </Reveal>
 
-          <ul className="mt-[2rem] space-y-[1rem]">
-            {points.map(({ icon: Icon, title, body }) => (
-              <li
-                key={title}
-                className="rounded-[20px] bg-meridian-surface p-[1.25rem] md:p-[1.4rem]"
-              >
-                <div className="flex items-start gap-[0.85rem]">
-                  <Icon
-                    size={22}
-                    weight="duotone"
-                    className="mt-[0.1rem] shrink-0 text-meridian-mid"
-                    aria-hidden
-                  />
-                  <div>
-                    <h3 className="text-base font-semibold tracking-tight text-meridian-ink">
-                      {title}
-                    </h3>
-                    <p className="mt-[0.35rem] text-sm leading-relaxed text-meridian-muted">
-                      {body}
-                    </p>
-                  </div>
-                </div>
-              </li>
+          <ul className="mt-10 grid gap-4">
+            {points.map((item, index) => (
+              <Reveal key={item.title} delayMs={index * 70} as="li">
+                <article className="rounded-meridian bg-meridian-surface px-7 py-8 md:px-9 md:py-10">
+                  <h3 className="font-display text-xl font-bold tracking-tight text-meridian-ink md:text-2xl">
+                    {item.title}
+                  </h3>
+                  <p className="mt-2 text-xs font-medium tracking-[0.14em] text-meridian-muted uppercase">
+                    {item.caption}
+                  </p>
+                </article>
+              </Reveal>
             ))}
           </ul>
         </div>
 
-        <div className="flex justify-center lg:justify-end lg:pt-[3.5rem]">
+        <Reveal delayMs={120} className="flex justify-center lg:justify-end lg:pt-16">
           <IllustrationSlot
             label="Your own website"
-            brief="A friendly shop window with the business name on the door and a clear Book now moment — teal and accent orange, calm and premium."
-            className="w-full max-w-[22rem] bg-[#9aa7b0] md:max-w-[26rem]"
+            brief="Friendly shop window with the business name and a clear Book now moment."
+            className="w-full max-w-[22rem] bg-[#9aa7b0] md:max-w-[28rem]"
           />
-        </div>
+        </Reveal>
       </div>
     </Section>
   )

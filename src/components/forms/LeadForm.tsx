@@ -7,16 +7,21 @@ import { Button } from '@/components/ui/Button'
 import { trackEvent } from '@/lib/analytics'
 
 const fieldClassName =
-  'w-full rounded-[20px] border-0 bg-white px-[1rem] py-[0.85rem] text-sm text-meridian-ink outline-none ring-1 ring-white/20 placeholder:text-meridian-ink/40 focus-visible:ring-2 focus-visible:ring-meridian-accent/70'
+  'w-full rounded-meridian border-0 bg-white px-[1rem] py-[0.85rem] text-sm text-meridian-ink outline-none ring-1 ring-white/20 placeholder:text-meridian-ink/40 focus-visible:ring-2 focus-visible:ring-meridian-accent/70'
 
 const labelClassName = 'mb-[0.4rem] block text-sm font-medium tracking-tight text-white/85'
 
 const businessTypes = [
   { value: '', label: 'Business type (optional)' },
-  { value: 'salon', label: 'Salon' },
-  { value: 'barbershop', label: 'Barbershop' },
-  { value: 'restaurant', label: 'Restaurant' },
-  { value: 'other', label: 'Other' },
+  { value: 'barber_hairdresser', label: 'Barber / hairdresser' },
+  { value: 'beauty', label: 'Beauty professional' },
+  { value: 'nails', label: 'Nail technician' },
+  { value: 'therapist', label: 'Therapist' },
+  { value: 'personal_trainer', label: 'Personal trainer' },
+  { value: 'dog_groomer', label: 'Dog groomer' },
+  { value: 'tattoo', label: 'Tattoo artist' },
+  { value: 'cleaner', label: 'Cleaner' },
+  { value: 'other', label: 'Other service business' },
 ] as const
 
 function createIdempotencyKey() {
@@ -202,7 +207,7 @@ export function LeadForm() {
             value={message}
             onChange={(event) => setMessage(event.target.value)}
             className={`${fieldClassName} min-h-[7rem] resize-y`}
-            placeholder="Tell us about your salon, barbershop, or restaurant."
+            placeholder="Tell us a little about your business and what you need."
           />
         </div>
 
@@ -243,7 +248,7 @@ export function LeadForm() {
       {deliveryNotice ? (
         <p
           role="status"
-          className="mt-[1rem] rounded-[20px] bg-white/15 px-[1rem] py-[0.85rem] text-sm leading-relaxed text-white"
+          className="mt-[1rem] rounded-meridian bg-white/15 px-[1rem] py-[0.85rem] text-sm leading-relaxed text-white"
         >
           {deliveryNotice}
         </p>
@@ -252,7 +257,7 @@ export function LeadForm() {
       {error ? (
         <p
           role="alert"
-          className="mt-[1rem] rounded-[20px] bg-white/10 px-[1rem] py-[0.75rem] text-sm text-white"
+          className="mt-[1rem] rounded-meridian bg-white/10 px-[1rem] py-[0.75rem] text-sm text-white"
         >
           {error}
         </p>

@@ -36,14 +36,15 @@ export function Navbar() {
     <header className="relative z-50 w-full bg-white">
       <nav
         aria-label="Primary"
-        className="flex w-full items-center justify-between gap-4 px-[1.5rem] py-[1.25rem] md:px-[2.5rem] lg:px-[3rem]"
+        className="flex w-full items-center justify-between gap-4 px-4 py-4 md:px-5 lg:px-6"
       >
         <Link
           href="/"
-          className="shrink-0 text-[1.05rem] font-semibold tracking-tight text-meridian-ink"
+          className="shrink-0 font-display text-[1.1rem] font-bold tracking-tight text-meridian-ink"
           onClick={() => setOpen(false)}
+          aria-label="Merevo home"
         >
-          Meridian
+          Merevo
         </Link>
 
         <ul className="hidden items-center gap-8 md:flex">
@@ -64,15 +65,17 @@ export function Navbar() {
             href="/#contact"
             size="sm"
             className="hidden shrink-0 sm:inline-flex"
-            onClick={() => trackEvent('cta_click', { location: 'navbar', label: 'Get in touch' })}
+            onClick={() =>
+              trackEvent('cta_click', { location: 'navbar', label: 'Get started with Merevo' })
+            }
           >
-            Get in touch
+            Get started with Merevo
             <ArrowUpRight size={16} weight="bold" className="text-meridian-accent" />
           </Button>
 
           <button
             type="button"
-            className="inline-flex size-10 items-center justify-center rounded-[20px] bg-meridian-surface text-meridian-ink transition-colors hover:bg-meridian-surface-strong md:hidden"
+            className="inline-flex size-10 items-center justify-center rounded-meridian bg-meridian-surface text-meridian-ink transition-colors hover:bg-meridian-surface-strong md:hidden"
             aria-expanded={open}
             aria-controls={menuId}
             aria-label={open ? 'Close menu' : 'Open menu'}
@@ -86,15 +89,15 @@ export function Navbar() {
       <div
         id={menuId}
         hidden={!open}
-        className="absolute inset-x-0 top-full px-[1.5rem] pb-[1.25rem] md:hidden"
+        className="absolute inset-x-0 top-full px-4 pb-4 md:hidden"
       >
-        <div className="overflow-hidden rounded-[20px] border border-meridian-surface-strong bg-white shadow-[0_18px_40px_rgb(15_23_32_/_0.08)]">
+        <div className="overflow-hidden rounded-meridian border border-meridian-surface-strong bg-white shadow-[0_18px_40px_rgb(15_23_32_/_0.08)]">
           <ul className="flex flex-col p-[0.75rem]">
             {navLinks.map((link) => (
               <li key={link.label}>
                 <Link
                   href={link.href}
-                  className="block rounded-[16px] px-[1rem] py-[0.85rem] text-sm font-medium tracking-tight text-meridian-ink transition-colors hover:bg-meridian-surface hover:text-meridian-deep"
+                  className="block rounded-meridian px-[1rem] py-[0.85rem] text-sm font-medium tracking-tight text-meridian-ink transition-colors hover:bg-meridian-surface hover:text-meridian-deep"
                   onClick={() => setOpen(false)}
                 >
                   {link.label}
@@ -109,11 +112,14 @@ export function Navbar() {
               size="sm"
               className="w-full"
               onClick={() => {
-                trackEvent('cta_click', { location: 'navbar_mobile', label: 'Get in touch' })
+                trackEvent('cta_click', {
+                  location: 'navbar_mobile',
+                  label: 'Get started with Merevo',
+                })
                 setOpen(false)
               }}
             >
-              Get in touch
+              Get started with Merevo
               <ArrowUpRight size={16} weight="bold" className="text-meridian-accent" />
             </Button>
           </div>

@@ -1,52 +1,44 @@
-import { ChatCircleDots, Heart, Sparkle } from '@phosphor-icons/react/dist/ssr'
 import { Section } from '@/components/sections/Section'
+import { SectionCaption } from '@/components/sections/SectionCaption'
+import { Reveal } from '@/components/motion/Reveal'
 
 const points = [
   {
-    icon: Heart,
     title: 'Keep in touch',
-    body: 'Stay connected with the people who already know your business—without another complicated tool to learn.',
+    caption: 'WITHOUT LEARNING EMAIL SOFTWARE',
   },
   {
-    icon: Sparkle,
     title: 'Encourage them back',
-    body: 'Gentle nudges that make it easier for customers to return, without you rewriting the same message by hand.',
+    caption: 'FRIENDLY NUDGES. LESS TYPING.',
   },
   {
-    icon: ChatCircleDots,
-    title: 'Less repetitive admin',
-    body: 'Customer communication stays connected to your business, so fewer jobs pile up in your inbox.',
+    title: 'Less inbox admin',
+    caption: 'COMMUNICATION STAYS WITH YOUR BUSINESS',
   },
 ] as const
 
 export function CustomerMarketing() {
   return (
     <Section className="bg-white">
-      <div className="max-w-[38rem]">
-        <p className="text-sm font-medium tracking-tight text-meridian-deep">
-          Customer marketing
-        </p>
-        <h2 className="mt-[0.75rem] text-[1.85rem] font-semibold tracking-tight text-meridian-ink sm:text-[2.25rem]">
-          Bring customers back—without becoming an email-marketing expert.
+      <Reveal className="max-w-[40rem]">
+        <SectionCaption>Friendly follow-ups, without the faff</SectionCaption>
+        <h2 className="mt-5 font-display text-[2rem] font-bold tracking-tight text-meridian-ink sm:text-[2.75rem]">
+          Bring customers back—without becoming an email expert.
         </h2>
-        <p className="mt-[1rem] text-base leading-relaxed text-meridian-muted sm:text-[1.05rem]">
-          Friendly follow-ups, without the faff. Merevo helps you stay in touch without adding
-          “learn email marketing software” to your to-do list.
-        </p>
-      </div>
+      </Reveal>
 
-      <ul className="mt-[2.5rem] grid gap-[1rem] md:grid-cols-3">
-        {points.map(({ icon: Icon, title, body }) => (
-          <li
-            key={title}
-            className="rounded-[20px] bg-meridian-surface p-[1.35rem] md:p-[1.5rem]"
-          >
-            <Icon size={24} weight="duotone" className="text-meridian-mid" aria-hidden />
-            <h3 className="mt-[1rem] text-base font-semibold tracking-tight text-meridian-ink">
-              {title}
-            </h3>
-            <p className="mt-[0.45rem] text-sm leading-relaxed text-meridian-muted">{body}</p>
-          </li>
+      <ul className="mt-14 grid gap-4 md:grid-cols-3">
+        {points.map((item, index) => (
+          <Reveal key={item.title} delayMs={index * 70} as="li">
+            <article className="flex h-full min-h-[14rem] flex-col justify-end rounded-meridian bg-meridian-surface p-8 md:min-h-[17rem] md:p-10">
+              <h3 className="font-display text-2xl font-bold tracking-tight text-meridian-ink">
+                {item.title}
+              </h3>
+              <p className="mt-3 text-xs font-medium tracking-[0.14em] text-meridian-muted uppercase">
+                {item.caption}
+              </p>
+            </article>
+          </Reveal>
         ))}
       </ul>
     </Section>

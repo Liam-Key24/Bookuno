@@ -1,7 +1,9 @@
 import { Section } from '@/components/sections/Section'
+import { SectionCaption } from '@/components/sections/SectionCaption'
+import { Reveal } from '@/components/motion/Reveal'
 
 const audiences = [
-  'Barbers and hairdressers',
+  'Barbers & hairdressers',
   'Beauty professionals',
   'Nail technicians',
   'Therapists',
@@ -9,36 +11,32 @@ const audiences = [
   'Dog groomers',
   'Tattoo artists',
   'Cleaners',
-  'Other small service businesses',
+  'Other service businesses',
 ] as const
 
 export function WhoItsFor() {
   return (
     <Section className="bg-white">
-      <div className="grid items-start gap-[2rem] rounded-[20px] bg-meridian-surface p-[1.5rem] md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] md:gap-[2.5rem] md:p-[2.25rem] lg:p-[2.75rem]">
-        <div>
-          <p className="text-sm font-medium tracking-tight text-meridian-deep">Who it’s for</p>
-          <h2 className="mt-[0.75rem] text-[1.85rem] font-semibold tracking-tight text-meridian-ink sm:text-[2.25rem]">
-            Made for people with actual businesses to run.
-          </h2>
-          <p className="mt-[1rem] max-w-[34rem] text-base leading-relaxed text-meridian-muted sm:text-[1.05rem]">
-            Merevo is for independent appointment- and service-based businesses that want a
-            professional online presence—without assembling it themselves. Busy owners, not
-            particularly technical, more interested in getting customers than learning new software.
-          </p>
-        </div>
+      <Reveal>
+        <SectionCaption>Who it’s for</SectionCaption>
+        <h2 className="mt-5 max-w-[36rem] font-display text-[2rem] font-bold tracking-tight text-meridian-ink sm:text-[2.75rem]">
+          Made for people with actual businesses to run.
+        </h2>
+        <p className="mt-4 max-w-[34rem] text-base leading-relaxed text-meridian-muted">
+          Independent service businesses that want a proper online presence—without assembling it
+          themselves.
+        </p>
+      </Reveal>
 
-        <ul className="grid gap-[0.65rem] sm:grid-cols-2">
-          {audiences.map((item) => (
-            <li
-              key={item}
-              className="rounded-[16px] bg-white px-[1rem] py-[0.75rem] text-sm font-medium tracking-tight text-meridian-ink"
-            >
+      <ul className="mt-12 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {audiences.map((item, index) => (
+          <Reveal key={item} delayMs={index * 40} as="li">
+            <div className="rounded-meridian bg-meridian-surface px-6 py-5 font-display text-lg font-semibold tracking-tight text-meridian-ink">
               {item}
-            </li>
-          ))}
-        </ul>
-      </div>
+            </div>
+          </Reveal>
+        ))}
+      </ul>
     </Section>
   )
 }

@@ -26,7 +26,7 @@ export function NewsletterSignupForm() {
     }
 
     if (!consent) {
-      setError('Please confirm you want to receive Meridian promotional emails.')
+      setError('Please confirm you want to receive Merevo promotional emails.')
       return
     }
 
@@ -84,8 +84,8 @@ export function NewsletterSignupForm() {
         Join our newsletter for occasional promotional updates.
       </p>
       <p className="mt-[0.5rem] text-xs leading-relaxed text-meridian-muted">
-        This is optional marketing email from Meridian — product news and founding-offer notes for
-        salons, barbers, and restaurants. Not transactional booking mail.
+        This is optional marketing email from Merevo — product news and founding-offer notes for
+        independent service businesses. Not transactional booking mail.
       </p>
 
       <div className="mt-[1rem] grid gap-[0.75rem]">
@@ -102,7 +102,7 @@ export function NewsletterSignupForm() {
             onChange={(event) => setFirstName(event.target.value)}
             placeholder="First name (optional)"
             disabled={pending || Boolean(success)}
-            className="w-full rounded-[20px] border-0 bg-white px-[1.15rem] py-[0.85rem] text-sm text-meridian-ink outline-none ring-1 ring-meridian-surface-strong placeholder:text-meridian-muted focus-visible:ring-2 focus-visible:ring-meridian-mid/40 disabled:opacity-60"
+            className="w-full rounded-meridian border-0 bg-white px-[1.15rem] py-[0.85rem] text-sm text-meridian-ink outline-none ring-1 ring-meridian-surface-strong placeholder:text-meridian-muted focus-visible:ring-2 focus-visible:ring-meridian-mid/40 disabled:opacity-60"
           />
         </div>
 
@@ -120,7 +120,7 @@ export function NewsletterSignupForm() {
             onChange={(event) => setEmail(event.target.value)}
             placeholder="Enter your email"
             disabled={pending || Boolean(success)}
-            className="w-full rounded-[20px] border-0 bg-white px-[1.15rem] py-[0.85rem] text-sm text-meridian-ink outline-none ring-1 ring-meridian-surface-strong placeholder:text-meridian-muted focus-visible:ring-2 focus-visible:ring-meridian-mid/40 disabled:opacity-60"
+            className="w-full rounded-meridian border-0 bg-white px-[1.15rem] py-[0.85rem] text-sm text-meridian-ink outline-none ring-1 ring-meridian-surface-strong placeholder:text-meridian-muted focus-visible:ring-2 focus-visible:ring-meridian-mid/40 disabled:opacity-60"
           />
         </div>
       </div>
@@ -135,7 +135,7 @@ export function NewsletterSignupForm() {
           className="mt-[0.15rem] size-4 shrink-0 rounded border-meridian-ink/30 text-meridian-deep focus-visible:ring-meridian-mid"
         />
         <span>
-          I agree to receive promotional emails from Meridian. I understand I can unsubscribe at any
+          I agree to receive promotional emails from Merevo. I understand I can unsubscribe at any
           time. See our{' '}
           <Link href="/privacy" className="underline-offset-2 hover:underline">
             Privacy Policy
@@ -180,7 +180,7 @@ export function NewsletterSignupForm() {
       {error ? (
         <p
           role="alert"
-          className="mt-[0.75rem] rounded-[20px] bg-meridian-ink/5 px-[0.85rem] py-[0.65rem] text-xs text-meridian-ink"
+          className="mt-[0.75rem] rounded-meridian bg-meridian-ink/5 px-[0.85rem] py-[0.65rem] text-xs text-meridian-ink"
         >
           {error}
         </p>
@@ -189,7 +189,7 @@ export function NewsletterSignupForm() {
       {success ? (
         <p
           role="status"
-          className="mt-[0.75rem] rounded-[20px] bg-meridian-deep/10 px-[0.85rem] py-[0.65rem] text-xs leading-relaxed text-meridian-ink"
+          className="mt-[0.75rem] rounded-meridian bg-meridian-deep/10 px-[0.85rem] py-[0.65rem] text-xs leading-relaxed text-meridian-ink"
         >
           {success}
         </p>
@@ -198,7 +198,7 @@ export function NewsletterSignupForm() {
       <button
         type="submit"
         disabled={pending || Boolean(success)}
-        className="mt-[0.85rem] w-full rounded-[20px] bg-meridian-ink px-[1.1rem] py-[0.7rem] text-sm font-medium text-white transition-colors hover:bg-meridian-deep disabled:opacity-60 sm:w-auto"
+        className="mt-[0.85rem] w-full rounded-meridian bg-meridian-ink px-[1.1rem] py-[0.7rem] text-sm font-medium text-white transition-colors hover:bg-meridian-deep disabled:opacity-60 sm:w-auto"
       >
         {pending ? 'Subscribing…' : success ? 'Check your inbox' : 'Subscribe'}
       </button>

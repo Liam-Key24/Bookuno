@@ -12,7 +12,7 @@ export function IllustrationSlot({
   return (
     <div
       className={[
-        'flex aspect-square w-full max-w-md flex-col items-center justify-center gap-3 rounded-[20px] bg-meridian-surface-strong px-6 text-center',
+        'flex aspect-square w-full max-w-md flex-col items-center justify-center gap-3 rounded-meridian bg-meridian-surface-strong px-6 text-center',
         className,
       ]
         .filter(Boolean)

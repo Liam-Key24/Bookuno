@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Render a Meridian campaign HTML file with sample data for visual QA.
+ * Render a Merevo campaign HTML file with sample data for visual QA.
  *
  * Usage:
  *   node scripts/preview-newsletter.mjs emails/campaigns/2026-08-welcome.html
@@ -12,7 +12,7 @@ import { dirname, resolve } from 'node:path'
 import { loadCampaign, renderCampaignHtml } from './lib/newsletterCampaign.mjs'
 
 function printHelp() {
-  console.log(`Meridian newsletter preview
+  console.log(`Merevo newsletter preview
 
 Usage:
   node scripts/preview-newsletter.mjs <campaign.html> [--out path.html]
@@ -50,7 +50,7 @@ function main() {
     year: new Date().getFullYear(),
     postalAddress:
       process.env.NEWSLETTER_POSTAL_ADDRESS ||
-      '[Meridian business address — set NEWSLETTER_POSTAL_ADDRESS]',
+      '[Merevo business address — set NEWSLETTER_POSTAL_ADDRESS]',
     subject: campaign.subjectDefault,
   })
 

@@ -8,18 +8,20 @@ import Link from 'next/link'
 import type { ReactNode } from 'react'
 import { NewsletterSignupForm } from '@/components/forms/NewsletterSignupForm'
 import { navLinks } from '@/components/layout/navLinks'
+import { CONTACT_EMAIL } from '@/lib/site'
 
 const offerLinks = [
-  { label: 'Founding offer', href: '/pricing' },
-  { label: 'What we manage', href: '/features' },
+  { label: 'Founding pricing', href: '/pricing' },
+  { label: 'What’s included', href: '/features' },
   { label: 'Demo templates', href: '/templates' },
+  { label: 'FAQ', href: '/#faq' },
 ] as const
 
 const startLinks = [
-  { label: 'Get in touch', href: '/#contact', highlight: true },
+  { label: 'Get started with Merevo', href: '/#contact', highlight: true },
   { label: 'Contact details', href: '/contact', highlight: false },
-  { label: 'About Meridian', href: '/about', highlight: false },
-  { label: 'Email us', href: 'mailto:hello@meridian.studio', highlight: false },
+  { label: 'About Merevo', href: '/about', highlight: false },
+  { label: 'Email us', href: `mailto:${CONTACT_EMAIL}`, highlight: false },
 ] as const
 
 const legalLinks = [
@@ -37,8 +39,8 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="w-full bg-meridian-accent px-[1.5rem] py-[1.5rem] md:px-[2.5rem] md:py-[2rem] lg:px-[3rem]">
-      <div className="w-full rounded-[20px] bg-meridian-surface px-[1.5rem] py-[2.5rem] md:px-[2.5rem] md:py-[3rem] lg:px-[3rem] lg:py-[3.5rem]">
+    <footer className="w-full bg-meridian-accent px-4 py-4 md:px-5 md:py-5 lg:px-6">
+      <div className="w-full rounded-meridian bg-meridian-surface px-5 py-10 md:px-8 md:py-12 lg:px-10 lg:py-14">
         <div className="grid gap-[2.5rem] lg:grid-cols-[minmax(0,1.35fr)_repeat(3,minmax(0,0.7fr))] lg:gap-[2rem]">
           <div className="max-w-[24rem]">
             <NewsletterSignupForm />
@@ -87,8 +89,8 @@ export function Footer() {
 
         <div className="mt-[2.5rem] flex flex-col gap-[1rem] border-t border-meridian-surface-strong pt-[1.5rem] md:flex-row md:items-center md:justify-between">
           <p className="text-xs text-meridian-muted">
-            © {new Date().getFullYear()} Meridian. Managed websites for independent salons,
-            barbers & restaurants.
+            © {new Date().getFullYear()} Merevo. Your website, bookings, payments and customer
+            marketing—managed for service businesses.
           </p>
           <ul className="flex flex-wrap gap-x-[1rem] gap-y-[0.5rem]">
             {legalLinks.map((link) => (
@@ -105,8 +107,8 @@ export function Footer() {
         </div>
 
         <div className="mt-[3.5rem] md:mt-[4.5rem]">
-          <p className="select-none text-[clamp(3.5rem,18vw,12rem)] leading-none font-semibold tracking-tight text-meridian-accent lowercase">
-            meridian
+          <p className="font-display select-none text-[clamp(3.5rem,18vw,12rem)] leading-none font-bold tracking-tight text-meridian-accent lowercase">
+            merevo
             <sup className="ml-[0.15em] align-super text-[0.18em] font-medium">®</sup>
           </p>
         </div>

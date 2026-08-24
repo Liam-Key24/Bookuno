@@ -1,67 +1,55 @@
-import {
-  CalendarCheck,
-  CreditCard,
-  EnvelopeSimple,
-  Headset,
-  Monitor,
-} from '@phosphor-icons/react/dist/ssr'
 import { Section } from '@/components/sections/Section'
+import { SectionCaption } from '@/components/sections/SectionCaption'
+import { Reveal } from '@/components/motion/Reveal'
 
 const capabilities = [
   {
-    icon: Monitor,
     title: 'Your website',
-    body: 'A professionally designed Merevo template, personalised with your name, logo, colours, images, services and prices.',
+    caption: 'TEMPLATE. YOUR BRAND. YOUR LOOK.',
   },
   {
-    icon: CalendarCheck,
     title: 'Your bookings',
-    body: 'Availability and online booking through your own website—so customers book with you, not on somebody else’s marketplace.',
+    caption: 'ON YOUR SITE — NOT A MARKETPLACE',
   },
   {
-    icon: CreditCard,
     title: 'Your payments',
-    body: 'Online payments powered by Stripe. Take deposits or full payments. Stripe processing fees apply separately.',
+    caption: 'STRIPE. FEES APPLY SEPARATELY.',
   },
   {
-    icon: EnvelopeSimple,
-    title: 'Your customer marketing',
-    body: 'Friendly follow-ups and staying in touch—without adding “learn email marketing software” to your to-do list.',
+    title: 'Your marketing',
+    caption: 'STAY IN TOUCH WITHOUT THE FAFF',
   },
   {
-    icon: Headset,
-    title: 'The technical bits',
-    body: 'Hosting, secure data storage, platform maintenance, updates and Merevo technical support—quietly looked after for you.',
+    title: 'The tech bits',
+    caption: 'HOSTING, UPDATES AND SUPPORT INCLUDED',
   },
 ] as const
 
 export function WhatMerevoDoes() {
   return (
     <Section id="features" className="bg-meridian-surface">
-      <div className="max-w-[40rem]">
-        <p className="text-sm font-medium tracking-tight text-meridian-deep">What’s included</p>
-        <h2 className="mt-[0.75rem] text-[1.85rem] font-semibold tracking-tight text-meridian-ink sm:text-[2.25rem]">
-          Your website, bookings, payments and customer marketing—under one friendly roof.
+      <Reveal className="max-w-[44rem]">
+        <SectionCaption>What’s under the roof</SectionCaption>
+        <h2 className="mt-5 font-display text-[2rem] font-bold tracking-tight text-meridian-ink sm:text-[2.75rem]">
+          Website, bookings, payments and marketing. One friendly roof.
         </h2>
-        <p className="mt-[1rem] text-base leading-relaxed text-meridian-muted sm:text-[1.05rem]">
-          Merevo is a managed website, booking, payments and customer-growth platform for service
-          businesses. Not a DIY builder. Not a marketplace. Not a traditional web-design agency.
-          One connected service, set up and managed for you.
-        </p>
-        <p className="mt-[0.75rem] text-sm font-medium tracking-tight text-meridian-ink">
+        <p className="mt-4 text-base leading-relaxed text-meridian-muted">
           Your website. Your bookings. Your customers.
         </p>
-      </div>
+      </Reveal>
 
-      <ul className="mt-[2.5rem] grid gap-[1rem] sm:grid-cols-2 lg:grid-cols-3">
-        {capabilities.map(({ icon: Icon, title, body }) => (
-          <li key={title} className="rounded-[20px] bg-white p-[1.35rem] md:p-[1.5rem]">
-            <Icon size={24} weight="duotone" className="text-meridian-mid" aria-hidden />
-            <h3 className="mt-[1rem] text-base font-semibold tracking-tight text-meridian-ink">
-              {title}
-            </h3>
-            <p className="mt-[0.45rem] text-sm leading-relaxed text-meridian-muted">{body}</p>
-          </li>
+      <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {capabilities.map((item, index) => (
+          <Reveal key={item.title} delayMs={index * 70} as="li">
+            <article className="flex h-full min-h-[13rem] flex-col justify-end rounded-meridian bg-white p-8 md:min-h-[16rem] md:p-10">
+              <h3 className="font-display text-2xl font-bold tracking-tight text-meridian-ink md:text-[1.85rem]">
+                {item.title}
+              </h3>
+              <p className="mt-3 text-xs font-medium tracking-[0.14em] text-meridian-muted uppercase">
+                {item.caption}
+              </p>
+            </article>
+          </Reveal>
         ))}
       </ul>
     </Section>

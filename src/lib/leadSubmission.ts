@@ -171,9 +171,9 @@ export async function ensureLeadEmailsOnce(
       const founderResult = await resend.emails.send({
         from: fromEmail,
         to: founderEmail,
-        subject: `New Meridian lead: ${lead.name}`,
+        subject: `New Merevo lead: ${lead.name}`,
         text: [
-          'New founding-offer lead from the Meridian site.',
+          'New founding-offer lead from the Merevo site.',
           '',
           `Name: ${lead.name}`,
           `Email: ${lead.email}`,
@@ -219,15 +219,15 @@ export async function ensureLeadEmailsOnce(
       const prospectResult = await resend.emails.send({
         from: fromEmail,
         to: lead.email,
-        subject: 'We got your message — Meridian',
+        subject: 'We got your message — Merevo',
         text: [
           `Hi ${lead.name},`,
           '',
-          'Thanks for getting in touch with Meridian. We received your note and will reply personally with next steps for the founding offer.',
+          'Thanks for getting in touch with Merevo. We received your note and will reply personally with next steps for the founding offer.',
           '',
           'If you need to add anything, just reply to this email.',
           '',
-          '— Meridian',
+          '— Merevo',
         ].join('\n'),
       })
 

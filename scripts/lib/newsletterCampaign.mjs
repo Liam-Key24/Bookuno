@@ -22,7 +22,7 @@ export function loadCampaign(campaignPath) {
 
   return {
     absolute,
-    subjectDefault: subjectMatch?.[1]?.trim() || 'Meridian update',
+    subjectDefault: subjectMatch?.[1]?.trim() || 'Merevo update',
     preheader: preheaderMatch?.[1]?.trim() || '',
     contentHtml: contentMatch[1].trim(),
   }
@@ -32,7 +32,7 @@ export function renderCampaignHtml(campaign, vars) {
   const base = readFileSync(join(root, 'emails/templates/base.html'), 'utf8')
   const firstName = vars.firstName?.trim() || 'there'
   const year = String(vars.year || new Date().getFullYear())
-  const postal = vars.postalAddress || '[Meridian business address]'
+  const postal = vars.postalAddress || '[Merevo business address]'
   const unsubscribeUrl = vars.unsubscribeUrl || '#unsubscribe'
   const subject = vars.subject || campaign.subjectDefault
 
@@ -63,7 +63,7 @@ export function renderCampaignHtml(campaign, vars) {
       .replace(/\s+\n/g, '\n')
       .trim(),
     '',
-    '— Meridian',
+    '— Merevo',
     postal,
     '',
     `Unsubscribe: ${unsubscribeUrl}`,

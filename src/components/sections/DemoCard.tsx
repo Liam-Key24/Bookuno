@@ -14,9 +14,9 @@ type DemoCardProps = {
 
 export function DemoCard({ demo }: DemoCardProps) {
   return (
-    <article className="flex h-full flex-col rounded-[20px] bg-meridian-surface p-[1.25rem] md:p-[1.5rem]">
+    <article className="flex h-full flex-col rounded-meridian bg-meridian-surface p-5 md:p-7">
       <div className="relative">
-        <span className="absolute top-[0.85rem] left-[0.85rem] z-10 rounded-full bg-white/95 px-[0.75rem] py-[0.3rem] text-[0.7rem] font-semibold tracking-tight text-meridian-deep uppercase">
+        <span className="absolute top-3 left-3 z-10 rounded-full bg-white/95 px-3 py-1 text-[0.7rem] font-semibold tracking-tight text-meridian-deep uppercase">
           Demo only
         </span>
         <IllustrationSlot
@@ -26,20 +26,18 @@ export function DemoCard({ demo }: DemoCardProps) {
         />
       </div>
 
-      <p className="mt-[1rem] text-xs font-medium tracking-tight text-meridian-deep uppercase">
+      <p className="mt-5 text-xs font-medium tracking-[0.14em] text-meridian-deep uppercase">
         {demo.kind}
       </p>
-      <h3 className="mt-[0.35rem] text-xl font-semibold tracking-tight text-meridian-ink">
+      <h3 className="mt-2 font-display text-2xl font-bold tracking-tight text-meridian-ink">
         {demo.name}
       </h3>
-      <p className="mt-[0.35rem] text-sm font-medium tracking-tight text-meridian-ink/80">
+      <p className="mt-2 text-sm font-medium tracking-tight text-meridian-ink/80">
         {demo.tagline}
       </p>
-      <p className="mt-[0.55rem] flex-1 text-sm leading-relaxed text-meridian-muted">
-        {demo.summary}
-      </p>
+      <p className="mt-3 flex-1 text-sm leading-relaxed text-meridian-muted">{demo.summary}</p>
 
-      <div className="mt-[1.25rem] flex flex-wrap items-center gap-[0.65rem]">
+      <div className="mt-6 flex flex-wrap items-center gap-3">
         <Button
           href="/#contact"
           size="sm"

@@ -1,85 +1,62 @@
-import {
-  ArrowRight,
-  Coffee,
-  ImageSquare,
-  LinkSimple,
-  PaintBrush,
-} from '@phosphor-icons/react/dist/ssr'
 import { Section } from '@/components/sections/Section'
-import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
+import { SectionCaption } from '@/components/sections/SectionCaption'
+import { Reveal } from '@/components/motion/Reveal'
 
 const steps = [
   {
-    icon: PaintBrush,
+    step: '01',
     title: 'Pick your look',
-    body: 'Choose a polished Merevo template that suits your business.',
+    caption: 'CHOOSE A POLISHED MEREVO TEMPLATE',
   },
   {
-    icon: ImageSquare,
-    title: 'Send us your business bits',
-    body: 'Share your logo, colours, images, services, prices, opening hours and contact details.',
+    step: '02',
+    title: 'Send your bits',
+    caption: 'LOGO, COLOURS, SERVICES, HOURS, IMAGES',
   },
   {
-    icon: LinkSimple,
-    title: 'Connect the important stuff',
-    body: 'We’ll help configure bookings, your domain and Stripe payments.',
+    step: '03',
+    title: 'Connect the essentials',
+    caption: 'BOOKINGS, DOMAIN AND STRIPE',
   },
   {
-    icon: Coffee,
+    step: '04',
     title: 'Pop the kettle on',
-    body: 'Merevo brings everything together and gets you ready to launch. You’ll still review and approve before you go live.',
+    caption: 'WE BRING IT TOGETHER. YOU REVIEW AND LAUNCH',
   },
 ] as const
 
 export function HowItWorks() {
   return (
     <Section className="bg-meridian-surface">
-      <div className="max-w-[38rem]">
-        <p className="text-sm font-medium tracking-tight text-meridian-deep">How setup works</p>
-        <h2 className="mt-[0.75rem] text-[1.85rem] font-semibold tracking-tight text-meridian-ink sm:text-[2.25rem]">
-          Pick a template, send us your bits, and we’ll bring it together.
+      <Reveal className="max-w-[40rem]">
+        <SectionCaption>How setup works</SectionCaption>
+        <h2 className="mt-5 font-display text-[2rem] font-bold tracking-tight text-meridian-ink sm:text-[2.75rem]">
+          Pick a template. Send your bits. We’ll bring it together.
         </h2>
-        <p className="mt-[1rem] text-base leading-relaxed text-meridian-muted sm:text-[1.05rem]">
-          Setup is designed to be quick and require very little work from you. No plugins, patches
-          or technical head-scratching required—just the details only you know about your business.
+        <p className="mt-4 text-base leading-relaxed text-meridian-muted">
+          Quick setup. Very little work from you. No plugin head-scratching.
         </p>
-      </div>
+      </Reveal>
 
-      <ol className="mt-[2.5rem] grid gap-[1rem] sm:grid-cols-2 lg:grid-cols-4">
-        {steps.map(({ icon: Icon, title, body }, index) => (
-          <li
-            key={title}
-            className="relative rounded-[20px] bg-white p-[1.35rem] md:p-[1.5rem]"
-          >
-            <div className="flex items-center gap-[0.65rem]">
-              <span className="inline-flex size-8 items-center justify-center rounded-full bg-meridian-surface text-sm font-semibold text-meridian-deep">
-                {index + 1}
-              </span>
-              <Icon size={22} weight="duotone" className="text-meridian-mid" aria-hidden />
-            </div>
-            <h3 className="mt-[1rem] text-base font-semibold tracking-tight text-meridian-ink">
-              {title}
-            </h3>
-            <p className="mt-[0.4rem] text-sm leading-relaxed text-meridian-muted">{body}</p>
-            {index < steps.length - 1 ? (
-              <ArrowRight
-                size={18}
-                weight="bold"
-                className="absolute top-[1.5rem] -right-[0.65rem] hidden text-meridian-soft lg:block"
-                aria-hidden
-              />
-            ) : null}
-          </li>
+      <ol className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {steps.map((item, index) => (
+          <Reveal key={item.title} delayMs={index * 70} as="li">
+            <article className="flex h-full min-h-[16rem] flex-col justify-between rounded-meridian bg-white p-8 md:min-h-[18rem] md:p-9">
+              <p className="font-display text-sm font-bold tracking-tight text-meridian-soft">
+                {item.step}
+              </p>
+              <div>
+                <h3 className="font-display text-xl font-bold tracking-tight text-meridian-ink md:text-2xl">
+                  {item.title}
+                </h3>
+                <p className="mt-3 text-xs font-medium tracking-[0.14em] text-meridian-muted uppercase">
+                  {item.caption}
+                </p>
+              </div>
+            </article>
+          </Reveal>
         ))}
       </ol>
-
-      <div className="mt-[2rem] flex justify-center md:justify-start">
-        <IllustrationSlot
-          label="Setup flow"
-          brief="Four soft steps: template, business details, Stripe and domain, then a kettle and a ready-to-launch site — playful and premium."
-          className="aspect-[16/9] w-full max-w-[36rem] bg-meridian-deep"
-        />
-      </div>
     </Section>
   )
 }

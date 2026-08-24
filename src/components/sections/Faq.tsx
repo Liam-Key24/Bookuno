@@ -1,109 +1,98 @@
 import { Section } from '@/components/sections/Section'
+import { SectionCaption } from '@/components/sections/SectionCaption'
+import { Reveal } from '@/components/motion/Reveal'
 
 const faqs = [
   {
     question: 'What is Merevo?',
     answer:
-      'Merevo is a managed website, booking, payments and customer-growth platform for independent service businesses. Your website, bookings, payments and customer marketing are set up and managed for you.',
+      'A managed website, booking, payments and customer-growth platform for independent service businesses—set up and looked after for you.',
   },
   {
     question: 'What is included?',
     answer:
-      'A personalised Merevo website, online booking, Stripe-powered payments, customer and email marketing, hosting and secure data storage, platform maintenance, Merevo technical support, setup and launch help, and one standard domain for the first year.',
+      'Personalised website, online booking, Stripe payments, customer marketing, hosting and storage, maintenance, support, setup help, and one standard domain for year one.',
   },
   {
     question: 'Is my website custom-built?',
     answer:
-      'No—and that’s intentional. You choose a polished Merevo template and we personalise it with your branding, services and details. That keeps setup quick, dependable and affordable. It is not a bespoke web-design agency build.',
+      'No—you pick a Merevo template and we personalise it. That keeps setup quick, dependable and affordable.',
   },
   {
     question: 'What do I need to provide?',
     answer:
-      'Your business name and logo, brand colours, images, services/menu and prices, opening hours and availability, contact and social details, domain preferences, and the information needed to connect Stripe.',
+      'Name, logo, colours, images, services and prices, hours, contact details, domain preferences, and Stripe connection info.',
   },
   {
-    question: 'How does the initial £150 work?',
+    question: 'How does the £150 work?',
     answer:
-      'You pay £150 upfront. That covers your first three months at the founding rate, including website setup and launch. After those three months, the subscription continues at £50 a month.',
+      'It covers your first three months at the founding rate, including setup and launch. Then £50 a month.',
   },
   {
     question: 'Is there a separate setup fee?',
-    answer:
-      'No. The £150 is not an additional setup fee—it pays for your first three months upfront, and setup and launch are included.',
+    answer: 'No. The £150 pays for the first three months upfront. Setup and launch are included.',
   },
   {
     question: 'Is a domain included?',
-    answer:
-      'Yes. One standard domain—preferably a standard .co.uk—is included for the first year.',
+    answer: 'Yes—one standard domain, preferably a .co.uk, for the first year.',
   },
   {
     question: 'Can I use a domain I already own?',
-    answer:
-      'In many cases, yes. Tell us what you already have when you get in touch and we’ll help you understand the options for connecting it.',
+    answer: 'Often yes. Tell us what you have and we’ll help with the options.',
   },
   {
     question: 'How do bookings work?',
-    answer:
-      'Customers book through your own Merevo website. Availability is set up from the details you provide, so bookings stay with your brand rather than a marketplace profile.',
+    answer: 'Customers book through your own Merevo website—not a marketplace profile.',
   },
   {
     question: 'How do Stripe payments work?',
     answer:
-      'Online payments are powered by Stripe. We help you connect Stripe so you can take deposits or full payments through your site.',
+      'We help connect Stripe so you can take deposits or full payments. Stripe processing fees apply separately.',
   },
   {
     question: 'Are Stripe fees included?',
-    answer:
-      'No. Online payments are powered by Stripe; Stripe processing fees apply separately and are not covered by your Merevo subscription.',
+    answer: 'No. They are not covered by your Merevo subscription.',
   },
   {
-    question: 'Can Merevo add my existing menu, services or PDF?',
-    answer:
-      'Yes. Send us your services, menus, prices or existing PDF information and we’ll add them as part of setup.',
+    question: 'Can you add my menu or PDF?',
+    answer: 'Yes. Send services, menus, prices or a PDF and we’ll add them during setup.',
   },
   {
-    question: 'Does Merevo manage hosting and maintenance?',
-    answer:
-      'Yes. Hosting, secure data storage, platform maintenance and updates are included, so you don’t have to manage the technical side yourself.',
+    question: 'Do you manage hosting and maintenance?',
+    answer: 'Yes. Hosting, storage, maintenance and updates are included.',
   },
   {
-    question: 'What technical support is included?',
+    question: 'What support is included?',
     answer:
-      'Merevo technical support is included for the platform and your managed website. It covers help with the service—not unlimited custom development, plugins or redesigns.',
+      'Merevo technical support for the platform and your managed site—not unlimited custom development.',
   },
   {
     question: 'How quickly can I get started?',
     answer:
-      'Setup is designed to be quick and to need very little work from you once you’ve sent your business details. Timelines depend on how quickly those details arrive and any domain or Stripe steps—get in touch and we’ll walk you through the next steps.',
+      'Setup is designed to be quick once you’ve sent your details. Timelines depend on those details plus domain and Stripe steps.',
   },
 ] as const
 
 export function Faq() {
   return (
     <Section id="faq" className="bg-meridian-surface">
-      <div className="max-w-[38rem]">
-        <p className="text-sm font-medium tracking-tight text-meridian-deep">FAQ</p>
-        <h2 className="mt-[0.75rem] text-[1.85rem] font-semibold tracking-tight text-meridian-ink sm:text-[2.25rem]">
-          Straight answers, without the jargon.
+      <Reveal className="max-w-[40rem]">
+        <SectionCaption>Straight answers</SectionCaption>
+        <h2 className="mt-5 font-display text-[2rem] font-bold tracking-tight text-meridian-ink sm:text-[2.75rem]">
+          FAQ, without the jargon.
         </h2>
-        <p className="mt-[1rem] text-base leading-relaxed text-meridian-muted sm:text-[1.05rem]">
-          A few common questions about Merevo, pricing and what you get.
-        </p>
-      </div>
+      </Reveal>
 
-      <dl className="mt-[2.5rem] space-y-[0.85rem]">
-        {faqs.map((item) => (
-          <div
-            key={item.question}
-            className="rounded-[20px] bg-white px-[1.35rem] py-[1.25rem] md:px-[1.5rem]"
-          >
-            <dt className="text-base font-semibold tracking-tight text-meridian-ink">
-              {item.question}
-            </dt>
-            <dd className="mt-[0.5rem] text-sm leading-relaxed text-meridian-muted">
-              {item.answer}
-            </dd>
-          </div>
+      <dl className="mt-14 space-y-3">
+        {faqs.map((item, index) => (
+          <Reveal key={item.question} delayMs={Math.min(index * 30, 240)}>
+            <div className="rounded-meridian bg-white px-6 py-5 md:px-8 md:py-6">
+              <dt className="font-display text-base font-bold tracking-tight text-meridian-ink md:text-lg">
+                {item.question}
+              </dt>
+              <dd className="mt-2 text-sm leading-relaxed text-meridian-muted">{item.answer}</dd>
+            </div>
+          </Reveal>
         ))}
       </dl>
     </Section>
