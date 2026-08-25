@@ -1,44 +1,49 @@
 import { Button } from '@/components/ui/Button'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 import { Reveal } from '@/components/motion/Reveal'
-import { SectionCaption } from '@/components/sections/SectionCaption'
 
 export function Hero() {
   return (
     <section className="w-full bg-white">
-      <div className="m-2 grid w-auto min-h-[min(68vh,42rem)] items-center justify-center gap-8 rounded-meridian bg-meridian-soft px-5 py-10 md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] md:gap-10 md:px-8 md:py-12 lg:px-12 lg:py-14">
-        <Reveal className="flex w-full max-w-[40rem] flex-col items-start justify-self-center md:justify-self-start">
-          <SectionCaption className="text-meridian-ink/70">Less fiddling. More bookings.</SectionCaption>
-          <h1 className="mt-4 font-display text-[2.4rem] font-bold leading-[1.02] tracking-tight text-meridian-ink sm:text-[3.1rem] lg:text-[3.85rem]">
-            Your business, ready to book.
-          </h1>
-          <p className="mt-4 max-w-[30rem] text-base leading-relaxed text-meridian-ink/75 sm:text-lg">
-            Website, bookings, Stripe payments and customer marketing—set up and managed for you.
-          </p>
-          <p className="mt-2 text-sm font-medium text-meridian-ink sm:text-base">
-            £50 a month. First three months £150 upfront, including setup.
-          </p>
+      <div className="relative m-2 flex w-auto min-h-[min(72vh,46rem)] items-center justify-center overflow-hidden rounded-meridian px-5 py-10 md:px-8 md:py-12">
+        {/* Blue → lighter blue at the bottom, with a soft fuzzy wash */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-meridian-mid via-meridian-soft to-[#b8dce4]"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -inset-[20%] bg-[radial-gradient(ellipse_at_40%_15%,rgb(72_159_181_/_0.45),transparent_55%),radial-gradient(ellipse_at_70%_85%,rgb(184_220_228_/_0.7),transparent_50%)] blur-2xl"
+        />
 
-          <div className="mt-6 flex flex-wrap items-center gap-3">
-            <Button href="#contact" size="sm" variant="accent">
-              Get started with Merevo
-            </Button>
-            <Button href="#features" variant="soft" size="sm">
-              See what’s included
-            </Button>
-          </div>
-        </Reveal>
+        <div className="relative z-10 grid w-full max-w-[70em] items-center gap-8 md:grid-cols-[minmax(0,1.05fr)_minmax(0,0.85fr)] md:gap-10 lg:gap-14">
+          <Reveal className="flex flex-col items-start">
+            <h1 className="font-display text-[2.85rem] font-bold leading-[1.02] tracking-tight text-white sm:text-[3.6rem] lg:text-[4.5rem]">
+              Your business, ready to book.
+            </h1>
+            <p className="mt-5 max-w-[28rem] text-base leading-relaxed text-white/90 sm:text-lg">
+              Website, bookings and payments—managed for you.
+            </p>
 
-        <Reveal
-          delayMs={140}
-          className="flex w-full justify-center justify-self-center md:justify-end md:justify-self-end"
-        >
-          <IllustrationSlot
-            label="Hero illustration"
-            brief="Cheerful shop-front with a calm booking calendar and soft accent — premium without clutter."
-            className="w-full max-w-[20rem] bg-white/35 md:max-w-[24rem]"
-          />
-        </Reveal>
+            <div className="mt-8">
+              <Button
+                href="#features"
+                size="sm"
+                className="bg-white text-meridian-deep hover:bg-white/90"
+              >
+                Learn more
+              </Button>
+            </div>
+          </Reveal>
+
+          <Reveal delayMs={140} className="flex justify-center md:justify-start">
+            <IllustrationSlot
+              label="Hero illustration"
+              brief="Cheerful shop-front with a calm booking calendar and soft accent — premium without clutter."
+              className="w-full max-w-[18rem] bg-white/20 md:max-w-[22rem]"
+            />
+          </Reveal>
+        </div>
       </div>
     </section>
   )
