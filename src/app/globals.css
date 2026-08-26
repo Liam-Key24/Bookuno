@@ -63,6 +63,17 @@ h3,
   transform: translate3d(0, 0, 0);
 }
 
+@keyframes hero-role-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.35em, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   :root {
     --reveal-duration: 1ms;

@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/Button'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 import { Reveal } from '@/components/motion/Reveal'
+import { HeroRoleLine } from '@/components/sections/HeroRoleLine'
 
 export function Hero() {
   return (
@@ -18,11 +19,9 @@ export function Hero() {
 
         <div className="relative z-10 grid w-full max-w-[70em] items-center gap-8 md:grid-cols-[minmax(0,1.05fr)_minmax(0,0.85fr)] md:gap-10 lg:gap-14">
           <Reveal className="flex flex-col items-start">
-            <h1 className="font-display text-[2.85rem] font-bold leading-[1.02] tracking-tight text-white sm:text-[3.6rem] lg:text-[4.5rem]">
-              Your business, ready to book.
-            </h1>
+            <HeroRoleLine />
             <p className="mt-5 max-w-[28rem] text-base leading-relaxed text-white/90 sm:text-lg">
-              Website, bookings and payments—managed for you.
+              Website, bookings and payments—managed for you. So you can get on with the work.
             </p>
 
             <div className="mt-8">

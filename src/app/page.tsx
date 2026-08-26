@@ -7,7 +7,6 @@ import { Hero } from '@/components/sections/Hero'
 import { HowItWorks } from '@/components/sections/HowItWorks'
 import { ProblemBenefit } from '@/components/sections/ProblemBenefit'
 import { WhatMerevoDoes } from '@/components/sections/WhatMerevoDoes'
-import { WhoItsFor } from '@/components/sections/WhoItsFor'
 
 export default function HomePage() {
   return (
@@ -18,7 +17,6 @@ export default function HomePage() {
       <WhatMerevoDoes />
       <CustomerMarketing />
       <DemoTemplates />
-      <WhoItsFor />
       <FoundingOffer />
       <Faq />
       <ContactCta />
