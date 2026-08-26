@@ -5,7 +5,12 @@ import { DemoCard } from '@/components/sections/DemoCard'
 import { demoTemplates } from '@/components/sections/demoTemplatesData'
 import { Reveal } from '@/components/motion/Reveal'
 
-export function DemoTemplates() {
+type DemoTemplatesProps = {
+  /** When false, hides the link to /templates (use on the templates page itself). */
+  showPageLink?: boolean
+}
+
+export function DemoTemplates({ showPageLink = true }: DemoTemplatesProps) {
   return (
     <Section id="templates" className="bg-white">
       <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
@@ -18,14 +23,16 @@ export function DemoTemplates() {
             Pick a look, send your bits, and we’ll bring it together.
           </p>
         </Reveal>
-        <Reveal delayMs={80}>
-          <Link
-            href="/templates"
-            className="text-sm font-medium tracking-tight text-meridian-deep transition-colors duration-300 hover:text-meridian-ink"
-          >
-            View templates page
-          </Link>
-        </Reveal>
+        {showPageLink ? (
+          <Reveal delayMs={80}>
+            <Link
+              href="/templates"
+              className="text-sm font-medium tracking-tight text-meridian-deep transition-colors duration-300 hover:text-meridian-ink"
+            >
+              View templates page
+            </Link>
+          </Reveal>
+        ) : null}
       </div>
 
       <div className="mt-8 grid gap-3 md:grid-cols-2">

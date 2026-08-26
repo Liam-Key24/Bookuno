@@ -1,8 +1,5 @@
 import { ContactCta } from '@/components/sections/ContactCta'
 import { CustomerMarketing } from '@/components/sections/CustomerMarketing'
-import { DemoTemplates } from '@/components/sections/DemoTemplates'
-import { Faq } from '@/components/sections/Faq'
-import { FoundingOffer } from '@/components/sections/FoundingOffer'
 import { Hero } from '@/components/sections/Hero'
 import { HowItWorks } from '@/components/sections/HowItWorks'
 import { ProblemBenefit } from '@/components/sections/ProblemBenefit'
@@ -16,9 +13,6 @@ export default function HomePage() {
       <HowItWorks />
       <WhatMerevoDoes />
       <CustomerMarketing />
-      <DemoTemplates />
-      <FoundingOffer />
-      <Faq />
       <ContactCta />
     </main>
   )

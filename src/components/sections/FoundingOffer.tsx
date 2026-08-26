@@ -61,7 +61,7 @@ export function FoundingOffer() {
               ))}
             </ul>
 
-            <Button href="#contact" variant="accent" className="mt-6 w-full sm:w-auto">
+            <Button href="/#contact" variant="accent" className="mt-6 w-full sm:w-auto">
               Get started with Merevo
             </Button>
           </div>
