@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Faq } from '@/components/sections/Faq'
 import { PageCta } from '@/components/sections/PageCta'
 import { PageIntro } from '@/components/sections/PageIntro'
 import { Section } from '@/components/sections/Section'
@@ -71,6 +72,8 @@ export default function FeaturesPage() {
           </ul>
         </div>
       </Section>
+
+      <Faq />
 
       <PageCta
         title="Want this for your business?"

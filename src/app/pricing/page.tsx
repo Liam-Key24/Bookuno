@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { Faq } from '@/components/sections/Faq'
 import { FoundingOffer } from '@/components/sections/FoundingOffer'
 import { PageCta } from '@/components/sections/PageCta'
 
@@ -13,7 +12,6 @@ export default function PricingPage() {
   return (
     <main className="bg-white">
       <FoundingOffer />
-      <Faq />
       <PageCta
         title="Ready when you are"
         body="Share a little about your business and we’ll follow up personally."
