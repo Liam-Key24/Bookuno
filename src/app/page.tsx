@@ -1,4 +1,3 @@
-import { BookingChoice } from '@/components/sections/BookingChoice'
 import { ContactCta } from '@/components/sections/ContactCta'
 import { CustomerMarketing } from '@/components/sections/CustomerMarketing'
 import { DemoTemplates } from '@/components/sections/DemoTemplates'
@@ -17,7 +16,6 @@ export default function HomePage() {
       <ProblemBenefit />
       <HowItWorks />
       <WhatMerevoDoes />
-      <BookingChoice />
       <CustomerMarketing />
       <DemoTemplates />
       <WhoItsFor />
