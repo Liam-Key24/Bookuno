@@ -4,8 +4,8 @@ import { Reveal } from '@/components/motion/Reveal'
 
 export function Hero() {
   return (
-    <section className="w-full bg-white">
-      <div className="relative m-2 flex w-auto min-h-[min(72vh,46rem)] items-center justify-center overflow-hidden rounded-meridian px-5 py-10 md:px-8 md:py-12">
+    <section className="relative z-10 w-full bg-white">
+      <div className="relative m-2 mb-0 flex w-auto min-h-[min(80vh,50rem)] items-center justify-center overflow-hidden rounded-meridian px-5 py-10 md:px-8 md:py-12">
         {/* Blue → lighter blue at the bottom, with a soft fuzzy wash */}
         <div
           aria-hidden
