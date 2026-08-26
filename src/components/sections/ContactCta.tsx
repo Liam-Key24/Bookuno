@@ -14,21 +14,23 @@ export function ContactCta() {
           className="pointer-events-none absolute -inset-[20%] bg-[radial-gradient(ellipse_at_35%_15%,rgb(197_228_235_/_0.9),transparent_55%),radial-gradient(ellipse_at_75%_85%,rgb(72_159_181_/_0.35),transparent_50%)] blur-2xl"
         />
 
-        <div className="relative z-10 grid w-full items-center gap-8 sm:gap-10 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-12 lg:gap-14">
-          <div className="flex flex-col">
-            <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-accent sm:text-[2.2rem] lg:text-[2.45rem]">
-              Get started with Merevo
-            </h2>
+        <div className="relative z-10">
+          <h2 className="text-center font-display text-[1.85rem] font-bold tracking-tight text-white sm:text-[2.2rem] lg:text-[2.45rem]">
+            Get started with Merevo
+          </h2>
 
-            <IllustrationSlot
-              label="Contact illustration"
-              brief="Calm desk scene — notebook, soft calendar and a friendly wave. Placeholder until artwork lands."
-              className="mt-8 aspect-[4/3] w-full max-w-[18rem] bg-white/45 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65"
-            />
-          </div>
+          <div className="mt-8 grid w-full items-center gap-8 sm:mt-10 sm:gap-10 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-12 lg:gap-14">
+            <div className="flex justify-center md:justify-start">
+              <IllustrationSlot
+                label="Contact illustration"
+                brief="Calm desk scene — notebook, soft calendar and a friendly wave. Placeholder until artwork lands."
+                className="aspect-[4/3] w-full max-w-[18rem] bg-white/45 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65"
+              />
+            </div>
 
-          <div className="flex min-h-full min-w-0 w-full items-center">
-            <LeadForm />
+            <div className="flex h-auto min-w-0 w-full items-center self-center">
+              <LeadForm />
+            </div>
           </div>
         </div>
       </div>
