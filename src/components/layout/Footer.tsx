@@ -12,9 +12,9 @@ import { CONTACT_EMAIL } from '@/lib/site'
 
 const offerLinks = [
   { label: 'Founding pricing', href: '/pricing' },
-  { label: 'What’s included', href: '/features' },
+  { label: 'What’s included', href: '/whats-included' },
   { label: 'Demo templates', href: '/templates' },
-  { label: 'FAQ', href: '/features#faq' },
+  { label: 'FAQ', href: '/whats-included#faq' },
 ] as const
 
 const startLinks = [

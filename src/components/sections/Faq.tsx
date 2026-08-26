@@ -4,53 +4,70 @@ import { useState } from 'react'
 import { CaretDown } from '@phosphor-icons/react'
 import { Section } from '@/components/sections/Section'
 
-const faqs = [
-  {
-    question: 'What is Merevo?',
-    answer:
-      'A managed website, booking, payments and customer-growth platform for independent service businesses—set up and looked after for you.',
-  },
-  {
-    question: 'What is included?',
-    answer:
-      'Personalised website, online booking, Stripe payments, customer marketing, hosting and storage, maintenance, support, setup help, and one standard domain for year one.',
-  },
-  {
-    question: 'How does the £150 work?',
-    answer:
-      'It covers your first three months at the founding rate, including setup and launch. Then £50 a month. There is no separate setup fee.',
-  },
+export type FaqItem = {
+  question: string
+  answer: string
+}
+
+/** Default set for What’s included — product, not pricing. */
+export const includedFaqs: FaqItem[] = [
   {
     question: 'Is my website custom-built?',
     answer:
-      'No—you pick a Merevo template and we personalise it. That keeps setup quick, dependable and affordable.',
+      'No—you pick a Merevo template and we personalise it with your brand, services and content. That keeps setup quick, dependable and affordable.',
   },
   {
     question: 'How do bookings work?',
-    answer: 'Customers book through your own Merevo website—not a marketplace profile.',
+    answer:
+      'Customers book through your own Merevo website and domain—not a marketplace profile. Requests stay with your business.',
   },
-] as const
+  {
+    question: 'How do Stripe payments work?',
+    answer:
+      'We help connect Stripe so you can take deposits or full payments on your site. Stripe processing fees apply separately from your Merevo subscription.',
+  },
+  {
+    question: 'What’s included in customer marketing?',
+    answer:
+      'Friendly follow-ups to keep in touch and encourage customers back—without you learning email software or running campaigns yourself.',
+  },
+  {
+    question: 'Do you manage hosting and support?',
+    answer:
+      'Yes. Hosting, storage, maintenance, updates and Merevo technical support for your managed site are included—not unlimited custom development.',
+  },
+]
 
-export function Faq() {
+type FaqProps = {
+  items?: FaqItem[]
+  title?: string
+  lede?: string
+  id?: string
+}
+
+export function Faq({
+  items = includedFaqs,
+  title = 'FAQ, without the jargon.',
+  lede = 'Straight answers about what’s under the roof.',
+  id = 'faq',
+}: FaqProps) {
   const [openIndex, setOpenIndex] = useState(0)
 
   return (
-    <Section id="faq" className="bg-white">
+    <Section id={id} className="bg-white">
       <div className="mx-auto max-w-[36rem] text-center">
         <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
-          FAQ, without the jargon.
+          {title}
         </h2>
-        <p className="mt-3 text-base leading-relaxed text-meridian-muted">
-          Straight answers to the questions we hear most.
-        </p>
+        <p className="mt-3 text-base leading-relaxed text-meridian-muted">{lede}</p>
       </div>
 
       {/* min-height holds space for five rows + one answer so the section doesn’t jump */}
       <div className="mx-auto mt-12 min-h-[28rem] max-w-[44rem] sm:mt-14 sm:min-h-[30rem]">
-        {faqs.map((item, index) => {
+        {items.map((item, index) => {
           const isOpen = openIndex === index
-          const panelId = `faq-panel-${index}`
-          const buttonId = `faq-button-${index}`
+          const panelId = `${id}-panel-${index}`
+          const buttonId = `${id}-button-${index}`
 
           return (
             <div key={item.question} className="border-t border-meridian-ink/10">
