@@ -36,18 +36,18 @@ export function Navbar() {
     <header className="relative z-50 w-full bg-white">
       <nav
         aria-label="Primary"
-        className="flex w-full items-center justify-between gap-3 px-2.5 py-3 md:px-3 lg:px-4"
+        className="relative flex w-full items-center justify-between gap-3 px-2.5 py-3 md:px-3 lg:px-4"
       >
         <Link
           href="/"
-          className="shrink-0 font-display text-[1.1rem] font-bold tracking-tight text-meridian-ink"
+          className="relative z-10 shrink-0 font-display text-[1.35rem] font-bold tracking-tight text-meridian-ink md:text-[1.5rem]"
           onClick={() => setOpen(false)}
           aria-label="Merevo home"
         >
           Merevo
         </Link>
 
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-8 md:flex">
           {navLinks.map((link) => (
             <li key={link.label}>
               <Link
@@ -60,7 +60,7 @@ export function Navbar() {
           ))}
         </ul>
 
-        <div className="flex items-center gap-2">
+        <div className="relative z-10 flex items-center gap-2">
           <Button
             href="/#contact"
             size="sm"

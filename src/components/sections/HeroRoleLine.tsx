@@ -11,9 +11,48 @@ const roles = [
   'tattoo artist',
   'beauty pro',
   'cleaner',
+  'hairdresser',
+  'salon owner',
+  'spa therapist',
+  'massage therapist',
+  'lash tech',
+  'makeup artist',
+  'yoga instructor',
+  'personal trainer',
+  'physio',
+  'osteopath',
+  'chiropractor',
+  'dentist',
+  'vet',
+  'florist',
+  'photographer',
+  'tutor',
+  'coach',
+  'consultant',
+  'electrician',
+  'plumber',
+  'carpenter',
+  'mechanic',
+  'driver',
+  'chef',
+  'café owner',
+  'restaurant owner',
+  'hotelier',
+  'hospitality pro',
+  'bartender',
+  'caterer',
+  'bakery owner',
+  'B&B host',
+  'event planner',
+  'wedding planner',
+  'dog walker',
+  'pet sitter',
+  'landscaper',
+  'interior designer',
+  'stylist',
 ] as const
 
-const INTERVAL_MS = 2200
+const INTERVAL_MS = 1800
 
 export function HeroRoleLine() {
   const [index, setIndex] = useState(0)
@@ -44,7 +83,7 @@ export function HeroRoleLine() {
       </span>
       <span aria-hidden className="block">
         You’re a{' '}
-        <span className="relative inline-block min-w-[7.5ch] text-meridian-accent sm:min-w-[8.5ch]">
+        <span className="relative inline-block min-w-[11ch] text-meridian-accent sm:min-w-[14ch] lg:min-w-[16ch]">
           <span
             key={role}
             className={
