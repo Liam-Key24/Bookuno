@@ -1,13 +1,10 @@
-import type { ComponentType, ReactNode, SVGProps } from 'react'
+import type { ReactNode } from 'react'
+import type { Icon } from '@phosphor-icons/react'
 import { Reveal } from '@/components/motion/Reveal'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 
-type PhosphorIcon = ComponentType<
-  SVGProps<SVGSVGElement> & { size?: number | string; weight?: string }
->
-
 export type FeaturePoint = {
-  icon: PhosphorIcon
+  icon: Icon
   title: string
   body: string
   /** Tailwind text colour for the icon */

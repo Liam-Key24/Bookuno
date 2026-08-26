@@ -62,23 +62,28 @@ export function Faq({
         <p className="mt-3 text-base leading-relaxed text-meridian-muted">{lede}</p>
       </div>
 
-      {/* min-height holds space for five rows + one answer so the section doesn’t jump */}
-      <div className="mx-auto mt-12 min-h-[28rem] max-w-[44rem] sm:mt-14 sm:min-h-[30rem]">
+      {/* Short lists keep a min-height so the section doesn’t jump when an answer opens */}
+      <div
+        className={[
+          'mx-auto mt-12 max-w-[44rem] sm:mt-14',
+          items.length <= 6 ? 'min-h-[28rem] sm:min-h-[30rem]' : '',
+        ].join(' ')}
+      >
         {items.map((item, index) => {
           const isOpen = openIndex === index
           const panelId = `${id}-panel-${index}`
           const buttonId = `${id}-button-${index}`
 
           return (
-            <div key={item.question} className="border-t border-meridian-ink/10">
+            <div key={item.question} className="border-t border-meridian-ink/10 last:border-b last:border-meridian-ink/10">
               <h3>
                 <button
                   type="button"
                   id={buttonId}
                   aria-expanded={isOpen}
                   aria-controls={panelId}
-                  onClick={() => setOpenIndex(index)}
-                  className="flex w-full items-center justify-between gap-4 py-5 text-left"
+                  onClick={() => setOpenIndex(isOpen ? -1 : index)}
+                  className="flex w-full items-center justify-between gap-4 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-meridian-mid/40 focus-visible:ring-offset-2"
                 >
                   <span className="font-display text-lg font-bold tracking-tight text-meridian-ink md:text-xl">
                     {item.question}
