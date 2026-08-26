@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { PageCta } from '@/components/sections/PageCta'
 import { PageIntro } from '@/components/sections/PageIntro'
-import { Reveal } from '@/components/motion/Reveal'
+import { Section } from '@/components/sections/Section'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 
 export const metadata: Metadata = {
@@ -10,24 +10,18 @@ export const metadata: Metadata = {
     'Merevo helps independent service businesses get online with a managed website, bookings, payments and customer marketing.',
 }
 
-const cards = [
+const beats = [
   {
     title: 'Who it’s for',
-    caption: 'INDEPENDENT SERVICE BUSINESSES',
-    label: 'Audience',
-    brief: 'Barber chair, nail desk, and trainer mat as three soft icons.',
+    body: 'Independent service businesses—barbers, beauty, therapists, trainers, groomers and more.',
   },
   {
     title: 'What we believe',
-    caption: 'YOU RUN THE BUSINESS. WE HANDLE THE WEBSITE BITS.',
-    label: 'Belief',
-    brief: 'Balance scale with a calm site on one side and a smiling owner on the other.',
+    body: 'You run the business. We handle the website bits so evenings stay yours.',
   },
   {
     title: 'How we work',
-    caption: 'TEMPLATES, SETUP, HOSTING AND SUPPORT',
-    label: 'Partnership',
-    brief: 'Handshake made of simple shapes in teal and accent orange.',
+    body: 'Pick a template, send your bits, we set it up and keep it looked after.',
   },
 ] as const
 
@@ -35,34 +29,36 @@ export default function AboutPage() {
   return (
     <main className="bg-white">
       <PageIntro
-        caption="Built for busy owners"
         title="Already busy. Still need a proper website."
         lede="Merevo is managed website, bookings, payments and marketing—not another app to learn."
         illustrationLabel="About Merevo"
         illustrationBrief="Warm portrait of a local service business owner with a soft teal glow."
       />
 
-      <section className="w-full bg-meridian-surface px-4 py-12 sm:px-6 md:px-8 md:py-16 lg:px-10">
-        <div className="mx-auto grid max-w-[72rem] gap-3 md:grid-cols-3">
-          {cards.map((card, index) => (
-            <Reveal key={card.title} delayMs={index * 70}>
-              <article className="flex h-full min-h-[16rem] flex-col rounded-meridian bg-white p-4 md:p-5">
-                <IllustrationSlot
-                  label={card.label}
-                  brief={card.brief}
-                  className="mb-5 aspect-[4/3] max-w-none bg-meridian-soft"
-                />
-                <h2 className="mt-auto font-display text-xl font-bold tracking-tight text-meridian-ink md:text-2xl">
-                  {card.title}
+      <Section className="bg-white">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14">
+          <div className="flex justify-center lg:justify-start">
+            <IllustrationSlot
+              label="Busy owners"
+              brief="Barber chair, nail desk and trainer mat as three soft shapes in a calm row."
+              className="aspect-auto h-[min(44vh,24rem)] w-full max-w-[22rem] bg-meridian-soft/40 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65 lg:max-w-none"
+            />
+          </div>
+
+          <ul className="grid grid-cols-1 gap-y-8 sm:gap-y-10">
+            {beats.map((beat) => (
+              <li key={beat.title}>
+                <h2 className="font-display text-xl font-bold tracking-tight text-meridian-ink md:text-2xl">
+                  {beat.title}
                 </h2>
-                <p className="mt-2 text-xs font-medium tracking-[0.14em] text-meridian-muted uppercase">
-                  {card.caption}
+                <p className="mt-2 max-w-[32rem] text-sm leading-relaxed text-meridian-muted md:text-base">
+                  {beat.body}
                 </p>
-              </article>
-            </Reveal>
-          ))}
+              </li>
+            ))}
+          </ul>
         </div>
-      </section>
+      </Section>
 
       <PageCta
         title="Say hello"

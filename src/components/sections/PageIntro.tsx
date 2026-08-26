@@ -1,51 +1,45 @@
 import type { ReactNode } from 'react'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
-import { Reveal } from '@/components/motion/Reveal'
-import { SectionCaption } from '@/components/sections/SectionCaption'
 
 type PageIntroProps = {
   title: string
   lede: string
-  caption?: string
   illustrationLabel: string
   illustrationBrief: string
   children?: ReactNode
 }
 
+/**
+ * Shared page opener: centred title + short lede, then illustration + optional actions.
+ * Matches the landing direction — no eyebrows, simple type, illustration placeholders.
+ */
 export function PageIntro({
   title,
   lede,
-  caption,
   illustrationLabel,
   illustrationBrief,
   children,
 }: PageIntroProps) {
   return (
-    <section className="w-full bg-white">
-      <div className="m-2 grid w-auto items-center justify-center gap-8 rounded-meridian bg-meridian-soft px-5 py-10 md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] md:gap-10 md:px-8 md:py-12 lg:px-12 lg:py-14">
-        <Reveal className="w-full max-w-[40rem] justify-self-center md:justify-self-start">
-          {caption ? (
-            <SectionCaption className="mb-3 text-meridian-ink/70">{caption}</SectionCaption>
-          ) : null}
+    <section className="flex min-h-[min(72vh,40rem)] w-full flex-col justify-center bg-white px-4 py-16 sm:px-6 md:px-8 md:py-24 lg:px-10 lg:py-28">
+      <div className="mx-auto w-full max-w-[72rem]">
+        <div className="mx-auto max-w-[36rem] text-center">
           <h1 className="font-display text-[2.15rem] font-bold leading-[1.05] tracking-tight text-meridian-ink sm:text-[2.6rem] lg:text-[3.1rem]">
             {title}
           </h1>
-          <p className="mt-3 max-w-[32rem] text-base leading-relaxed text-meridian-ink/75 sm:text-[1.05rem]">
+          <p className="mt-3 text-base leading-relaxed text-meridian-muted sm:text-[1.05rem]">
             {lede}
           </p>
-          {children ? <div className="mt-5">{children}</div> : null}
-        </Reveal>
+          {children ? <div className="mt-6 flex justify-center">{children}</div> : null}
+        </div>
 
-        <Reveal
-          delayMs={100}
-          className="flex w-full justify-center justify-self-center md:justify-end md:justify-self-end"
-        >
+        <div className="mx-auto mt-10 flex max-w-[22rem] justify-center sm:mt-12 md:max-w-[26rem]">
           <IllustrationSlot
             label={illustrationLabel}
             brief={illustrationBrief}
-            className="w-full max-w-[18rem] bg-white/35 md:max-w-[22rem]"
+            className="aspect-[5/4] w-full max-w-none bg-meridian-soft/40 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65"
           />
-        </Reveal>
+        </div>
       </div>
     </section>
   )

@@ -1,6 +1,4 @@
 import { Section } from '@/components/sections/Section'
-import { SectionCaption } from '@/components/sections/SectionCaption'
-import { Reveal } from '@/components/motion/Reveal'
 
 const faqs = [
   {
@@ -76,23 +74,25 @@ const faqs = [
 export function Faq() {
   return (
     <Section id="faq" className="bg-meridian-surface">
-      <Reveal className="max-w-[40rem]">
-        <SectionCaption>Straight answers</SectionCaption>
-        <h2 className="mt-4 font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
+      <div className="mx-auto max-w-[36rem] text-center">
+        <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
           FAQ, without the jargon.
         </h2>
-      </Reveal>
+        <p className="mt-3 text-base leading-relaxed text-meridian-muted">
+          Straight answers to the questions we hear most.
+        </p>
+      </div>
 
-      <dl className="mt-8 space-y-2.5">
-        {faqs.map((item, index) => (
-          <Reveal key={item.question} delayMs={Math.min(index * 30, 240)}>
-            <div className="rounded-meridian bg-white px-5 py-4 md:px-6 md:py-5">
-              <dt className="font-display text-base font-bold tracking-tight text-meridian-ink md:text-lg">
-                {item.question}
-              </dt>
-              <dd className="mt-1.5 text-sm leading-relaxed text-meridian-muted">{item.answer}</dd>
-            </div>
-          </Reveal>
+      <dl className="mx-auto mt-12 max-w-[44rem] space-y-8 sm:mt-14">
+        {faqs.map((item) => (
+          <div key={item.question}>
+            <dt className="font-display text-lg font-bold tracking-tight text-meridian-ink md:text-xl">
+              {item.question}
+            </dt>
+            <dd className="mt-2 text-sm leading-relaxed text-meridian-muted md:text-base">
+              {item.answer}
+            </dd>
+          </div>
         ))}
       </dl>
     </Section>

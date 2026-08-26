@@ -1,27 +1,23 @@
 import { Button } from '@/components/ui/Button'
-import { Reveal } from '@/components/motion/Reveal'
 
 type PageCtaProps = {
   title: string
   body: string
 }
 
+/** Simple closing CTA — no deep panels or eyebrows. */
 export function PageCta({ title, body }: PageCtaProps) {
   return (
-    <section className="w-full bg-white">
-      <Reveal className="m-2 w-auto">
-        <div className="rounded-meridian bg-meridian-deep px-5 py-10 text-center md:px-8 md:py-12 lg:px-12 lg:py-14">
-          <h2 className="mx-auto max-w-[28rem] font-display text-[1.6rem] font-bold tracking-tight text-white sm:text-[1.95rem]">
-            {title}
-          </h2>
-          <p className="mx-auto mt-3 max-w-[32rem] text-sm leading-relaxed text-white/75 sm:text-base">
-            {body}
-          </p>
-          <Button href="/#contact" variant="accent" className="mt-6">
-            Get started with Merevo
-          </Button>
-        </div>
-      </Reveal>
+    <section className="w-full bg-meridian-surface px-4 py-16 sm:px-6 md:px-8 md:py-24 lg:px-10 lg:py-28">
+      <div className="mx-auto max-w-[36rem] text-center">
+        <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.2rem]">
+          {title}
+        </h2>
+        <p className="mt-3 text-base leading-relaxed text-meridian-muted">{body}</p>
+        <Button href="/#contact" variant="accent" className="mt-8">
+          Get started with Merevo
+        </Button>
+      </div>
     </section>
   )
 }

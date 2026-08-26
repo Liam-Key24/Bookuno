@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Button } from '@/components/ui/Button'
-import { SectionCaption } from '@/components/sections/SectionCaption'
+import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 
 export const metadata: Metadata = {
   title: 'Thank you',
@@ -10,16 +10,20 @@ export const metadata: Metadata = {
 export default function ThankYouPage() {
   return (
     <main className="bg-white">
-      <section className="w-full">
-        <div className="m-2 mx-auto max-w-[40rem] rounded-meridian bg-meridian-soft px-5 py-10 text-center md:px-8">
-          <SectionCaption className="text-meridian-ink/70">Message received</SectionCaption>
-          <h1 className="mt-4 font-display text-[2rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
+      <section className="flex min-h-[min(70vh,36rem)] w-full flex-col items-center justify-center px-4 py-16 sm:px-6 md:py-24">
+        <div className="mx-auto max-w-[36rem] text-center">
+          <h1 className="font-display text-[2rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
             Thank you — we’ll be in touch.
           </h1>
-          <p className="mt-3 text-base leading-relaxed text-meridian-ink/75">
+          <p className="mt-3 text-base leading-relaxed text-meridian-muted">
             Your details were saved securely and a confirmation email is on its way.
           </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-3">
+          <IllustrationSlot
+            label="Thanks"
+            brief="Soft tick and a calm kettle on — message received, follow-up brewing."
+            className="mx-auto mt-8 aspect-[5/4] w-full max-w-[18rem] bg-meridian-soft/40 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65"
+          />
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Button href="/" variant="accent">
               Back to home
             </Button>
