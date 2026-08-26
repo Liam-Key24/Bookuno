@@ -7,10 +7,19 @@ import { useRef, useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/Button'
 import { trackEvent } from '@/lib/analytics'
 
-const fieldClassName =
-  'w-full border-0 border-b border-meridian-ink/15 bg-transparent px-0 py-2.5 text-sm text-meridian-ink outline-none transition-colors placeholder:text-meridian-ink/35 focus-visible:border-meridian-deep'
+type LeadFormTone = 'default' | 'onGradient'
 
-const labelClassName = 'mb-1 block text-sm font-medium tracking-tight text-meridian-ink'
+const fieldByTone: Record<LeadFormTone, string> = {
+  default:
+    'w-full border-0 border-b border-meridian-ink/15 bg-transparent px-0 py-2.5 text-sm text-meridian-ink outline-none transition-colors placeholder:text-meridian-ink/35 focus-visible:border-meridian-deep',
+  onGradient:
+    'w-full border-0 border-b border-white/35 bg-transparent px-0 py-2.5 text-sm text-white outline-none transition-colors placeholder:text-white/45 focus-visible:border-white [&_option]:bg-white [&_option]:text-meridian-ink',
+}
+
+const labelByTone: Record<LeadFormTone, string> = {
+  default: 'mb-1 block text-sm font-medium tracking-tight text-meridian-ink',
+  onGradient: 'mb-1 block text-sm font-medium tracking-tight text-white',
+}
 
 const businessTypes = [
   { value: '', label: 'Business type (optional)' },
@@ -36,7 +45,7 @@ function createIdempotencyKey() {
   })
 }
 
-export function LeadForm() {
+export function LeadForm({ tone = 'default' }: { tone?: LeadFormTone }) {
   const router = useRouter()
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
   // One key per form attempt — reused on manual retry; no automatic retry loops.
@@ -51,6 +60,10 @@ export function LeadForm() {
   const [error, setError] = useState<string | null>(null)
   const [deliveryNotice, setDeliveryNotice] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
+
+  const fieldClassName = fieldByTone[tone]
+  const labelClassName = labelByTone[tone]
+  const onGradient = tone === 'onGradient'
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -79,9 +92,9 @@ export function LeadForm() {
           businessName,
           businessType,
           message,
+          website,
           turnstileToken,
           idempotencyKey: idempotencyKeyRef.current,
-          website,
         }),
       })
 
@@ -229,7 +242,11 @@ export function LeadForm() {
       {deliveryNotice ? (
         <p
           role="status"
-          className="mt-4 rounded-meridian bg-meridian-surface px-4 py-3 text-sm leading-relaxed text-meridian-ink"
+          className={
+            onGradient
+              ? 'mt-4 rounded-meridian bg-white/20 px-4 py-3 text-sm leading-relaxed text-white'
+              : 'mt-4 rounded-meridian bg-meridian-surface px-4 py-3 text-sm leading-relaxed text-meridian-ink'
+          }
         >
           {deliveryNotice}
         </p>
@@ -238,7 +255,11 @@ export function LeadForm() {
       {error ? (
         <p
           role="alert"
-          className="mt-4 rounded-meridian bg-meridian-accent/15 px-4 py-3 text-sm text-meridian-ink"
+          className={
+            onGradient
+              ? 'mt-4 rounded-meridian bg-meridian-accent/25 px-4 py-3 text-sm text-white'
+              : 'mt-4 rounded-meridian bg-meridian-accent/15 px-4 py-3 text-sm text-meridian-ink'
+          }
         >
           {error}
         </p>
@@ -257,16 +278,23 @@ export function LeadForm() {
             />
           </div>
         ) : (
-          <p className="text-sm text-meridian-muted" role="status">
+          <p
+            className={onGradient ? 'text-sm text-white/80' : 'text-sm text-meridian-muted'}
+            role="status"
+          >
             Security check unavailable until Turnstile keys are configured.
           </p>
         )}
 
         <Button
           type="submit"
-          variant="accent"
+          variant={onGradient ? 'soft' : 'accent'}
           disabled={pending || Boolean(deliveryNotice)}
-          className="w-fit shrink-0 whitespace-nowrap disabled:opacity-60 min-[400px]:ml-auto"
+          className={
+            onGradient
+              ? 'w-fit shrink-0 whitespace-nowrap bg-white text-meridian-deep hover:bg-white/90 disabled:opacity-60 min-[400px]:ml-auto'
+              : 'w-fit shrink-0 whitespace-nowrap disabled:opacity-60 min-[400px]:ml-auto'
+          }
         >
           {pending ? (
             'Sending…'
