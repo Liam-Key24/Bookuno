@@ -1,72 +1,137 @@
+import {
+  Globe,
+  CalendarCheck,
+  ShieldCheck,
+  HardDrives,
+  Wrench,
+  Headset,
+} from '@phosphor-icons/react/dist/ssr'
+import type { Icon } from '@phosphor-icons/react'
 import { Section } from '@/components/sections/Section'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 import { Reveal } from '@/components/motion/Reveal'
 
 /** What’s included: product + managed bits + branded-home idea. */
-const rooms = [
+const rooms: readonly {
+  icon: Icon
+  iconClass: string
+  title: string
+  body: string
+  tilt: string
+}[] = [
   {
+    icon: Globe,
+    iconClass: 'text-meridian-mid',
     title: 'Your website',
     body: 'Your branding on the door. Customers land on you, not a marketplace.',
+    tilt: '-rotate-1',
   },
   {
+    icon: CalendarCheck,
+    iconClass: 'text-meridian-accent',
     title: 'Booking requests',
     body: 'Bookings stay with your business and domain, not lost in the inbox.',
+    tilt: 'rotate-1',
   },
   {
+    icon: ShieldCheck,
+    iconClass: 'text-meridian-deep',
     title: 'Hosting & security',
     body: 'Kept online, protected and looked after. No server shopping.',
+    tilt: 'rotate-1',
   },
   {
+    icon: HardDrives,
+    iconClass: 'text-meridian-mid',
     title: 'Secure storage',
     body: 'The data you need to run the service, held safely.',
+    tilt: '-rotate-1',
   },
   {
+    icon: Wrench,
+    iconClass: 'text-meridian-accent',
     title: 'Updates & maintenance',
     body: 'We do the fiddling, fixing and button pressing.',
+    tilt: '-rotate-1',
   },
   {
+    icon: Headset,
+    iconClass: 'text-meridian-deep',
     title: 'Human support',
     body: 'A real person in your corner when you need one.',
+    tilt: 'rotate-1',
   },
-] as const
+]
 
 export function WhatMerevoDoes() {
   return (
     <Section
       id="features"
-      className="flex min-h-[100svh] flex-col justify-center bg-white !py-12 md:!py-16 lg:!py-20"
+      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden !py-20 md:!py-28 lg:!py-32"
     >
-      <Reveal className="mx-auto max-w-[36rem] text-center">
-        <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
-          What’s under the roof?
-        </h2>
-        <p className="mt-3 text-base leading-relaxed text-meridian-muted">
-          One proper online home. The useful stuff, quietly handled—including the behind
-          the scenes bits.
-        </p>
-      </Reveal>
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-[18%] bottom-[18%] bg-gradient-to-b from-transparent via-meridian-accent/12 to-transparent"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute top-1/2 left-1/2 size-[min(36rem,70vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-meridian-accent/12 blur-3xl"
+      />
 
-      <div className="mt-8 grid items-center gap-8 sm:mt-10 lg:mt-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12 xl:gap-14">
-        <Reveal className="flex justify-center lg:justify-start">
-          <IllustrationSlot
-            label="Your own website"
-            brief="Friendly shop window with the business name and a clear Book now moment."
-            className="aspect-auto h-[min(48vh,26rem)] w-full max-w-[22rem] bg-meridian-soft/40 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65 lg:max-w-none"
-          />
+      <div className="relative z-10">
+        <Reveal className="mx-auto max-w-[36rem] text-center">
+          <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
+            What’s under the roof?
+          </h2>
+          <p className="mt-3 text-base leading-relaxed text-meridian-muted">
+            One proper online home. The useful stuff, quietly handled—including the behind the
+            scenes bits.
+          </p>
         </Reveal>
 
-        <ul className="grid grid-cols-1 gap-x-8 gap-y-7 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-8">
-          {rooms.map((room, index) => (
-            <Reveal key={room.title} delayMs={index * 50} as="li">
-              <h3 className="font-display text-xl font-bold tracking-tight text-meridian-ink md:text-2xl">
-                {room.title}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-meridian-muted md:text-base">
-                {room.body}
-              </p>
-            </Reveal>
-          ))}
-        </ul>
+        <div className="mt-14 grid items-center gap-12 sm:mt-16 lg:mt-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14 xl:gap-16">
+          <Reveal className="flex justify-center lg:justify-start">
+            <IllustrationSlot
+              label="Your own website"
+              brief="Friendly shop window with the business name and a clear Book now moment."
+              className="aspect-auto h-[min(48vh,26rem)] w-full max-w-[22rem] bg-white/60 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65 lg:max-w-none"
+            />
+          </Reveal>
+
+          <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-5">
+            {rooms.map((room, index) => {
+              const Icon = room.icon
+              return (
+                <Reveal key={room.title} delayMs={index * 50} as="li">
+                  <article
+                    className={[
+                      'h-full rounded-[1.25rem] bg-white p-5 shadow-[0_10px_28px_rgb(22_105_122_/_0.12)] md:p-6',
+                      'origin-center transition-transform duration-500',
+                      room.tilt,
+                    ].join(' ')}
+                  >
+                    <div className="flex items-start gap-3">
+                      <Icon
+                        size={26}
+                        weight="duotone"
+                        className={['mt-0.5 shrink-0', room.iconClass].join(' ')}
+                        aria-hidden
+                      />
+                      <div>
+                        <h3 className="font-display text-lg font-bold tracking-tight text-meridian-ink md:text-xl">
+                          {room.title}
+                        </h3>
+                        <p className="mt-1.5 text-sm leading-relaxed text-meridian-muted md:text-base">
+                          {room.body}
+                        </p>
+                      </div>
+                    </div>
+                  </article>
+                </Reveal>
+              )
+            })}
+          </ul>
+        </div>
       </div>
     </Section>
   )
