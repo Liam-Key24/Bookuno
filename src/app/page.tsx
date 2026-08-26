@@ -11,8 +11,8 @@ export default function HomePage() {
       <Hero />
       <ProblemBenefit />
       <HowItWorks />
-      <WhatMerevoDoes />
       <CustomerMarketing />
+      <WhatMerevoDoes />
       <ContactCta />
     </main>
   )
