@@ -23,9 +23,14 @@ export const pricingFaqs: FaqItem[] = [
       'One standard domain is included for the first year, up to a £25 allowance. If your chosen domain costs more, you pay the difference before we buy it. Premium domains, extra domains, transfers, privacy add-ons and renewals after year one are separate.',
   },
   {
-    question: 'Who owns the domain?',
+    question: 'Who owns my domain?',
     answer:
-      'You do. Where possible we register it in your name or account so ownership stays with you if you leave.',
+      'Your domain is registered in your business name. Merevo manages the registrar account, DNS and renewals on your behalf while your service is active.\n\nYour plan includes one standard domain allowance. Premium domains, additional domains and renewal costs outside that allowance are charged separately with your approval.\n\nIf you leave Merevo after the minimum term, we will provide account access or transfer the domain to your chosen provider. We will begin the handover within five working days, although registrar rules or temporary transfer locks may affect the final completion date.',
+  },
+  {
+    question: 'If you already own a domain',
+    answer:
+      'You keep full ownership and control of your existing domain. Merevo does not transfer or take ownership of it.\n\nYou authorise Merevo to manage the DNS, website connection, SSL and related technical settings while your service is active. Domain renewal fees remain your responsibility unless specifically included in writing.\n\nWhen the service ends, Merevo will remove its access and provide any reasonable technical information needed to continue managing the domain with your chosen provider.',
   },
   {
     question: 'How much do extra pages cost?',
@@ -60,7 +65,7 @@ export const pricingFaqs: FaqItem[] = [
   {
     question: 'What happens if I leave?',
     answer:
-      'After the three-month minimum, you can stop the monthly subscription. You keep your domain. Any migration or handover work is agreed and quoted separately before it begins.',
+      'After the three-month minimum, you can stop the monthly subscription. Your domain stays registered in your business name—we provide account access or transfer it to your chosen provider, beginning the handover within five working days (registrar rules or transfer locks may affect final completion). Any other migration work is agreed separately before it begins.',
   },
   {
     question: 'Can prices change?',

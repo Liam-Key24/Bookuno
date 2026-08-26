@@ -15,7 +15,6 @@ import {
   Sparkle,
   ShieldCheck,
 } from '@phosphor-icons/react/dist/ssr'
-import { Faq } from '@/components/sections/Faq'
 import { FeatureShowcase } from '@/components/sections/FeatureShowcase'
 import { PageCta } from '@/components/sections/PageCta'
 import { PageIntro } from '@/components/sections/PageIntro'
@@ -195,8 +194,6 @@ export default function WhatsIncludedPage() {
           />
         </div>
       ))}
-
-      <Faq />
 
       <PageCta
         title="Want this for your business?"

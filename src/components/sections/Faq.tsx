@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import { CaretDown } from '@phosphor-icons/react'
 import { Section } from '@/components/sections/Section'
 
@@ -43,6 +43,7 @@ type FaqProps = {
   title?: string
   lede?: string
   id?: string
+  className?: string
 }
 
 export function Faq({
@@ -50,11 +51,47 @@ export function Faq({
   title = 'FAQ, without the jargon.',
   lede = 'Straight answers about what’s under the roof.',
   id = 'faq',
+  className = 'bg-white',
 }: FaqProps) {
   const [openIndex, setOpenIndex] = useState(0)
+  const listRef = useRef<HTMLDivElement>(null)
+  const [listMinHeight, setListMinHeight] = useState<number>()
+
+  useLayoutEffect(() => {
+    const root = listRef.current
+    if (!root) return
+
+    const measure = () => {
+      const rows = root.querySelectorAll<HTMLElement>('[data-faq-row]')
+      let buttonsHeight = 0
+      let maxAnswerHeight = 0
+
+      rows.forEach((row) => {
+        const button = row.querySelector<HTMLElement>('[data-faq-button]')
+        const answer = row.querySelector<HTMLElement>('[data-faq-answer]')
+        if (button) buttonsHeight += button.getBoundingClientRect().height
+        if (answer) maxAnswerHeight = Math.max(maxAnswerHeight, answer.scrollHeight)
+      })
+
+      // Borders between rows (top on each + bottom on last)
+      const borders = rows.length + 1
+      setListMinHeight(Math.ceil(buttonsHeight + maxAnswerHeight + borders))
+    }
+
+    measure()
+
+    const observer = new ResizeObserver(measure)
+    observer.observe(root)
+    window.addEventListener('resize', measure)
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('resize', measure)
+    }
+  }, [items])
 
   return (
-    <Section id={id} className="bg-white">
+    <Section id={id} className={className}>
       <div className="mx-auto max-w-[36rem] text-center">
         <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
           {title}
@@ -62,12 +99,11 @@ export function Faq({
         <p className="mt-3 text-base leading-relaxed text-meridian-muted">{lede}</p>
       </div>
 
-      {/* Short lists keep a min-height so the section doesn’t jump when an answer opens */}
+      {/* Fixed min-height = all questions + tallest answer, so the section below doesn’t jump */}
       <div
-        className={[
-          'mx-auto mt-12 max-w-[44rem] sm:mt-14',
-          items.length <= 6 ? 'min-h-[28rem] sm:min-h-[30rem]' : '',
-        ].join(' ')}
+        ref={listRef}
+        className="mx-auto mt-12 max-w-[44rem] sm:mt-14"
+        style={listMinHeight ? { minHeight: listMinHeight } : undefined}
       >
         {items.map((item, index) => {
           const isOpen = openIndex === index
@@ -75,14 +111,19 @@ export function Faq({
           const buttonId = `${id}-button-${index}`
 
           return (
-            <div key={item.question} className="border-t border-meridian-ink/10 last:border-b last:border-meridian-ink/10">
+            <div
+              key={item.question}
+              data-faq-row
+              className="border-t border-meridian-ink/10 last:border-b last:border-meridian-ink/10"
+            >
               <h3>
                 <button
                   type="button"
                   id={buttonId}
+                  data-faq-button
                   aria-expanded={isOpen}
                   aria-controls={panelId}
-                  onClick={() => setOpenIndex(isOpen ? -1 : index)}
+                  onClick={() => setOpenIndex(index)}
                   className="flex w-full items-center justify-between gap-4 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-meridian-mid/40 focus-visible:ring-offset-2"
                 >
                   <span className="font-display text-lg font-bold tracking-tight text-meridian-ink md:text-xl">
@@ -109,9 +150,14 @@ export function Faq({
                 ].join(' ')}
               >
                 <div className="overflow-hidden">
-                  <p className="max-w-[40rem] pb-5 text-sm leading-relaxed text-meridian-muted md:text-base">
-                    {item.answer}
-                  </p>
+                  <div
+                    data-faq-answer
+                    className="max-w-[40rem] space-y-3 pb-5 text-sm leading-relaxed text-meridian-muted md:text-base"
+                  >
+                    {item.answer.split('\n\n').map((paragraph) => (
+                      <p key={paragraph.slice(0, 48)}>{paragraph}</p>
+                    ))}
+                  </div>
                 </div>
               </div>
             </div>

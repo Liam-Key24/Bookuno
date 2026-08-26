@@ -21,8 +21,8 @@ export default function PricingPage() {
         lede="Domains, extras, Stripe fees and what happens if you leave."
       />
       <PageCta
-        title="Ready when you are"
-        body="Share a little about your business and we’ll follow up personally."
+        title="If anything’s unclear, ask us"
+        body="Happy to walk through pricing, domains or extras before you commit."
       />
     </main>
   )

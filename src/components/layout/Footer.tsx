@@ -14,7 +14,7 @@ const offerLinks = [
   { label: 'Founding pricing', href: '/pricing' },
   { label: 'What’s included', href: '/whats-included' },
   { label: 'Demo templates', href: '/templates' },
-  { label: 'FAQ', href: '/whats-included#faq' },
+  { label: 'FAQ', href: '/faq' },
 ] as const
 
 const startLinks = [

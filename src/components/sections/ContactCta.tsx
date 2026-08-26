@@ -1,9 +1,17 @@
 import { LeadForm } from '@/components/forms/LeadForm'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 
-export function ContactCta() {
+type ContactCtaProps = {
+  title?: string
+  id?: string
+}
+
+export function ContactCta({
+  title = 'Get started with Merevo',
+  id = 'contact',
+}: ContactCtaProps) {
   return (
-    <section id="contact" className="w-full bg-white px-3 py-10 sm:px-4 sm:py-12 md:py-16">
+    <section id={id} className="w-full scroll-mt-24 bg-white px-3 py-10 sm:px-4 sm:py-12 md:py-16">
       <div className="relative mx-auto w-full overflow-hidden rounded-meridian px-6 py-10 sm:px-8 sm:py-12 md:w-2/3 md:px-10 md:py-14">
         <div
           aria-hidden
@@ -16,7 +24,7 @@ export function ContactCta() {
 
         <div className="relative z-10">
           <h2 className="text-center font-display text-[1.85rem] font-bold tracking-tight text-white sm:text-[2.2rem] lg:text-[2.45rem]">
-            Get started with Merevo
+            {title}
           </h2>
 
           <div className="mt-8 grid w-full items-center gap-8 sm:mt-10 sm:gap-10 md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-12 lg:gap-14">
