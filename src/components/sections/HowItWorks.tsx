@@ -63,7 +63,7 @@ function PencilArrowSlot({ flip }: { flip?: boolean }) {
 
 export function HowItWorks() {
   return (
-    <Section className="bg-white !pt-8 md:!pt-10 lg:!pt-12">
+    <Section className="bg-white">
       <Reveal className="mx-auto max-w-[34rem] text-center">
         <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
           Pick a template. Send your bits. We’ll bring it together.

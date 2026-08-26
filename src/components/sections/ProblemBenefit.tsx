@@ -30,7 +30,7 @@ export function ProblemBenefit() {
     <PeekFade>
       <Section
         id="about"
-        className="relative z-0 -mt-10 bg-gradient-to-b from-white via-meridian-accent/15 to-white pt-20 pb-10 md:-mt-14 md:pt-28 md:pb-14 lg:pt-32 lg:pb-16"
+        className="relative z-0 -mt-10 bg-gradient-to-b from-white via-meridian-accent/15 to-white pt-24 pb-16 md:-mt-14 md:pt-32 md:pb-24 lg:pt-36 lg:pb-28"
       >
         <Reveal className="mx-auto w-full max-w-[34rem] text-center">
           <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.35rem]">
@@ -50,7 +50,7 @@ export function ProblemBenefit() {
             />
           </Reveal>
 
-          <ul className="mx-auto flex w-full max-w-[30rem] flex-col gap-7 lg:mx-0 lg:max-w-none">
+          <ul className="mx-auto flex w-full max-w-[30rem] flex-col gap-9 lg:mx-0 lg:max-w-none">
             {problems.map((item, index) => {
               const Icon = item.icon
               return (
