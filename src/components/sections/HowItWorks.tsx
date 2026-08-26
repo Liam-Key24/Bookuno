@@ -13,7 +13,7 @@ const steps = [
   },
   {
     title: 'Send your bits',
-    body: 'Logo, colours, services, hours and images. We take it from there.',
+    body: 'Logo, colours, services, hours and images to get started. You can always tweak details later in your settings.',
     illustration: {
       label: 'Brand bits',
       brief: 'Logo, colours and content pieces being handed over in a neat pile.',
@@ -73,16 +73,23 @@ export function HowItWorks() {
         </p>
       </Reveal>
 
-      <ol className="relative mx-auto mt-12 max-w-[58rem] sm:mt-16">
+      <ol className="relative mx-auto mt-14 max-w-[64rem] sm:mt-20">
         {steps.map((step, index) => {
           const illustrationFirst = index % 2 === 0
           const pathShift =
             index % 2 === 0
-              ? 'lg:-translate-x-6 xl:-translate-x-10'
-              : 'lg:translate-x-6 xl:translate-x-10'
+              ? 'lg:-translate-x-10 xl:-translate-x-16'
+              : 'lg:translate-x-10 xl:translate-x-16'
+          const cardTilt = illustrationFirst ? '-rotate-2' : 'rotate-2'
 
           const card = (
-            <article className="rounded-[1.25rem] bg-meridian-surface p-6 shadow-[0_10px_28px_rgb(22_105_122_/_0.1)] md:p-8">
+            <article
+              className={[
+                'rounded-[1.25rem] bg-meridian-surface p-6 shadow-[0_10px_28px_rgb(22_105_122_/_0.1)] md:p-8',
+                'origin-center transition-transform duration-500',
+                cardTilt,
+              ].join(' ')}
+            >
               <p className="font-display text-4xl font-bold tracking-tight text-meridian-soft/90 md:text-5xl">
                 {String(index + 1).padStart(2, '0')}
               </p>
@@ -108,25 +115,25 @@ export function HowItWorks() {
               <Reveal
                 delayMs={40}
                 className={[
-                  'grid items-center gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-12',
+                  'grid items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-16 xl:gap-20',
                   pathShift,
                 ].join(' ')}
               >
                 {illustrationFirst ? (
                   <>
-                    <div className="lg:pr-2">{art}</div>
-                    <div className="lg:pl-2">{card}</div>
+                    <div className="lg:pr-4">{art}</div>
+                    <div className="lg:pl-4">{card}</div>
                   </>
                 ) : (
                   <>
-                    <div className="order-2 lg:order-1 lg:pr-2">{card}</div>
-                    <div className="order-1 lg:order-2 lg:pl-2">{art}</div>
+                    <div className="order-2 lg:order-1 lg:pr-4">{card}</div>
+                    <div className="order-1 lg:order-2 lg:pl-4">{art}</div>
                   </>
                 )}
               </Reveal>
 
               {index < steps.length - 1 ? (
-                <Reveal delayMs={80} className="py-3 sm:py-4">
+                <Reveal delayMs={80} className="py-6 sm:py-8 md:py-10">
                   <PencilArrowSlot flip={!illustrationFirst} />
                 </Reveal>
               ) : null}
