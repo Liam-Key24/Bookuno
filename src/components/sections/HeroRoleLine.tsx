@@ -97,7 +97,10 @@ export function HeroRoleLine() {
         </span>
       </span>
       <span aria-hidden className="mt-1 block sm:mt-2">
-        with a business to book.
+        with a business
+      </span>
+      <span aria-hidden className="block">
+        to book.
       </span>
     </h1>
   )
