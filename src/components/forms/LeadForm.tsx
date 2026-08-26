@@ -1,22 +1,37 @@
 'use client'
 
 import { Turnstile } from '@marsidev/react-turnstile'
+import { PaperPlaneTilt } from '@phosphor-icons/react'
 import { useRouter } from 'next/navigation'
 import { useRef, useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/Button'
 import { trackEvent } from '@/lib/analytics'
 
-const fieldClassName =
-  'w-full rounded-[20px] border-0 bg-white px-[1rem] py-[0.85rem] text-sm text-meridian-ink outline-none ring-1 ring-white/20 placeholder:text-meridian-ink/40 focus-visible:ring-2 focus-visible:ring-meridian-accent/70'
+type LeadFormTone = 'default' | 'onGradient'
 
-const labelClassName = 'mb-[0.4rem] block text-sm font-medium tracking-tight text-white/85'
+const fieldByTone: Record<LeadFormTone, string> = {
+  default:
+    'w-full border-0 border-b border-meridian-ink/15 bg-transparent px-0 py-2.5 text-sm text-meridian-ink outline-none transition-colors placeholder:text-meridian-ink/35 focus-visible:border-meridian-deep',
+  onGradient:
+    'w-full border-0 border-b border-white/35 bg-transparent px-0 py-2.5 text-sm text-white outline-none transition-colors placeholder:text-white/45 focus-visible:border-white [&_option]:bg-white [&_option]:text-meridian-ink',
+}
+
+const labelByTone: Record<LeadFormTone, string> = {
+  default: 'mb-1 block text-sm font-medium tracking-tight text-meridian-ink',
+  onGradient: 'mb-1 block text-sm font-medium tracking-tight text-white',
+}
 
 const businessTypes = [
   { value: '', label: 'Business type (optional)' },
-  { value: 'salon', label: 'Salon' },
-  { value: 'barbershop', label: 'Barbershop' },
-  { value: 'restaurant', label: 'Restaurant' },
-  { value: 'other', label: 'Other' },
+  { value: 'barber_hairdresser', label: 'Barber / hairdresser' },
+  { value: 'beauty', label: 'Beauty professional' },
+  { value: 'nails', label: 'Nail technician' },
+  { value: 'therapist', label: 'Therapist' },
+  { value: 'personal_trainer', label: 'Personal trainer' },
+  { value: 'dog_groomer', label: 'Dog groomer' },
+  { value: 'tattoo', label: 'Tattoo artist' },
+  { value: 'cleaner', label: 'Cleaner' },
+  { value: 'other', label: 'Other service business' },
 ] as const
 
 function createIdempotencyKey() {
@@ -30,7 +45,7 @@ function createIdempotencyKey() {
   })
 }
 
-export function LeadForm() {
+export function LeadForm({ tone = 'default' }: { tone?: LeadFormTone }) {
   const router = useRouter()
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
   // One key per form attempt — reused on manual retry; no automatic retry loops.
@@ -45,6 +60,10 @@ export function LeadForm() {
   const [error, setError] = useState<string | null>(null)
   const [deliveryNotice, setDeliveryNotice] = useState<string | null>(null)
   const [pending, setPending] = useState(false)
+
+  const fieldClassName = fieldByTone[tone]
+  const labelClassName = labelByTone[tone]
+  const onGradient = tone === 'onGradient'
 
   async function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -73,9 +92,9 @@ export function LeadForm() {
           businessName,
           businessType,
           message,
+          website,
           turnstileToken,
           idempotencyKey: idempotencyKeyRef.current,
-          website,
         }),
       })
 
@@ -117,12 +136,8 @@ export function LeadForm() {
   }
 
   return (
-    <form
-      onSubmit={onSubmit}
-      className="relative mx-auto w-full max-w-[36rem] text-left"
-      noValidate
-    >
-      <div className="grid gap-[1rem] sm:grid-cols-2">
+    <form onSubmit={onSubmit} className="relative w-full text-left" noValidate>
+      <div className="grid gap-5 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-5">
         <div className="sm:col-span-1">
           <label htmlFor="lead-name" className={labelClassName}>
             Name
@@ -201,8 +216,8 @@ export function LeadForm() {
             rows={4}
             value={message}
             onChange={(event) => setMessage(event.target.value)}
-            className={`${fieldClassName} min-h-[7rem] resize-y`}
-            placeholder="Tell us about your salon, barbershop, or restaurant."
+            className={`${fieldClassName} min-h-[6.5rem] resize-y`}
+            placeholder="Tell us a little about your business and what you need."
           />
         </div>
 
@@ -224,26 +239,14 @@ export function LeadForm() {
         </div>
       </div>
 
-      {siteKey ? (
-        <div className="mt-[1.25rem]">
-          <Turnstile
-            siteKey={siteKey}
-            onSuccess={setTurnstileToken}
-            onExpire={() => setTurnstileToken('')}
-            onError={() => setTurnstileToken('')}
-            options={{ theme: 'light' }}
-          />
-        </div>
-      ) : (
-        <p className="mt-[1.25rem] text-sm text-white/70" role="status">
-          Security check unavailable until Turnstile keys are configured.
-        </p>
-      )}
-
       {deliveryNotice ? (
         <p
           role="status"
-          className="mt-[1rem] rounded-[20px] bg-white/15 px-[1rem] py-[0.85rem] text-sm leading-relaxed text-white"
+          className={
+            onGradient
+              ? 'mt-4 rounded-meridian bg-white/20 px-4 py-3 text-sm leading-relaxed text-white'
+              : 'mt-4 rounded-meridian bg-meridian-surface px-4 py-3 text-sm leading-relaxed text-meridian-ink'
+          }
         >
           {deliveryNotice}
         </p>
@@ -252,26 +255,56 @@ export function LeadForm() {
       {error ? (
         <p
           role="alert"
-          className="mt-[1rem] rounded-[20px] bg-white/10 px-[1rem] py-[0.75rem] text-sm text-white"
+          className={
+            onGradient
+              ? 'mt-4 rounded-meridian bg-meridian-accent/25 px-4 py-3 text-sm text-white'
+              : 'mt-4 rounded-meridian bg-meridian-accent/15 px-4 py-3 text-sm text-meridian-ink'
+          }
         >
           {error}
         </p>
       ) : null}
 
-      <div className="mt-[1.25rem] flex flex-col gap-[0.75rem] sm:flex-row sm:items-center">
+      <div className="mt-6 flex flex-col gap-4 min-[400px]:flex-row min-[400px]:items-center min-[400px]:justify-between">
+        {siteKey ? (
+          <div className="lead-form-turnstile min-w-0 overflow-visible [&_iframe]:max-w-full">
+            <Turnstile
+              siteKey={siteKey}
+              onSuccess={setTurnstileToken}
+              onExpire={() => setTurnstileToken('')}
+              onError={() => setTurnstileToken('')}
+              options={{ theme: 'light', size: 'normal' }}
+              className="lead-form-turnstile__widget"
+            />
+          </div>
+        ) : (
+          <p
+            className={onGradient ? 'text-sm text-white/80' : 'text-sm text-meridian-muted'}
+            role="status"
+          >
+            Security check unavailable until Turnstile keys are configured.
+          </p>
+        )}
+
         <Button
           type="submit"
-          variant="accent"
+          variant={onGradient ? 'soft' : 'accent'}
           disabled={pending || Boolean(deliveryNotice)}
-          className="disabled:opacity-60"
+          className={
+            onGradient
+              ? 'w-fit shrink-0 whitespace-nowrap bg-white text-meridian-deep hover:bg-white/90 disabled:opacity-60 min-[400px]:ml-auto'
+              : 'w-fit shrink-0 whitespace-nowrap disabled:opacity-60 min-[400px]:ml-auto'
+          }
         >
-          {pending ? 'Sending…' : 'Send message'}
+          {pending ? (
+            'Sending…'
+          ) : (
+            <>
+              Send
+              <PaperPlaneTilt size={16} weight="bold" aria-hidden />
+            </>
+          )}
         </Button>
-        <p className="text-xs text-white/55">
-          {deliveryNotice
-            ? 'Your enquiry is already with us — submitting again will not resend emails.'
-            : 'We take you to the thank-you page only after your enquiry is saved and confirmation is sent.'}
-        </p>
       </div>
     </form>
   )

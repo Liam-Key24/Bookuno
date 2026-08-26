@@ -1,69 +1,73 @@
-import {
-  CalendarCheck,
-  CreditCard,
-  EnvelopeSimple,
-  Headset,
-  Monitor,
-} from '@phosphor-icons/react/dist/ssr'
 import { Section } from '@/components/sections/Section'
+import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
+import { Reveal } from '@/components/motion/Reveal'
 
-const capabilities = [
+/** What’s included: product + managed bits + branded-home idea. */
+const rooms = [
   {
-    icon: Monitor,
     title: 'Your website',
-    body: 'A professionally designed Merevo template, personalised with your name, logo, colours, images, services and prices.',
+    body: 'Your branding on the door. Customers land on you, not a marketplace.',
   },
   {
-    icon: CalendarCheck,
-    title: 'Your bookings',
-    body: 'Availability and online booking through your own website—so customers book with you, not on somebody else’s marketplace.',
+    title: 'Booking requests',
+    body: 'Bookings stay with your business and domain, not lost in the inbox.',
   },
   {
-    icon: CreditCard,
-    title: 'Your payments',
-    body: 'Online payments powered by Stripe. Take deposits or full payments. Stripe processing fees apply separately.',
+    title: 'Hosting & security',
+    body: 'Kept online, protected and looked after. No server shopping.',
   },
   {
-    icon: EnvelopeSimple,
-    title: 'Your customer marketing',
-    body: 'Friendly follow-ups and staying in touch—without adding “learn email marketing software” to your to-do list.',
+    title: 'Secure storage',
+    body: 'The data you need to run the service, held safely.',
   },
   {
-    icon: Headset,
-    title: 'The technical bits',
-    body: 'Hosting, secure data storage, platform maintenance, updates and Merevo technical support—quietly looked after for you.',
+    title: 'Updates & maintenance',
+    body: 'We do the fiddling, fixing and button pressing.',
+  },
+  {
+    title: 'Human support',
+    body: 'A real person in your corner when you need one.',
   },
 ] as const
 
 export function WhatMerevoDoes() {
   return (
-    <Section id="features" className="bg-meridian-surface">
-      <div className="max-w-[40rem]">
-        <p className="text-sm font-medium tracking-tight text-meridian-deep">What’s included</p>
-        <h2 className="mt-[0.75rem] text-[1.85rem] font-semibold tracking-tight text-meridian-ink sm:text-[2.25rem]">
-          Your website, bookings, payments and customer marketing—under one friendly roof.
+    <Section
+      id="features"
+      className="flex min-h-[100svh] flex-col justify-center bg-white !py-12 md:!py-16 lg:!py-20"
+    >
+      <Reveal className="mx-auto max-w-[36rem] text-center">
+        <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
+          What’s under the roof?
         </h2>
-        <p className="mt-[1rem] text-base leading-relaxed text-meridian-muted sm:text-[1.05rem]">
-          Merevo is a managed website, booking, payments and customer-growth platform for service
-          businesses. Not a DIY builder. Not a marketplace. Not a traditional web-design agency.
-          One connected service, set up and managed for you.
+        <p className="mt-3 text-base leading-relaxed text-meridian-muted">
+          One proper online home. The useful stuff, quietly handled—including the behind
+          the scenes bits.
         </p>
-        <p className="mt-[0.75rem] text-sm font-medium tracking-tight text-meridian-ink">
-          Your website. Your bookings. Your customers.
-        </p>
-      </div>
+      </Reveal>
 
-      <ul className="mt-[2.5rem] grid gap-[1rem] sm:grid-cols-2 lg:grid-cols-3">
-        {capabilities.map(({ icon: Icon, title, body }) => (
-          <li key={title} className="rounded-[20px] bg-white p-[1.35rem] md:p-[1.5rem]">
-            <Icon size={24} weight="duotone" className="text-meridian-mid" aria-hidden />
-            <h3 className="mt-[1rem] text-base font-semibold tracking-tight text-meridian-ink">
-              {title}
-            </h3>
-            <p className="mt-[0.45rem] text-sm leading-relaxed text-meridian-muted">{body}</p>
-          </li>
-        ))}
-      </ul>
+      <div className="mt-8 grid items-center gap-8 sm:mt-10 lg:mt-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12 xl:gap-14">
+        <Reveal className="flex justify-center lg:justify-start">
+          <IllustrationSlot
+            label="Your own website"
+            brief="Friendly shop window with the business name and a clear Book now moment."
+            className="aspect-auto h-[min(48vh,26rem)] w-full max-w-[22rem] bg-meridian-soft/40 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65 lg:max-w-none"
+          />
+        </Reveal>
+
+        <ul className="grid grid-cols-1 gap-x-8 gap-y-7 sm:grid-cols-2 sm:gap-x-10 sm:gap-y-8">
+          {rooms.map((room, index) => (
+            <Reveal key={room.title} delayMs={index * 50} as="li">
+              <h3 className="font-display text-xl font-bold tracking-tight text-meridian-ink md:text-2xl">
+                {room.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-meridian-muted md:text-base">
+                {room.body}
+              </p>
+            </Reveal>
+          ))}
+        </ul>
+      </div>
     </Section>
   )
 }

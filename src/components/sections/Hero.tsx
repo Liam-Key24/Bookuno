@@ -1,39 +1,47 @@
 import { Button } from '@/components/ui/Button'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
+import { Reveal } from '@/components/motion/Reveal'
+import { HeroRoleLine } from '@/components/sections/HeroRoleLine'
 
 export function Hero() {
   return (
-    <section className="w-full bg-white px-[1.5rem] pb-[2rem] pt-[0.5rem] md:px-[2.5rem] md:pb-[2.5rem] lg:px-[3rem]">
-      <div className="grid w-full items-center gap-[2.5rem] rounded-[20px] bg-meridian-surface px-[1.5rem] py-[2.5rem] md:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] md:gap-[3rem] md:px-[2.5rem] md:py-[3.5rem] lg:px-[3rem] lg:py-[4rem]">
-        <div className="flex max-w-[38rem] flex-col items-start">
-          <p className="text-sm font-medium tracking-tight text-meridian-deep">Merevo</p>
-          <h1 className="mt-[0.65rem] text-[2.15rem] font-semibold leading-[1.08] tracking-tight text-meridian-ink sm:text-[2.75rem] lg:text-[3.35rem]">
-            Your business, ready to book.
-          </h1>
-          <p className="mt-[1.15rem] max-w-[34rem] text-base leading-relaxed text-meridian-muted sm:text-[1.05rem]">
-            A lovely website, online bookings, Stripe payments and customer marketing—all set up
-            and managed for you.
-          </p>
-          <p className="mt-[0.85rem] max-w-[34rem] text-sm font-medium leading-relaxed text-meridian-ink sm:text-base">
-            £50 a month. Your first three months are £150 upfront, including setup.
-          </p>
+    <section className="relative z-10 w-full bg-white">
+      <div className="relative m-2 mb-0 flex w-auto min-h-[min(80vh,50rem)] items-center justify-center overflow-hidden rounded-meridian px-5 py-10 md:px-8 md:py-12">
+        {/* Blue → lighter blue at the bottom, with a soft fuzzy wash */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-gradient-to-b from-meridian-mid via-meridian-soft to-[#b8dce4]"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -inset-[20%] bg-[radial-gradient(ellipse_at_40%_15%,rgb(72_159_181_/_0.45),transparent_55%),radial-gradient(ellipse_at_70%_85%,rgb(184_220_228_/_0.7),transparent_50%)] blur-2xl"
+        />
 
-          <div className="mt-[2rem] flex flex-wrap items-center gap-[0.75rem]">
-            <Button href="#contact" size="sm">
-              Get started with Merevo
-            </Button>
-            <Button href="#features" variant="soft" size="sm">
-              See what’s included
-            </Button>
-          </div>
-        </div>
+        <div className="relative z-10 grid w-full max-w-[70em] items-center gap-8 md:grid-cols-[minmax(0,1.05fr)_minmax(0,0.85fr)] md:gap-10 lg:gap-14">
+          <Reveal className="flex flex-col items-start">
+            <HeroRoleLine />
+            <p className="mt-5 max-w-[28rem] text-base leading-relaxed text-white/90 sm:text-lg">
+              Website, bookings and payments—managed for you. So you can get on with the work.
+            </p>
 
-        <div className="flex justify-center md:justify-end">
-          <IllustrationSlot
-            label="Hero illustration"
-            brief="Cheerful, tidy shop-front scene with a calm booking calendar and soft accent — premium without clutter, friendly without childish."
-            className="w-full max-w-[22rem] bg-[#9aa7b0] md:max-w-[26rem]"
-          />
+            <div className="mt-8">
+              <Button
+                href="#features"
+                size="sm"
+                className="bg-white text-meridian-deep hover:bg-white/90"
+              >
+                Learn more
+              </Button>
+            </div>
+          </Reveal>
+
+          <Reveal delayMs={140} className="flex justify-center md:justify-start">
+            <IllustrationSlot
+              label="Hero illustration"
+              brief="Cheerful shop-front with a calm booking calendar and soft accent — premium without clutter."
+              className="w-full max-w-[18rem] bg-white/20 md:max-w-[22rem]"
+            />
+          </Reveal>
         </div>
       </div>
     </section>

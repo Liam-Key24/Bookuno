@@ -1,71 +1,90 @@
 import type { Metadata } from 'next'
-import { EnvelopeSimple, MapPin, ChatCircle } from '@phosphor-icons/react/dist/ssr'
 import { Button } from '@/components/ui/Button'
+import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 import { CONTACT_EMAIL, CONTACT_LABEL } from '@/lib/site'
 
 export const metadata: Metadata = {
-  title: 'Contact | Meridian',
-  description: 'Contact Meridian about the founding offer for salons, barbers, and restaurants.',
+  title: 'Contact',
+  description: 'Contact Merevo about the founding offer for independent service businesses.',
 }
+
+const details = [
+  {
+    title: 'Email',
+    body: CONTACT_EMAIL,
+    note: CONTACT_LABEL,
+    href: `mailto:${CONTACT_EMAIL}`,
+  },
+  {
+    title: 'Response',
+    body: 'We aim to reply within 1–2 business days.',
+  },
+  {
+    title: 'Based',
+    body: 'Serving independent service businesses, remote-friendly.',
+  },
+] as const
 
 export default function ContactPage() {
   return (
     <main className="bg-white">
-      <section className="w-full px-[1.5rem] py-[3rem] md:px-[2.5rem] md:py-[4rem] lg:px-[3rem]">
-        <div className="grid gap-[1.5rem] rounded-[20px] bg-meridian-surface p-[1.5rem] md:grid-cols-2 md:gap-[2rem] md:p-[2.5rem] lg:p-[3rem]">
-          <div>
-            <p className="text-sm font-medium tracking-tight text-meridian-deep">Contact</p>
-            <h1 className="mt-[0.5rem] text-[2rem] font-semibold tracking-tight text-meridian-ink sm:text-[2.5rem]">
-              Talk to Meridian
-            </h1>
-            <p className="mt-[1rem] max-w-[28rem] text-base leading-relaxed text-meridian-muted">
-              Independent salons, barbers, and restaurants — reach out about the founding offer
-              or ask a quick question. We reply personally.
-            </p>
-            <Button href="/#contact" variant="accent" className="mt-[1.5rem]">
-              Open the contact form
-            </Button>
-          </div>
+      <section className="flex min-h-[min(80vh,44rem)] w-full flex-col justify-center px-4 py-16 sm:px-6 md:px-8 md:py-24 lg:px-10">
+        <div className="relative mx-auto w-full overflow-hidden rounded-meridian px-6 py-10 sm:px-8 sm:py-12 md:w-2/3 md:px-10 md:py-14">
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#c5e4eb] via-meridian-soft to-meridian-mid/70"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -inset-[20%] bg-[radial-gradient(ellipse_at_35%_15%,rgb(197_228_235_/_0.9),transparent_55%),radial-gradient(ellipse_at_75%_85%,rgb(72_159_181_/_0.35),transparent_50%)] blur-2xl"
+          />
 
-          <ul className="space-y-[1rem]">
-            <li className="rounded-[20px] bg-white p-[1.25rem]">
-              <div className="flex items-start gap-[0.75rem]">
-                <EnvelopeSimple size={22} weight="duotone" className="text-meridian-mid" aria-hidden />
-                <div>
-                  <p className="text-sm font-semibold tracking-tight text-meridian-ink">Email</p>
-                  <a
-                    href={`mailto:${CONTACT_EMAIL}`}
-                    className="mt-[0.25rem] inline-block text-sm text-meridian-deep underline-offset-2 hover:underline"
-                  >
-                    {CONTACT_EMAIL}
-                  </a>
-                  <p className="mt-[0.35rem] text-xs text-meridian-muted">{CONTACT_LABEL}</p>
-                </div>
-              </div>
-            </li>
-            <li className="rounded-[20px] bg-white p-[1.25rem]">
-              <div className="flex items-start gap-[0.75rem]">
-                <ChatCircle size={22} weight="duotone" className="text-meridian-mid" aria-hidden />
-                <div>
-                  <p className="text-sm font-semibold tracking-tight text-meridian-ink">Response</p>
-                  <p className="mt-[0.25rem] text-sm text-meridian-muted">
-                    We aim to reply within 1–2 business days.
-                  </p>
-                </div>
-              </div>
-            </li>
-            <li className="rounded-[20px] bg-white p-[1.25rem]">
-              <div className="flex items-start gap-[0.75rem]">
-                <MapPin size={22} weight="duotone" className="text-meridian-mid" aria-hidden />
-                <div>
-                  <p className="text-sm font-semibold tracking-tight text-meridian-ink">Based</p>
-                  <p className="mt-[0.25rem] text-sm text-meridian-muted">
-                    Serving independent hospitality & beauty businesses (remote-friendly).
-                  </p>
-                </div>
-              </div>
-            </li>
-          </ul>
+          <div className="relative z-10 grid items-center gap-10 md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] md:gap-12">
+            <div>
+              <h1 className="font-display text-[2rem] font-bold tracking-tight text-meridian-accent sm:text-[2.5rem]">
+                Say hello
+              </h1>
+              <p className="mt-3 max-w-[28rem] text-base leading-relaxed text-meridian-ink/75">
+                Reach out about getting started. We reply personally.
+              </p>
+              <IllustrationSlot
+                label="Contact"
+                brief="Calm desk scene with a soft envelope and a friendly wave."
+                className="mt-8 aspect-[4/3] w-full max-w-[16rem] bg-white/45 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65"
+              />
+              <Button
+                href="/#contact"
+                className="mt-8 bg-white text-meridian-deep hover:bg-white/90"
+              >
+                Get started with Merevo
+              </Button>
+            </div>
+
+            <ul className="grid gap-8">
+              {details.map((item) => (
+                <li key={item.title}>
+                  <h2 className="font-display text-lg font-bold tracking-tight text-meridian-ink md:text-xl">
+                    {item.title}
+                  </h2>
+                  {'href' in item && item.href ? (
+                    <a
+                      href={item.href}
+                      className="mt-1.5 inline-block text-sm text-meridian-deep underline-offset-2 hover:underline md:text-base"
+                    >
+                      {item.body}
+                    </a>
+                  ) : (
+                    <p className="mt-1.5 text-sm leading-relaxed text-meridian-muted md:text-base">
+                      {item.body}
+                    </p>
+                  )}
+                  {'note' in item && item.note ? (
+                    <p className="mt-1 text-xs text-meridian-muted">{item.note}</p>
+                  ) : null}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
       </section>
     </main>

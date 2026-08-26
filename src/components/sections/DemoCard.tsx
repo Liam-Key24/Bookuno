@@ -14,32 +14,21 @@ type DemoCardProps = {
 
 export function DemoCard({ demo }: DemoCardProps) {
   return (
-    <article className="flex h-full flex-col rounded-[20px] bg-meridian-surface p-[1.25rem] md:p-[1.5rem]">
-      <div className="relative">
-        <span className="absolute top-[0.85rem] left-[0.85rem] z-10 rounded-full bg-white/95 px-[0.75rem] py-[0.3rem] text-[0.7rem] font-semibold tracking-tight text-meridian-deep uppercase">
-          Demo only
-        </span>
-        <IllustrationSlot
-          label={demo.name}
-          brief={demo.illustrationBrief}
-          className={`aspect-[16/11] max-w-none ${demo.accentClass}`}
-        />
-      </div>
+    <article className="flex h-full flex-col">
+      <IllustrationSlot
+        label={demo.name}
+        brief={demo.illustrationBrief}
+        className={`aspect-[16/11] max-w-none ${demo.accentClass} text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65`}
+      />
 
-      <p className="mt-[1rem] text-xs font-medium tracking-tight text-meridian-deep uppercase">
-        {demo.kind}
-      </p>
-      <h3 className="mt-[0.35rem] text-xl font-semibold tracking-tight text-meridian-ink">
+      <p className="mt-5 text-sm text-meridian-muted">Demo only · {demo.kind}</p>
+      <h2 className="mt-2 font-display text-2xl font-bold tracking-tight text-meridian-ink">
         {demo.name}
-      </h3>
-      <p className="mt-[0.35rem] text-sm font-medium tracking-tight text-meridian-ink/80">
-        {demo.tagline}
-      </p>
-      <p className="mt-[0.55rem] flex-1 text-sm leading-relaxed text-meridian-muted">
-        {demo.summary}
-      </p>
+      </h2>
+      <p className="mt-2 text-sm font-medium tracking-tight text-meridian-ink/80">{demo.tagline}</p>
+      <p className="mt-3 flex-1 text-sm leading-relaxed text-meridian-muted">{demo.summary}</p>
 
-      <div className="mt-[1.25rem] flex flex-wrap items-center gap-[0.65rem]">
+      <div className="mt-6 flex flex-wrap items-center gap-3">
         <Button
           href="/#contact"
           size="sm"
@@ -51,7 +40,7 @@ export function DemoCard({ demo }: DemoCardProps) {
           {demo.ctaLabel}
           <ArrowUpRight size={14} weight="bold" />
         </Button>
-        <p className="text-xs text-meridian-muted">Marketing demo — not a live booking form.</p>
+        <p className="text-xs text-meridian-muted">Not a live booking form.</p>
       </div>
     </article>
   )

@@ -9,12 +9,15 @@
   --color-meridian-accent: #ffa62b;
   --color-meridian-surface: #f4f7f8;
   --color-meridian-surface-strong: #e8eef0;
-  --radius-meridian: 20px;
+  --radius-meridian: 10px;
   --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-satoshi), var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
   color-scheme: light;
+  --reveal-duration: 800ms;
+  --reveal-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 * {
@@ -28,4 +31,90 @@ body {
   background: #ffffff;
   color: var(--color-meridian-ink);
   font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3,
+.font-display {
+  font-family: var(--font-display);
+}
+
+.caption-quirk {
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-meridian-muted);
+}
+
+.reveal {
+  opacity: 0;
+  transform: translate3d(0, 1.5rem, 0);
+  transition:
+    opacity var(--reveal-duration) var(--reveal-ease),
+    transform var(--reveal-duration) var(--reveal-ease);
+  will-change: opacity, transform;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@keyframes hero-role-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.35em, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes faq-answer-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.4rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --reveal-duration: 1ms;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Turnstile: style any host-page links Cloudflare injects beside the iframe
+   (Troubleshoot / help). Cross-origin iframe contents cannot be restyled. */
+.lead-form-turnstile {
+  font-family: var(--font-sans);
+  color: var(--color-meridian-muted);
+  font-size: 0.8125rem;
+  line-height: 1.4;
+}
+
+.lead-form-turnstile a {
+  font-family: inherit;
+  color: var(--color-meridian-deep);
+  text-decoration: none;
+  text-underline-offset: 2px;
+}
+
+.lead-form-turnstile a:hover,
+.lead-form-turnstile a:focus-visible {
+  color: var(--color-meridian-ink);
+  text-decoration: underline;
 }

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Meridian newsletter campaign sender (server-side only).
+ * Merevo newsletter campaign sender (server-side only).
  *
  * Usage:
  *   node scripts/send-newsletter.mjs --help
@@ -25,7 +25,7 @@ const BATCH_DELAY_MS = 1500
 const MAX_CONSECUTIVE_ERRORS = 5
 
 function printHelp() {
-  console.log(`Meridian newsletter sender
+  console.log(`Merevo newsletter sender
 
 Usage:
   node scripts/send-newsletter.mjs <campaign.html> [options]
@@ -92,7 +92,7 @@ function assertProductionSender(fromEmail) {
   const address = (match?.[1] || fromEmail).trim().toLowerCase()
   if (process.env.NODE_ENV === 'production') {
     if (address.endsWith('@resend.dev')) {
-      throw new Error('Production requires a verified Meridian domain sender (not @resend.dev).')
+      throw new Error('Production requires a verified sending domain sender (not @resend.dev).')
     }
   }
 }
@@ -132,7 +132,7 @@ async function run() {
   const subject = args.subject || campaign.subjectDefault
   const postal =
     process.env.NEWSLETTER_POSTAL_ADDRESS ||
-    '[Meridian business address — set NEWSLETTER_POSTAL_ADDRESS]'
+    '[Merevo business address — set NEWSLETTER_POSTAL_ADDRESS]'
 
   const supabase = createClient(url, serviceRoleKey, {
     auth: { persistSession: false, autoRefreshToken: false },

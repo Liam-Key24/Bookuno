@@ -1,6 +1,6 @@
-# Meridian
+# Merevo
 
-Next.js + Tailwind marketing site. Folder name remains Bookluno.
+Next.js + Tailwind marketing site. Folder name remains Bookluno (internal).
 
 ## Scripts
 
@@ -41,7 +41,7 @@ Copy `.env.example` to `.env.local` and fill in:
 | `SUPABASE_SERVICE_ROLE_KEY` | Server-only service role key |
 | `FOUNDER_EMAIL` | Inbox for new-lead alerts |
 | `RESEND_API_KEY` | Resend API key |
-| `RESEND_FROM_EMAIL` | Configurable from-address (verified Meridian domain in production) |
+| `RESEND_FROM_EMAIL` | Configurable from-address (verified sending domain in production) |
 | `NEXT_PUBLIC_TURNSTILE_SITE_KEY` | Cloudflare Turnstile site key (browser) |
 | `TURNSTILE_SECRET_KEY` | Cloudflare Turnstile secret (server) |
 | `UPSTASH_REDIS_REST_URL` | Upstash Redis REST URL |
@@ -86,7 +86,7 @@ Confirm in Supabase:
 
 ### 3. Cloudflare Turnstile
 
-1. Create a Turnstile widget in the Cloudflare dashboard for your Meridian domain.
+1. Create a Turnstile widget in the Cloudflare dashboard for your sending domain.
 2. Copy the **site key** → `NEXT_PUBLIC_TURNSTILE_SITE_KEY`.
 3. Copy the **secret key** → `TURNSTILE_SECRET_KEY` (server only).
 4. The lead form renders Turnstile; `/api/leads` verifies the token with Cloudflare before saving.
@@ -102,10 +102,10 @@ Confirm in Supabase:
 ### 5. Resend + DNS (SPF, DKIM, DMARC)
 
 1. Create a Resend account and API key → `RESEND_API_KEY`.
-2. Add and **verify your Meridian sending domain** in Resend.
-3. Set `RESEND_FROM_EMAIL` to a configurable address on that domain, e.g. `Meridian <hello@your-meridian-domain.com>`.
+2. Add and **verify your sending domain** in Resend.
+3. Set `RESEND_FROM_EMAIL` to a configurable address on that domain, e.g. `Merevo <hello@your-meridian-domain.com>`.
 4. **Development only:** Resend’s `*@resend.dev` test senders are allowed when `NODE_ENV` is not `production`.
-5. **Production:** the app **rejects** `@resend.dev` / fake test senders. A verified Meridian domain address is required — Meridian will not silently send as a fake production sender.
+5. **Production:** the app **rejects** `@resend.dev` / fake test senders. A verified sending domain address is required — Meridian will not silently send as a fake production sender.
 
 #### Required manual DNS launch step
 
@@ -123,9 +123,9 @@ Wait until Resend marks the domain as verified before going live.
 
 Before launch, complete this checklist:
 
-- [ ] Meridian domain verified in Resend
+- [ ] Sending domain verified in Resend
 - [ ] SPF, DKIM, and DMARC records live and verified
-- [ ] `RESEND_FROM_EMAIL` uses the verified Meridian address (not `@resend.dev`)
+- [ ] `RESEND_FROM_EMAIL` uses the verified sending address (not `@resend.dev`)
 - [ ] `FOUNDER_EMAIL` receives a real founder notification from a test submit
 - [ ] Prospect confirmation arrives in the submitter inbox (check spam)
 - [ ] Failed Turnstile / rate-limit / validation returns a safe error (no thank-you page)
@@ -207,7 +207,7 @@ Each subscriber has a random `unsubscribe_token`. Links hit `/api/newsletter/uns
 
 ### Resend domain + DNS
 
-Same as lead capture: verify the Meridian sending domain in Resend, set `RESEND_FROM_EMAIL` to that domain in production (not `@resend.dev`), and publish **SPF**, **DKIM**, and **DMARC** records before live campaigns.
+Same as lead capture: verify the sending domain in Resend, set `RESEND_FROM_EMAIL` to that domain in production (not `@resend.dev`), and publish **SPF**, **DKIM**, and **DMARC** records before live campaigns.
 
 ## Launch trust & analytics
 

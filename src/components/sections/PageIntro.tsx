@@ -9,6 +9,10 @@ type PageIntroProps = {
   children?: ReactNode
 }
 
+/**
+ * Shared page opener: centred title + short lede, then illustration + optional actions.
+ * Matches the landing direction — no eyebrows, simple type, illustration placeholders.
+ */
 export function PageIntro({
   title,
   lede,
@@ -17,23 +21,23 @@ export function PageIntro({
   children,
 }: PageIntroProps) {
   return (
-    <section className="w-full bg-white px-[1.5rem] pb-[2rem] pt-[0.5rem] md:px-[2.5rem] md:pb-[2.5rem] lg:px-[3rem]">
-      <div className="grid w-full items-center gap-[2rem] rounded-[20px] bg-meridian-surface px-[1.5rem] py-[2.25rem] md:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] md:gap-[2.5rem] md:px-[2.5rem] md:py-[3rem] lg:px-[3rem]">
-        <div className="max-w-[34rem]">
-          <h1 className="text-[2.1rem] font-semibold leading-[1.08] tracking-tight text-meridian-ink sm:text-[2.6rem] lg:text-[3rem]">
+    <section className="flex min-h-[min(72vh,40rem)] w-full flex-col justify-center bg-white px-4 py-16 sm:px-6 md:px-8 md:py-24 lg:px-10 lg:py-28">
+      <div className="mx-auto w-full max-w-[72rem]">
+        <div className="mx-auto max-w-[36rem] text-center">
+          <h1 className="font-display text-[2.15rem] font-bold leading-[1.05] tracking-tight text-meridian-ink sm:text-[2.6rem] lg:text-[3.1rem]">
             {title}
           </h1>
-          <p className="mt-[1rem] text-base leading-relaxed text-meridian-muted sm:text-[1.05rem]">
+          <p className="mt-3 text-base leading-relaxed text-meridian-muted sm:text-[1.05rem]">
             {lede}
           </p>
-          {children ? <div className="mt-[1.5rem]">{children}</div> : null}
+          {children ? <div className="mt-6 flex justify-center">{children}</div> : null}
         </div>
 
-        <div className="flex justify-center md:justify-end">
+        <div className="mx-auto mt-10 flex max-w-[22rem] justify-center sm:mt-12 md:max-w-[26rem]">
           <IllustrationSlot
             label={illustrationLabel}
             brief={illustrationBrief}
-            className="w-full max-w-[20rem] bg-[#9aa7b0] md:max-w-[24rem]"
+            className="aspect-[5/4] w-full max-w-none bg-meridian-soft/40 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65"
           />
         </div>
       </div>

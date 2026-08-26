@@ -1,68 +1,68 @@
 import type { Metadata } from 'next'
 import { PageCta } from '@/components/sections/PageCta'
 import { PageIntro } from '@/components/sections/PageIntro'
+import { Section } from '@/components/sections/Section'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 
 export const metadata: Metadata = {
-  title: 'About Us | Meridian',
-  description: 'Meridian helps independent salons, barbers, and restaurants keep a polished online presence.',
+  title: 'About',
+  description:
+    'Merevo helps independent service businesses get online with a managed website, bookings, payments and customer marketing.',
 }
+
+const beats = [
+  {
+    title: 'Who it’s for',
+    body: 'Independent service businesses—barbers, beauty, therapists, trainers, groomers and more.',
+  },
+  {
+    title: 'What we believe',
+    body: 'You run the business. We handle the website bits so evenings stay yours.',
+  },
+  {
+    title: 'How we work',
+    body: 'Pick a template, send your bits, we set it up and keep it looked after.',
+  },
+] as const
 
 export default function AboutPage() {
   return (
     <main className="bg-white">
       <PageIntro
-        title="Built for owners who are already busy."
-        lede="Meridian is a managed website partner for independent salons, barbers, and restaurants — not another app to learn."
-        illustrationLabel="About Meridian"
-        illustrationBrief="Warm, simple portrait of a local shop team with a soft teal glow — premium, human, uncluttered."
+        title="Already busy. Still need a proper website."
+        lede="Merevo is managed website, bookings, payments and marketing—not another app to learn."
+        illustrationLabel="About Merevo"
+        illustrationBrief="Warm portrait of a local service business owner with a soft teal glow."
       />
 
-      <section className="w-full px-[1.5rem] pb-[3rem] md:px-[2.5rem] md:pb-[4rem] lg:px-[3rem]">
-        <div className="grid gap-[1.25rem] md:grid-cols-3">
-          {[
-            {
-              title: 'Who it’s for',
-              body: 'Independent owners who want to look open for business online.',
-              label: 'Audience',
-              brief: 'Salon chair, barber pole, and restaurant table as three soft icons.',
-            },
-            {
-              title: 'What we believe',
-              body: 'Your website should pull its weight. You shouldn’t pull your hair out.',
-              label: 'Belief',
-              brief: 'Balance scale with a calm site on one side and a smiling owner on the other.',
-            },
-            {
-              title: 'How we work',
-              body: 'One clear partnership. Hosting, updates, and support stay with us.',
-              label: 'Partnership',
-              brief: 'Handshake made of simple shapes in Meridian teal and accent orange.',
-            },
-          ].map((card) => (
-            <article
-              key={card.title}
-              className="flex flex-col rounded-[20px] bg-meridian-surface p-[1.25rem] md:p-[1.5rem]"
-            >
-              <IllustrationSlot
-                label={card.label}
-                brief={card.brief}
-                className="mb-[1.25rem] aspect-[4/3] max-w-none bg-[#9aa7b0]"
-              />
-              <h2 className="text-lg font-semibold tracking-tight text-meridian-ink">
-                {card.title}
-              </h2>
-              <p className="mt-[0.5rem] text-sm leading-relaxed text-meridian-muted">
-                {card.body}
-              </p>
-            </article>
-          ))}
+      <Section className="bg-white">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14">
+          <div className="flex justify-center lg:justify-start">
+            <IllustrationSlot
+              label="Busy owners"
+              brief="Barber chair, nail desk and trainer mat as three soft shapes in a calm row."
+              className="aspect-auto h-[min(44vh,24rem)] w-full max-w-[22rem] bg-meridian-soft/40 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65 lg:max-w-none"
+            />
+          </div>
+
+          <ul className="grid grid-cols-1 gap-y-8 sm:gap-y-10">
+            {beats.map((beat) => (
+              <li key={beat.title}>
+                <h2 className="font-display text-xl font-bold tracking-tight text-meridian-ink md:text-2xl">
+                  {beat.title}
+                </h2>
+                <p className="mt-2 max-w-[32rem] text-sm leading-relaxed text-meridian-muted md:text-base">
+                  {beat.body}
+                </p>
+              </li>
+            ))}
+          </ul>
         </div>
-      </section>
+      </Section>
 
       <PageCta
         title="Say hello"
-        body="If that sounds like your kind of help, we’d love to hear about your space."
+        body="If that sounds like your kind of help, we’d love to hear about your business."
       />
     </main>
   )

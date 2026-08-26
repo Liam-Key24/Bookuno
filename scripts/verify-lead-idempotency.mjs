@@ -1,5 +1,5 @@
 /**
- * Focused verification for Meridian lead idempotency + truthful delivery failures.
+ * Focused verification for Merevo lead idempotency + truthful delivery failures.
  *
  * Proves (against the configured Supabase project + static source checks):
  * 1. A successful submission creates one lead and at most one email of each type
@@ -152,7 +152,7 @@ function checkServiceRoleNotInBrowser() {
 }
 
 async function main() {
-  console.log('Meridian lead idempotency + delivery-truth verification\n')
+  console.log('Merevo lead idempotency + delivery-truth verification\n')
 
   checkServiceRoleNotInBrowser()
   checkNoRetryLoops()

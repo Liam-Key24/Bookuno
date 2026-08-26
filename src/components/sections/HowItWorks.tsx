@@ -1,85 +1,146 @@
-import {
-  ArrowRight,
-  Coffee,
-  ImageSquare,
-  LinkSimple,
-  PaintBrush,
-} from '@phosphor-icons/react/dist/ssr'
 import { Section } from '@/components/sections/Section'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
+import { Reveal } from '@/components/motion/Reveal'
 
 const steps = [
   {
-    icon: PaintBrush,
     title: 'Pick your look',
-    body: 'Choose a polished Merevo template that suits your business.',
+    body: 'Choose a polished Merevo template that already feels like home.',
+    illustration: {
+      label: 'Template pick',
+      brief: 'Browsing polished Merevo template thumbnails on a soft desk.',
+    },
   },
   {
-    icon: ImageSquare,
-    title: 'Send us your business bits',
-    body: 'Share your logo, colours, images, services, prices, opening hours and contact details.',
+    title: 'Send your bits',
+    body: 'Logo, colours, services, hours and images to get started. You can always tweak details later in your settings.',
+    illustration: {
+      label: 'Brand bits',
+      brief: 'Logo, colours and content pieces being handed over in a neat pile.',
+    },
   },
   {
-    icon: LinkSimple,
-    title: 'Connect the important stuff',
-    body: 'We’ll help configure bookings, your domain and Stripe payments.',
+    title: 'We’ll do the connections',
+    body: 'Bookings, domain and Stripe plugged in without the plugin fog.',
+    illustration: {
+      label: 'Connections',
+      brief: 'Bookings, domain and Stripe linking into place with soft cables.',
+    },
   },
   {
-    icon: Coffee,
     title: 'Pop the kettle on',
-    body: 'Merevo brings everything together and gets you ready to launch. You’ll still review and approve before you go live.',
+    body: 'We bring it together. You review, tweak and launch when ready.',
+    illustration: {
+      label: 'Launch ready',
+      brief: 'Kettle on while the site comes together for a calm review.',
+    },
   },
 ] as const
 
-export function HowItWorks() {
+/** Placeholder until pencilled arrow art is dropped in. */
+function PencilArrowSlot({ flip }: { flip?: boolean }) {
   return (
-    <Section className="bg-meridian-surface">
-      <div className="max-w-[38rem]">
-        <p className="text-sm font-medium tracking-tight text-meridian-deep">How setup works</p>
-        <h2 className="mt-[0.75rem] text-[1.85rem] font-semibold tracking-tight text-meridian-ink sm:text-[2.25rem]">
-          Pick a template, send us your bits, and we’ll bring it together.
-        </h2>
-        <p className="mt-[1rem] text-base leading-relaxed text-meridian-muted sm:text-[1.05rem]">
-          Setup is designed to be quick and require very little work from you. No plugins, patches
-          or technical head-scratching required—just the details only you know about your business.
+    <div
+      className={[
+        'mx-auto flex h-16 w-full max-w-[12rem] items-center justify-center sm:h-20',
+        flip ? '-scale-x-100' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
+      aria-hidden
+    >
+      <div className="flex h-full w-full flex-col items-center justify-center rounded-meridian bg-meridian-soft/25 px-3 text-center">
+        <p className="text-[0.65rem] font-semibold tracking-wide text-meridian-deep/80 uppercase">
+          Pencilled arrow
+        </p>
+        <p className="mt-0.5 text-[0.65rem] leading-snug text-meridian-muted">
+          Drop art here
         </p>
       </div>
+    </div>
+  )
+}
 
-      <ol className="mt-[2.5rem] grid gap-[1rem] sm:grid-cols-2 lg:grid-cols-4">
-        {steps.map(({ icon: Icon, title, body }, index) => (
-          <li
-            key={title}
-            className="relative rounded-[20px] bg-white p-[1.35rem] md:p-[1.5rem]"
-          >
-            <div className="flex items-center gap-[0.65rem]">
-              <span className="inline-flex size-8 items-center justify-center rounded-full bg-meridian-surface text-sm font-semibold text-meridian-deep">
-                {index + 1}
-              </span>
-              <Icon size={22} weight="duotone" className="text-meridian-mid" aria-hidden />
-            </div>
-            <h3 className="mt-[1rem] text-base font-semibold tracking-tight text-meridian-ink">
-              {title}
-            </h3>
-            <p className="mt-[0.4rem] text-sm leading-relaxed text-meridian-muted">{body}</p>
-            {index < steps.length - 1 ? (
-              <ArrowRight
-                size={18}
-                weight="bold"
-                className="absolute top-[1.5rem] -right-[0.65rem] hidden text-meridian-soft lg:block"
-                aria-hidden
-              />
-            ) : null}
-          </li>
-        ))}
+export function HowItWorks() {
+  return (
+    <Section className="bg-white">
+      <Reveal className="mx-auto max-w-[34rem] text-center">
+        <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
+          Pick a template. Send your bits. We’ll bring it together.
+        </h2>
+        <p className="mt-3 text-base leading-relaxed text-meridian-muted">
+          Quick setup. Very little work from you. No plugin head-scratching.
+        </p>
+      </Reveal>
+
+      <ol className="relative mx-auto mt-14 max-w-[64rem] sm:mt-20">
+        {steps.map((step, index) => {
+          const illustrationFirst = index % 2 === 0
+          const pathShift =
+            index % 2 === 0
+              ? 'lg:-translate-x-10 xl:-translate-x-16'
+              : 'lg:translate-x-10 xl:translate-x-16'
+          const cardTilt = illustrationFirst ? '-rotate-2' : 'rotate-2'
+
+          const card = (
+            <article
+              className={[
+                'rounded-[1.25rem] bg-meridian-surface p-6 shadow-[0_10px_28px_rgb(22_105_122_/_0.1)] md:p-8',
+                'origin-center transition-transform duration-500',
+                cardTilt,
+              ].join(' ')}
+            >
+              <p className="font-display text-4xl font-bold tracking-tight text-meridian-soft/90 md:text-5xl">
+                {String(index + 1).padStart(2, '0')}
+              </p>
+              <h3 className="mt-3 font-display text-xl font-bold tracking-tight text-meridian-ink md:text-2xl">
+                {step.title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-meridian-muted md:text-base">
+                {step.body}
+              </p>
+            </article>
+          )
+
+          const art = (
+            <IllustrationSlot
+              label={step.illustration.label}
+              brief={step.illustration.brief}
+              className="aspect-[5/4] max-w-none bg-meridian-mid/25 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65"
+            />
+          )
+
+          return (
+            <li key={step.title} className="relative">
+              <Reveal
+                delayMs={40}
+                className={[
+                  'grid items-center gap-8 sm:gap-10 lg:grid-cols-2 lg:gap-16 xl:gap-20',
+                  pathShift,
+                ].join(' ')}
+              >
+                {illustrationFirst ? (
+                  <>
+                    <div className="lg:pr-4">{art}</div>
+                    <div className="lg:pl-4">{card}</div>
+                  </>
+                ) : (
+                  <>
+                    <div className="order-2 lg:order-1 lg:pr-4">{card}</div>
+                    <div className="order-1 lg:order-2 lg:pl-4">{art}</div>
+                  </>
+                )}
+              </Reveal>
+
+              {index < steps.length - 1 ? (
+                <Reveal delayMs={80} className="py-6 sm:py-8 md:py-10">
+                  <PencilArrowSlot flip={!illustrationFirst} />
+                </Reveal>
+              ) : null}
+            </li>
+          )
+        })}
       </ol>
-
-      <div className="mt-[2rem] flex justify-center md:justify-start">
-        <IllustrationSlot
-          label="Setup flow"
-          brief="Four soft steps: template, business details, Stripe and domain, then a kettle and a ready-to-launch site — playful and premium."
-          className="aspect-[16/9] w-full max-w-[36rem] bg-meridian-deep"
-        />
-      </div>
     </Section>
   )
 }

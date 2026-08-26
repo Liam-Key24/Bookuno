@@ -1,54 +1,56 @@
-import { ChatCircleDots, Heart, Sparkle } from '@phosphor-icons/react/dist/ssr'
 import { Section } from '@/components/sections/Section'
+import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
+import { Reveal } from '@/components/motion/Reveal'
 
 const points = [
   {
-    icon: Heart,
     title: 'Keep in touch',
-    body: 'Stay connected with the people who already know your business—without another complicated tool to learn.',
+    body: 'Stay on your customers’ radar without learning email software.',
   },
   {
-    icon: Sparkle,
     title: 'Encourage them back',
-    body: 'Gentle nudges that make it easier for customers to return, without you rewriting the same message by hand.',
+    body: 'Friendly nudges when it helps. Less typing for you.',
   },
   {
-    icon: ChatCircleDots,
-    title: 'Less repetitive admin',
-    body: 'Customer communication stays connected to your business, so fewer jobs pile up in your inbox.',
+    title: 'Less inbox admin',
+    body: 'Communication stays with your business, not scattered across apps.',
   },
 ] as const
 
 export function CustomerMarketing() {
   return (
-    <Section className="bg-white">
-      <div className="max-w-[38rem]">
-        <p className="text-sm font-medium tracking-tight text-meridian-deep">
-          Customer marketing
-        </p>
-        <h2 className="mt-[0.75rem] text-[1.85rem] font-semibold tracking-tight text-meridian-ink sm:text-[2.25rem]">
-          Bring customers back—without becoming an email-marketing expert.
+    <Section className="flex min-h-[100svh] flex-col justify-center bg-meridian-surface !py-12 md:!py-16 lg:!py-20">
+      <Reveal className="mx-auto max-w-[36rem] text-center">
+        <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
+          Bring customers back without the faff.
         </h2>
-        <p className="mt-[1rem] text-base leading-relaxed text-meridian-muted sm:text-[1.05rem]">
-          Friendly follow-ups, without the faff. Merevo helps you stay in touch without adding
-          “learn email marketing software” to your to-do list.
+        <p className="mt-3 text-base leading-relaxed text-meridian-muted">
+          Friendly follow-ups, looked after for you—so you don’t become an email expert.
         </p>
-      </div>
+      </Reveal>
 
-      <ul className="mt-[2.5rem] grid gap-[1rem] md:grid-cols-3">
-        {points.map(({ icon: Icon, title, body }) => (
-          <li
-            key={title}
-            className="rounded-[20px] bg-meridian-surface p-[1.35rem] md:p-[1.5rem]"
-          >
-            <Icon size={24} weight="duotone" className="text-meridian-mid" aria-hidden />
-            <h3 className="mt-[1rem] text-base font-semibold tracking-tight text-meridian-ink">
-              {title}
-            </h3>
-            <p className="mt-[0.45rem] text-sm leading-relaxed text-meridian-muted">{body}</p>
-          </li>
-        ))}
-      </ul>
+      <div className="mt-8 grid items-center gap-8 sm:mt-10 lg:mt-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-12 xl:gap-14">
+        <ul className="order-2 grid grid-cols-1 gap-y-7 sm:gap-y-8 lg:order-1 lg:gap-y-10">
+          {points.map((point, index) => (
+            <Reveal key={point.title} delayMs={index * 60} as="li">
+              <h3 className="font-display text-xl font-bold tracking-tight text-meridian-ink md:text-2xl">
+                {point.title}
+              </h3>
+              <p className="mt-2 max-w-[28rem] text-sm leading-relaxed text-meridian-muted md:text-base">
+                {point.body}
+              </p>
+            </Reveal>
+          ))}
+        </ul>
+
+        <Reveal className="order-1 flex justify-center lg:order-2 lg:justify-end">
+          <IllustrationSlot
+            label="Friendly follow-ups"
+            brief="Soft envelope and a warm reminder note waiting by a calm desk lamp."
+            className="aspect-auto h-[min(48vh,26rem)] w-full max-w-[22rem] bg-meridian-soft/35 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65 lg:max-w-none"
+          />
+        </Reveal>
+      </div>
     </Section>
   )
 }

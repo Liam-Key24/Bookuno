@@ -5,7 +5,7 @@ export const demoTemplates = [
     kind: 'Barbershop demo',
     tagline: 'Sharp site. Clear “book a chair” moment.',
     summary:
-      'A fictional barbershop site Meridian would manage — bold type, services at a glance, and a booking CTA that feels ready for the chair.',
+      'A fictional barbershop site Merevo would set up and manage — bold type, services at a glance, and a booking CTA that feels ready for the chair.',
     illustrationBrief:
       'Dark-teal shop interior mock browser: logo, service chips, and a bright “Book a chair” button.',
     ctaLabel: 'Book a chair',
@@ -15,12 +15,12 @@ export const demoTemplates = [
     id: 'harbour-glow',
     name: 'Harbour Glow',
     kind: 'Salon demo',
-    tagline: 'Soft light. Easy “request a time”.',
+    tagline: 'Soft light. Easy “book a time”.',
     summary:
-      'A fictional salon site Meridian would manage — calm layout, simple service list, and a request CTA that invites without pressure.',
+      'A fictional salon site Merevo would set up and manage — calm layout, simple service list, and a booking CTA that invites without pressure.',
     illustrationBrief:
-      'Sunlit salon mock browser: soft neutrals, treatment list, and a warm “Request a time” button.',
-    ctaLabel: 'Request a time',
+      'Sunlit salon mock browser: soft neutrals, treatment list, and a warm “Book a time” button.',
+    ctaLabel: 'Book a time',
     accentClass: 'bg-[#8a9aa3]',
   },
 ] as const

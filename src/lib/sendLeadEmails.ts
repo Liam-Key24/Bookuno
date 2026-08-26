@@ -8,14 +8,14 @@ function parseFromAddress(fromEmail: string) {
   return (match?.[1] || fromEmail).trim().toLowerCase()
 }
 
-/** Production must use a verified Meridian domain sender (not @resend.dev). */
+/** Production must use a verified sending-domain address (not @resend.dev). */
 export function assertProductionSender(fromEmail: string) {
   const address = parseFromAddress(fromEmail)
 
   if (process.env.NODE_ENV === 'production') {
     if (DEV_TEST_SENDERS.has(address) || address.endsWith('@resend.dev')) {
       throw new Error(
-        'Production requires a verified Meridian domain sender in RESEND_FROM_EMAIL (not @resend.dev).',
+        'Production requires a verified sending-domain address in RESEND_FROM_EMAIL (not @resend.dev).',
       )
     }
   }
