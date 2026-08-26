@@ -29,16 +29,8 @@ export function CustomerMarketing() {
         </p>
       </Reveal>
 
-      <div className="mt-8 grid items-center gap-8 sm:mt-10 lg:mt-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12 xl:gap-14">
-        <Reveal className="flex justify-center lg:justify-start">
-          <IllustrationSlot
-            label="Friendly follow-ups"
-            brief="Soft envelope and a warm reminder note waiting by a calm desk lamp."
-            className="aspect-auto h-[min(48vh,26rem)] w-full max-w-[22rem] bg-meridian-soft/35 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65 lg:max-w-none"
-          />
-        </Reveal>
-
-        <ul className="grid grid-cols-1 gap-y-7 sm:gap-y-8 lg:gap-y-10">
+      <div className="mt-8 grid items-center gap-8 sm:mt-10 lg:mt-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-12 xl:gap-14">
+        <ul className="order-2 grid grid-cols-1 gap-y-7 sm:gap-y-8 lg:order-1 lg:gap-y-10">
           {points.map((point, index) => (
             <Reveal key={point.title} delayMs={index * 60} as="li">
               <h3 className="font-display text-xl font-bold tracking-tight text-meridian-ink md:text-2xl">
@@ -50,6 +42,14 @@ export function CustomerMarketing() {
             </Reveal>
           ))}
         </ul>
+
+        <Reveal className="order-1 flex justify-center lg:order-2 lg:justify-end">
+          <IllustrationSlot
+            label="Friendly follow-ups"
+            brief="Soft envelope and a warm reminder note waiting by a calm desk lamp."
+            className="aspect-auto h-[min(48vh,26rem)] w-full max-w-[22rem] bg-meridian-soft/35 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65 lg:max-w-none"
+          />
+        </Reveal>
       </div>
     </Section>
   )
