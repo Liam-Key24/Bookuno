@@ -25,8 +25,8 @@ const startLinks = [
 ] as const
 
 const legalLinks = [
-  { label: 'Privacy Policy', href: '/privacy' },
-  { label: 'Terms of Service', href: '/terms' },
+  { label: 'Privacy Notice', href: '/privacy' },
+  { label: 'Terms and Conditions', href: '/terms' },
   { label: 'Contact', href: '/contact' },
 ] as const
 
