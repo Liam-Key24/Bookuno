@@ -1,10 +1,10 @@
-import type { Metadata } from 'next'
+import type { Icon } from '@phosphor-icons/react'
+import { createPageMetadata } from '@/lib/metadata'
 import {
   CookingPot,
   Code,
   Sparkle,
 } from '@phosphor-icons/react/dist/ssr'
-import type { Icon } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/Button'
 import { PageCta } from '@/components/sections/PageCta'
 import { Section } from '@/components/sections/Section'
@@ -18,11 +18,12 @@ import {
   splitGridReverse,
 } from '@/lib/uiClasses'
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: 'About',
   description:
     'Merevo started after watching a family restaurant struggle with bookings. Affordable, simple tech for independent service businesses.',
-}
+  path: '/about',
+})
 
 const pillars: readonly {
   icon: Icon

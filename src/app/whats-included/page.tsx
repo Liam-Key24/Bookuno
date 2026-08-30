@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import { createPageMetadata } from '@/lib/metadata'
 import {
   CalendarCheck,
   CreditCard,
@@ -19,11 +19,12 @@ import { FeatureShowcase } from '@/components/sections/FeatureShowcase'
 import { PageCta } from '@/components/sections/PageCta'
 import { PageIntro } from '@/components/sections/PageIntro'
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: 'What’s included',
   description:
     'What Merevo manages for service businesses: website, bookings, Stripe payments, customer marketing, hosting and support.',
-}
+  path: '/whats-included',
+})
 
 const features = [
   {

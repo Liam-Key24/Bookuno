@@ -5,6 +5,8 @@ import { PlausibleLoader } from '@/components/analytics/PlausibleLoader'
 import { CookieNotice } from '@/components/layout/CookieNotice'
 import { Footer } from '@/components/layout/Footer'
 import { Navbar } from '@/components/layout/Navbar'
+import { SkipLink } from '@/components/layout/SkipLink'
+import { defaultSiteMetadata } from '@/lib/metadata'
 import './globals.css'
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -40,14 +42,7 @@ const satoshi = localFont({
   display: 'swap',
 })
 
-export const metadata: Metadata = {
-  title: {
-    default: 'Merevo — Your website, bookings, payments and customer marketing',
-    template: '%s | Merevo',
-  },
-  description:
-    'Merevo is a managed website, booking, payments and customer-growth platform for service businesses. Set up and looked after for you — £50 a month.',
-}
+export const metadata: Metadata = defaultSiteMetadata
 
 export default function RootLayout({
   children,
@@ -59,8 +54,11 @@ export default function RootLayout({
       <body
         className={`${plusJakarta.variable} ${satoshi.variable} font-sans antialiased`}
       >
+        <SkipLink />
         <Navbar />
-        {children}
+        <div id="main-content" tabIndex={-1}>
+          {children}
+        </div>
         <Footer />
         <CookieNotice />
         <PlausibleLoader />

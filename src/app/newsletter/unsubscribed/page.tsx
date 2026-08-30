@@ -1,11 +1,13 @@
-import type { Metadata } from 'next'
+import { createPageMetadata } from '@/lib/metadata'
 import Link from 'next/link'
 import { CONTACT_EMAIL, SITE_NAME } from '@/lib/site'
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: 'Unsubscribed',
-  robots: { index: false, follow: false },
-}
+  description: 'Confirmation that you have unsubscribed from Merevo promotional emails.',
+  path: '/newsletter/unsubscribed',
+  noIndex: true,
+})
 
 export default async function NewsletterUnsubscribedPage({
   searchParams,

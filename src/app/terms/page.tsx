@@ -1,11 +1,12 @@
-import type { Metadata } from 'next'
+import { createPageMetadata } from '@/lib/metadata'
 import { LegalLayout, LegalSection } from '@/components/sections/LegalLayout'
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: 'Terms and Conditions',
   description:
-    'Website and service terms for Meridian, including domains, fees, cancellation and data protection.',
-}
+    'Website and service terms for Merevo, including domains, fees, cancellation and data protection.',
+  path: '/terms',
+})
 
 const nav = [
   { id: 'about-meridian', label: '1. About Meridian' },

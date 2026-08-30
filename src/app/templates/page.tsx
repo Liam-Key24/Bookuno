@@ -1,12 +1,13 @@
-import type { Metadata } from 'next'
+import { createPageMetadata } from '@/lib/metadata'
 import { DemoTemplates } from '@/components/sections/DemoTemplates'
 import { PageCta } from '@/components/sections/PageCta'
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: 'Templates',
   description:
     'Polished Merevo website templates for independent service businesses — pick a look, send your details, and we’ll bring it together.',
-}
+  path: '/templates',
+})
 
 export default function TemplatesPage() {
   return (

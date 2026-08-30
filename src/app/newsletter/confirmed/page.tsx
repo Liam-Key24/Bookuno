@@ -1,11 +1,13 @@
-import type { Metadata } from 'next'
+import { createPageMetadata } from '@/lib/metadata'
 import Link from 'next/link'
 import { CONTACT_EMAIL, SITE_NAME } from '@/lib/site'
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: 'Newsletter confirmed',
-  robots: { index: false, follow: false },
-}
+  description: 'Confirmation status for your Merevo newsletter subscription.',
+  path: '/newsletter/confirmed',
+  noIndex: true,
+})
 
 export default async function NewsletterConfirmedPage({
   searchParams,

@@ -1,11 +1,12 @@
-import type { Metadata } from 'next'
+import { createPageMetadata } from '@/lib/metadata'
 import { LegalLayout, LegalSection } from '@/components/sections/LegalLayout'
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: 'Privacy Notice',
   description:
-    'How Meridian collects and uses personal information for its marketing website, newsletter and managed services.',
-}
+    'How Merevo collects and uses personal information for its marketing website, newsletter and managed services.',
+  path: '/privacy',
+})
 
 const nav = [
   { id: 'our-role', label: '1. Our role' },

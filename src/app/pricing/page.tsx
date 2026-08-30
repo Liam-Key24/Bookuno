@@ -1,14 +1,15 @@
-import type { Metadata } from 'next'
+import { createPageMetadata } from '@/lib/metadata'
 import { FoundingOffer } from '@/components/sections/FoundingOffer'
 import { Faq } from '@/components/sections/Faq'
 import { pricingFaqs } from '@/components/sections/pricingFaqs'
 import { PageCta } from '@/components/sections/PageCta'
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: 'Pricing',
   description:
     'Merevo founding pricing: £50 a month, with your first three months for £150 upfront including setup. Clear extras for domains, pages and third-party fees.',
-}
+  path: '/pricing',
+})
 
 export default function PricingPage() {
   return (
