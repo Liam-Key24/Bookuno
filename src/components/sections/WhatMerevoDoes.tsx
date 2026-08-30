@@ -26,42 +26,42 @@ const rooms: readonly {
     iconClass: 'text-meridian-mid',
     title: 'Your website',
     body: 'Your branding on the door. Customers land on you, not a marketplace.',
-    tilt: '-rotate-1',
+    tilt: 'md:-rotate-1',
   },
   {
     icon: CalendarCheck,
     iconClass: 'text-meridian-accent',
     title: 'Booking requests',
     body: 'Bookings stay with your business and domain, not lost in the inbox.',
-    tilt: 'rotate-1',
+    tilt: 'md:rotate-1',
   },
   {
     icon: ShieldCheck,
     iconClass: 'text-meridian-deep',
     title: 'Hosting & security',
     body: 'Kept online, protected and looked after. No server shopping.',
-    tilt: 'rotate-1',
+    tilt: 'md:rotate-1',
   },
   {
     icon: HardDrives,
     iconClass: 'text-meridian-mid',
     title: 'Secure storage',
     body: 'The data you need to run the service, held safely.',
-    tilt: '-rotate-1',
+    tilt: 'md:-rotate-1',
   },
   {
     icon: Wrench,
     iconClass: 'text-meridian-accent',
     title: 'Updates & maintenance',
     body: 'We do the fiddling, fixing and button pressing.',
-    tilt: '-rotate-1',
+    tilt: 'md:-rotate-1',
   },
   {
     icon: Headset,
     iconClass: 'text-meridian-deep',
     title: 'Human support',
     body: 'A real person in your corner when you need one.',
-    tilt: 'rotate-1',
+    tilt: 'md:rotate-1',
   },
 ]
 
@@ -88,7 +88,7 @@ export function WhatMerevoDoes() {
           />
         </Reveal>
 
-        <div className="mt-14 grid items-center gap-12 sm:mt-16 lg:mt-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14 xl:gap-16">
+        <div className="mt-14 grid min-w-0 items-center gap-12 overflow-x-clip sm:mt-16 lg:mt-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14 xl:gap-16">
           <Reveal className="flex justify-center lg:justify-start">
             <IllustrationSlot
               label="Your own website"
@@ -98,7 +98,7 @@ export function WhatMerevoDoes() {
             />
           </Reveal>
 
-          <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-5">
+          <ul className="grid min-w-0 grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-5">
             {rooms.map((room, index) => {
               const Icon = room.icon
               return (

@@ -63,7 +63,22 @@ Completed: 2026-08-30. Branches: `codex/ui-audit` → `codex/ui-component-cleanu
 - **Manual browser QA** at 320/375/768/1024/1440px recommended before production deploy.
 - **Live form/API testing** requires configured `.env.local` (Supabase, Turnstile, Resend, Upstash).
 
-## Manual checks before deployment
+## Responsive follow-up (2026-08-30)
+
+Fixed in this pass:
+- Card horizontal clipping on **Customer marketing** and **What’s under the roof** — tilt transforms now `md:` only; `overflow-x: clip` on body/sections.
+- **Mobile nav** — full-width menu, slide/fade animation, closes on scroll, fixed sticky header with transparent blur, auto-hides ~1.4s after scroll stops (always visible at top / when menu open).
+- **Navbar CTA** — “Get started” hidden below `md` (768px).
+- **Footer** — Sitemap + Offer side-by-side on small screens; “Get started” link hidden below `md`.
+- **Cookie banner** — clearer copy, slide-up animation, stacked full-width buttons on narrow screens, documented consent behaviour in component.
+
+Still worth checking manually:
+- **ProblemBenefit** cards still use tilt on mobile (`-rotate-2`) — same clip risk if reported.
+- **Hero** panel `m-2` inset may feel tight at 320px.
+- **Newsletter Turnstile** “Troubleshoot” link in footer is injected by Cloudflare, not the cookie banner.
+- **FoundingOffer** pricing cards not yet migrated to shared layout tokens.
+- Live device testing for nav auto-hide timing and menu animation with reduced-motion.
+
 
 1. Set `NEXT_PUBLIC_SITE_URL` to the production domain in Vercel/hosting env.
 2. Submit lead form with each business type — confirm 200 response.

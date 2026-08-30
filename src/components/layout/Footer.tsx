@@ -18,7 +18,7 @@ const offerLinks = [
 ] as const
 
 const startLinks = [
-  { label: 'Get started with Merevo', href: '/#contact', highlight: true },
+  { label: 'Get started with Merevo', href: '/#contact', highlight: true, mobileHidden: true },
   { label: 'Contact details', href: '/contact', highlight: false },
   { label: 'About Merevo', href: '/about', highlight: false },
   { label: 'Email us', href: `mailto:${CONTACT_EMAIL}`, highlight: false },
@@ -62,25 +62,33 @@ export function Footer() {
             </ul>
           </div>
 
-          <FooterColumn title="Sitemap">
-            {navLinks.map((link) => (
-              <FooterLink key={link.href} href={link.href}>
-                {link.label}
-              </FooterLink>
-            ))}
-          </FooterColumn>
+          {/* Sitemap + Offer side-by-side on small screens */}
+          <div className="grid grid-cols-2 gap-x-6 gap-y-[1.75rem] lg:contents">
+            <FooterColumn title="Sitemap">
+              {navLinks.map((link) => (
+                <FooterLink key={link.href} href={link.href}>
+                  {link.label}
+                </FooterLink>
+              ))}
+            </FooterColumn>
 
-          <FooterColumn title="Offer">
-            {offerLinks.map((link) => (
-              <FooterLink key={link.href} href={link.href}>
-                {link.label}
-              </FooterLink>
-            ))}
-          </FooterColumn>
+            <FooterColumn title="Offer">
+              {offerLinks.map((link) => (
+                <FooterLink key={link.href} href={link.href}>
+                  {link.label}
+                </FooterLink>
+              ))}
+            </FooterColumn>
+          </div>
 
           <FooterColumn title="Start">
             {startLinks.map((link) => (
-              <FooterLink key={link.href} href={link.href} highlight={link.highlight}>
+              <FooterLink
+                key={link.href}
+                href={link.href}
+                highlight={link.highlight}
+                className={'mobileHidden' in link && link.mobileHidden ? 'max-md:hidden' : undefined}
+              >
                 {link.label}
               </FooterLink>
             ))}
@@ -106,7 +114,7 @@ export function Footer() {
           </ul>
         </div>
 
-        <div className="mt-[2.25rem] md:mt-[3rem]">
+        <div className="mt-[2.25rem] overflow-x-clip md:mt-[3rem]">
           <p className="font-display select-none text-[clamp(3.5rem,18vw,12rem)] leading-none font-bold tracking-tight text-meridian-accent lowercase">
             merevo
             <sup className="ml-[0.15em] align-super text-[0.18em] font-medium">®</sup>
@@ -125,7 +133,7 @@ function FooterColumn({
   children: ReactNode
 }) {
   return (
-    <div>
+    <div className="min-w-0">
       <h2 className="text-sm font-semibold tracking-tight text-meridian-ink">{title}</h2>
       <ul className="mt-[0.75rem] space-y-[0.55rem]">{children}</ul>
     </div>
@@ -136,10 +144,12 @@ function FooterLink({
   href,
   children,
   highlight = false,
+  className: itemClassName,
 }: {
   href: string
   children: ReactNode
   highlight?: boolean
+  className?: string
 }) {
   const className = highlight
     ? 'text-sm tracking-tight text-meridian-accent transition-colors hover:text-meridian-deep'
@@ -147,7 +157,7 @@ function FooterLink({
 
   if (href.startsWith('mailto:')) {
     return (
-      <li>
+      <li className={itemClassName}>
         <a href={href} className={className}>
           {children}
         </a>
@@ -156,7 +166,7 @@ function FooterLink({
   }
 
   return (
-    <li>
+    <li className={itemClassName}>
       <Link href={href} className={className}>
         {children}
       </Link>

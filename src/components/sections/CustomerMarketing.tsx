@@ -18,21 +18,21 @@ const points: readonly {
     iconClass: 'text-meridian-accent',
     title: 'Keep in touch',
     body: 'Stay on your customers’ radar without learning email software.',
-    tilt: '-rotate-2',
+    tilt: 'md:-rotate-2',
   },
   {
     icon: ArrowUUpLeft,
     iconClass: 'text-meridian-mid',
     title: 'Encourage them back',
     body: 'Friendly nudges when it helps. Less typing for you.',
-    tilt: 'rotate-2',
+    tilt: 'md:rotate-2',
   },
   {
     icon: Tray,
     iconClass: 'text-meridian-deep',
     title: 'Less inbox admin',
     body: 'Communication stays with your business, not scattered across apps.',
-    tilt: '-rotate-1',
+    tilt: 'md:-rotate-1',
   },
 ]
 
@@ -56,8 +56,8 @@ export function CustomerMarketing() {
           />
         </Reveal>
 
-        <div className="mt-14 grid items-center gap-12 sm:mt-16 lg:mt-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-14 xl:gap-16">
-          <ul className="order-2 flex flex-col gap-6 lg:order-1 lg:gap-7">
+        <div className="mt-14 grid min-w-0 items-center gap-12 overflow-x-clip sm:mt-16 lg:mt-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-14 xl:gap-16">
+          <ul className="order-2 flex min-w-0 flex-col gap-6 lg:order-1 lg:gap-7">
             {points.map((point, index) => {
               const Icon = point.icon
               return (
@@ -95,7 +95,8 @@ export function CustomerMarketing() {
             <IllustrationSlot
               label="Friendly follow-ups"
               brief="Soft envelope and a warm reminder note waiting by a calm desk lamp."
-              className="aspect-auto h-[min(48vh,26rem)] w-full max-w-[22rem] bg-white/55 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65 lg:max-w-none"
+              tone="ink"
+              className="aspect-auto h-[min(48vh,26rem)] w-full max-w-[22rem] bg-white/55 lg:max-w-none"
             />
           </Reveal>
         </div>
