@@ -1,8 +1,10 @@
 import { EnvelopeSimple, ArrowUUpLeft, Tray } from '@phosphor-icons/react/dist/ssr'
 import type { Icon } from '@phosphor-icons/react'
 import { Section } from '@/components/sections/Section'
+import { SectionHeading } from '@/components/ui/SectionHeading'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 import { Reveal } from '@/components/motion/Reveal'
+import { featureCard } from '@/lib/uiClasses'
 
 const points: readonly {
   icon: Icon
@@ -47,13 +49,11 @@ export function CustomerMarketing() {
       />
 
       <div className="relative z-10">
-        <Reveal className="mx-auto max-w-[36rem] text-center">
-          <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
-            Bring customers back without the faff.
-          </h2>
-          <p className="mt-3 text-base leading-relaxed text-meridian-muted">
-            Friendly follow-ups, looked after for you—so you don’t become an email expert.
-          </p>
+        <Reveal className="mx-auto max-w-[36rem]">
+          <SectionHeading
+            title="Bring customers back without the faff."
+            lede="Friendly follow-ups, looked after for you—so you don’t become an email expert."
+          />
         </Reveal>
 
         <div className="mt-14 grid items-center gap-12 sm:mt-16 lg:mt-20 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-14 xl:gap-16">
@@ -64,7 +64,7 @@ export function CustomerMarketing() {
                 <Reveal key={point.title} delayMs={index * 70} as="li">
                   <article
                     className={[
-                      'rounded-[1.25rem] bg-white p-6 shadow-[0_10px_28px_rgb(22_105_122_/_0.12)] md:p-7',
+                      featureCard,
                       'origin-center transition-transform duration-500',
                       point.tilt,
                     ].join(' ')}

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getClientIp, hashIp } from '@/lib/clientIp'
 import { assertLeadRateLimit } from '@/lib/leadRateLimit'
+import { isValidLeadBusinessType } from '@/lib/leadBusinessTypes'
 import {
   createOrGetLeadByIdempotencyKey,
   ensureLeadEmailsOnce,
@@ -11,7 +12,6 @@ import {
 import { getSupabaseAdmin } from '@/lib/supabaseAdmin'
 import { verifyTurnstileToken } from '@/lib/verifyTurnstile'
 
-const BUSINESS_TYPES = new Set(['salon', 'barbershop', 'restaurant', 'other'])
 const MAX_NAME = 120
 const MAX_EMAIL = 254
 const MAX_BUSINESS_NAME = 160
@@ -88,7 +88,7 @@ export async function POST(request: Request) {
     return safeError('Business name is too long.', 400)
   }
 
-  if (businessType && !BUSINESS_TYPES.has(businessType)) {
+  if (businessType && !isValidLeadBusinessType(businessType)) {
     return safeError('Please choose a valid business type.', 400)
   }
 

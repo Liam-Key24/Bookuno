@@ -5,6 +5,9 @@ import { PaperPlaneTilt } from '@phosphor-icons/react'
 import { useRouter } from 'next/navigation'
 import { useRef, useState, type FormEvent } from 'react'
 import { Button } from '@/components/ui/Button'
+import { FormAlert } from '@/components/ui/FormAlert'
+import { FormField } from '@/components/ui/FormField'
+import { leadBusinessTypeOptions } from '@/lib/leadBusinessTypes'
 import { trackEvent } from '@/lib/analytics'
 
 type LeadFormTone = 'default' | 'onGradient'
@@ -17,22 +20,9 @@ const fieldByTone: Record<LeadFormTone, string> = {
 }
 
 const labelByTone: Record<LeadFormTone, string> = {
-  default: 'mb-1 block text-sm font-medium tracking-tight text-meridian-ink',
-  onGradient: 'mb-1 block text-sm font-medium tracking-tight text-white',
+  default: 'text-meridian-ink',
+  onGradient: 'text-white',
 }
-
-const businessTypes = [
-  { value: '', label: 'Business type (optional)' },
-  { value: 'barber_hairdresser', label: 'Barber / hairdresser' },
-  { value: 'beauty', label: 'Beauty professional' },
-  { value: 'nails', label: 'Nail technician' },
-  { value: 'therapist', label: 'Therapist' },
-  { value: 'personal_trainer', label: 'Personal trainer' },
-  { value: 'dog_groomer', label: 'Dog groomer' },
-  { value: 'tattoo', label: 'Tattoo artist' },
-  { value: 'cleaner', label: 'Cleaner' },
-  { value: 'other', label: 'Other service business' },
-] as const
 
 function createIdempotencyKey() {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
@@ -48,14 +38,13 @@ function createIdempotencyKey() {
 export function LeadForm({ tone = 'default' }: { tone?: LeadFormTone }) {
   const router = useRouter()
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
-  // One key per form attempt — reused on manual retry; no automatic retry loops.
   const idempotencyKeyRef = useRef<string>(createIdempotencyKey())
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [businessName, setBusinessName] = useState('')
   const [businessType, setBusinessType] = useState('')
   const [message, setMessage] = useState('')
-  const [website, setWebsite] = useState('') // honeypot
+  const [website, setWebsite] = useState('')
   const [turnstileToken, setTurnstileToken] = useState('')
   const [error, setError] = useState<string | null>(null)
   const [deliveryNotice, setDeliveryNotice] = useState<string | null>(null)
@@ -108,7 +97,6 @@ export function LeadForm({ tone = 'default' }: { tone?: LeadFormTone }) {
           }
         | null
 
-      // Enquiry saved but confirmation email failed — stay on form, no thank-you, no auto-retry.
       if (payload?.received && payload.confirmationDelivery === 'failed') {
         setDeliveryNotice(
           payload.message ||
@@ -138,10 +126,7 @@ export function LeadForm({ tone = 'default' }: { tone?: LeadFormTone }) {
   return (
     <form onSubmit={onSubmit} className="relative w-full text-left" noValidate>
       <div className="grid gap-5 sm:grid-cols-2 sm:gap-x-6 sm:gap-y-5">
-        <div className="sm:col-span-1">
-          <label htmlFor="lead-name" className={labelClassName}>
-            Name
-          </label>
+        <FormField id="lead-name" label="Name" labelClassName={labelClassName}>
           <input
             id="lead-name"
             name="name"
@@ -152,12 +137,9 @@ export function LeadForm({ tone = 'default' }: { tone?: LeadFormTone }) {
             className={fieldClassName}
             placeholder="Your name"
           />
-        </div>
+        </FormField>
 
-        <div className="sm:col-span-1">
-          <label htmlFor="lead-email" className={labelClassName}>
-            Email
-          </label>
+        <FormField id="lead-email" label="Email" labelClassName={labelClassName}>
           <input
             id="lead-email"
             name="email"
@@ -169,12 +151,9 @@ export function LeadForm({ tone = 'default' }: { tone?: LeadFormTone }) {
             className={fieldClassName}
             placeholder="you@studio.com"
           />
-        </div>
+        </FormField>
 
-        <div className="sm:col-span-1">
-          <label htmlFor="lead-business" className={labelClassName}>
-            Business name
-          </label>
+        <FormField id="lead-business" label="Business name" labelClassName={labelClassName}>
           <input
             id="lead-business"
             name="businessName"
@@ -184,12 +163,9 @@ export function LeadForm({ tone = 'default' }: { tone?: LeadFormTone }) {
             className={fieldClassName}
             placeholder="Optional"
           />
-        </div>
+        </FormField>
 
-        <div className="sm:col-span-1">
-          <label htmlFor="lead-type" className={labelClassName}>
-            Type
-          </label>
+        <FormField id="lead-type" label="Type" labelClassName={labelClassName}>
           <select
             id="lead-type"
             name="businessType"
@@ -197,18 +173,20 @@ export function LeadForm({ tone = 'default' }: { tone?: LeadFormTone }) {
             onChange={(event) => setBusinessType(event.target.value)}
             className={fieldClassName}
           >
-            {businessTypes.map((option) => (
+            {leadBusinessTypeOptions.map((option) => (
               <option key={option.value || 'none'} value={option.value}>
                 {option.label}
               </option>
             ))}
           </select>
-        </div>
+        </FormField>
 
-        <div className="sm:col-span-2">
-          <label htmlFor="lead-message" className={labelClassName}>
-            Message
-          </label>
+        <FormField
+          id="lead-message"
+          label="Message"
+          labelClassName={labelClassName}
+          className="sm:col-span-2"
+        >
           <textarea
             id="lead-message"
             name="message"
@@ -219,9 +197,8 @@ export function LeadForm({ tone = 'default' }: { tone?: LeadFormTone }) {
             className={`${fieldClassName} min-h-[6.5rem] resize-y`}
             placeholder="Tell us a little about your business and what you need."
           />
-        </div>
+        </FormField>
 
-        {/* Honeypot — hidden from humans */}
         <div
           aria-hidden="true"
           className="absolute -left-[9999px] top-auto h-0 w-0 overflow-hidden"
@@ -240,29 +217,15 @@ export function LeadForm({ tone = 'default' }: { tone?: LeadFormTone }) {
       </div>
 
       {deliveryNotice ? (
-        <p
-          role="status"
-          className={
-            onGradient
-              ? 'mt-4 rounded-meridian bg-white/20 px-4 py-3 text-sm leading-relaxed text-white'
-              : 'mt-4 rounded-meridian bg-meridian-surface px-4 py-3 text-sm leading-relaxed text-meridian-ink'
-          }
-        >
+        <FormAlert variant="status" tone={onGradient ? 'onGradient' : 'default'} className="mt-4">
           {deliveryNotice}
-        </p>
+        </FormAlert>
       ) : null}
 
       {error ? (
-        <p
-          role="alert"
-          className={
-            onGradient
-              ? 'mt-4 rounded-meridian bg-meridian-accent/25 px-4 py-3 text-sm text-white'
-              : 'mt-4 rounded-meridian bg-meridian-accent/15 px-4 py-3 text-sm text-meridian-ink'
-          }
-        >
+        <FormAlert variant="error" tone={onGradient ? 'onGradient' : 'default'} className="mt-4">
           {error}
-        </p>
+        </FormAlert>
       ) : null}
 
       <div className="mt-6 flex flex-col gap-4 min-[400px]:flex-row min-[400px]:items-center min-[400px]:justify-between">

@@ -3,6 +3,9 @@
 import { Turnstile } from '@marsidev/react-turnstile'
 import Link from 'next/link'
 import { useState, type FormEvent } from 'react'
+import { FormAlert } from '@/components/ui/FormAlert'
+import { FormField } from '@/components/ui/FormField'
+import { focusRing } from '@/lib/uiClasses'
 
 export function NewsletterSignupForm() {
   const siteKey = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY
@@ -81,10 +84,7 @@ export function NewsletterSignupForm() {
         Join our newsletter for occasional promotional updates.
       </p>
 
-      <div className="mt-[0.85rem]">
-        <label htmlFor="newsletter-email" className="sr-only">
-          Email address
-        </label>
+      <FormField id="newsletter-email" label="Email address" hideLabel className="mt-[0.85rem]">
         <input
           id="newsletter-email"
           name="email"
@@ -97,7 +97,7 @@ export function NewsletterSignupForm() {
           disabled={pending || Boolean(success)}
           className="w-full rounded-meridian border-0 bg-white px-[1.15rem] py-[0.85rem] text-sm text-meridian-ink outline-none ring-1 ring-meridian-surface-strong placeholder:text-meridian-muted focus-visible:ring-2 focus-visible:ring-meridian-mid/40 disabled:opacity-60"
         />
-      </div>
+      </FormField>
 
       <label className="mt-[0.75rem] flex cursor-pointer items-start gap-[0.6rem] text-xs leading-relaxed text-meridian-muted">
         <input
@@ -152,27 +152,21 @@ export function NewsletterSignupForm() {
       )}
 
       {error ? (
-        <p
-          role="alert"
-          className="mt-[0.65rem] rounded-meridian bg-meridian-ink/5 px-[0.85rem] py-[0.65rem] text-xs text-meridian-ink"
-        >
+        <FormAlert variant="error" className="mt-[0.65rem] bg-meridian-ink/5 px-[0.85rem] py-[0.65rem] text-xs">
           {error}
-        </p>
+        </FormAlert>
       ) : null}
 
       {success ? (
-        <p
-          role="status"
-          className="mt-[0.65rem] rounded-meridian bg-meridian-deep/10 px-[0.85rem] py-[0.65rem] text-xs leading-relaxed text-meridian-ink"
-        >
+        <FormAlert variant="success" className="mt-[0.65rem]">
           {success}
-        </p>
+        </FormAlert>
       ) : null}
 
       <button
         type="submit"
         disabled={pending || Boolean(success)}
-        className="mt-[0.75rem] w-full rounded-meridian bg-meridian-ink px-[1.1rem] py-[0.7rem] text-sm font-medium text-white transition-colors hover:bg-meridian-deep disabled:opacity-60 sm:w-auto"
+        className={`mt-[0.75rem] w-full rounded-meridian bg-meridian-ink px-[1.1rem] py-[0.7rem] text-sm font-medium text-white transition-colors hover:bg-meridian-deep disabled:opacity-60 sm:w-auto ${focusRing}`}
       >
         {pending ? 'Subscribing…' : success ? 'Check your inbox' : 'Subscribe'}
       </button>

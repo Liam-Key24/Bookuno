@@ -3,6 +3,8 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { CaretDown } from '@phosphor-icons/react'
 import { Section } from '@/components/sections/Section'
+import { SectionHeading } from '@/components/ui/SectionHeading'
+import { focusRing } from '@/lib/uiClasses'
 
 export type FaqItem = {
   question: string
@@ -92,12 +94,7 @@ export function Faq({
 
   return (
     <Section id={id} className={className}>
-      <div className="mx-auto max-w-[36rem] text-center">
-        <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
-          {title}
-        </h2>
-        <p className="mt-3 text-base leading-relaxed text-meridian-muted">{lede}</p>
-      </div>
+      <SectionHeading title={title} lede={lede} />
 
       {/* Fixed min-height = all questions + tallest answer, so the section below doesn’t jump */}
       <div
@@ -123,8 +120,8 @@ export function Faq({
                   data-faq-button
                   aria-expanded={isOpen}
                   aria-controls={panelId}
-                  onClick={() => setOpenIndex(index)}
-                  className="flex w-full items-center justify-between gap-4 py-5 text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-meridian-mid/40 focus-visible:ring-offset-2"
+                  onClick={() => setOpenIndex(isOpen ? -1 : index)}
+                  className={`flex w-full items-center justify-between gap-4 py-5 text-left ${focusRing}`}
                 >
                   <span className="font-display text-lg font-bold tracking-tight text-meridian-ink md:text-xl">
                     {item.question}

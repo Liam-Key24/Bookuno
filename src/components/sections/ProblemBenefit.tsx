@@ -1,8 +1,10 @@
 import { Devices, Storefront, EnvelopeSimple } from '@phosphor-icons/react/dist/ssr'
 import { Section } from '@/components/sections/Section'
+import { SectionHeading } from '@/components/ui/SectionHeading'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 import { Reveal } from '@/components/motion/Reveal'
 import { PeekFade } from '@/components/motion/PeekFade'
+import { featureCard } from '@/lib/uiClasses'
 
 const problems = [
   {
@@ -32,13 +34,12 @@ export function ProblemBenefit() {
         id="about"
         className="relative z-0 -mt-10 bg-gradient-to-b from-white via-meridian-accent/15 to-white pt-24 pb-16 md:-mt-14 md:pt-32 md:pb-24 lg:pt-36 lg:pb-28"
       >
-        <Reveal className="mx-auto w-full max-w-[34rem] text-center">
-          <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.35rem]">
-            Sound familiar?
-          </h2>
-          <p className="mt-3 text-base leading-relaxed text-meridian-muted">
-            Three headaches Merevo is built to take off your plate.
-          </p>
+        <Reveal className="mx-auto w-full max-w-[34rem]">
+          <SectionHeading
+            title="Sound familiar?"
+            lede="Three headaches Merevo is built to take off your plate."
+            titleClassName="sm:text-[2.35rem]"
+          />
         </Reveal>
 
         <div className="mt-12 grid items-center gap-12 md:mt-16 lg:mt-20 lg:grid-cols-2 lg:gap-16">
@@ -57,7 +58,7 @@ export function ProblemBenefit() {
                 <Reveal key={item.title} delayMs={index * 90} as="li">
                   <article
                     className={[
-                      'rounded-meridian bg-white p-6 shadow-[0_10px_28px_rgb(22_105_122_/_0.12)] md:p-7',
+                      featureCard,
                       'origin-center transition-transform duration-500',
                       item.tilt,
                     ].join(' ')}

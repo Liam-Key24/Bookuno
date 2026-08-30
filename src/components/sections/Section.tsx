@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import { contentShell, sectionBandPad } from '@/lib/uiClasses'
 
 type SectionProps = {
   id?: string
@@ -14,10 +15,9 @@ type SectionProps = {
   panelClassName?: string
 }
 
-const bandPad = 'px-4 py-16 sm:px-6 md:px-8 md:py-24 lg:px-10 lg:py-28'
+const bandPad = sectionBandPad
 const panelBase =
   'm-2 w-auto rounded-meridian bg-meridian-surface px-4 py-10 sm:px-6 sm:py-12 md:px-8 md:py-14 lg:px-10 lg:py-16'
-const contentShell = 'mx-auto w-full max-w-[72rem]'
 
 /**
  * Shared marketing section shell.

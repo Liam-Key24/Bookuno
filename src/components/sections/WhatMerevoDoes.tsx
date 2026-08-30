@@ -8,8 +8,10 @@ import {
 } from '@phosphor-icons/react/dist/ssr'
 import type { Icon } from '@phosphor-icons/react'
 import { Section } from '@/components/sections/Section'
+import { SectionHeading } from '@/components/ui/SectionHeading'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 import { Reveal } from '@/components/motion/Reveal'
+import { featureCard, illustrationInk } from '@/lib/uiClasses'
 
 /** What’s included: product + managed bits + branded-home idea. */
 const rooms: readonly {
@@ -79,14 +81,11 @@ export function WhatMerevoDoes() {
       />
 
       <div className="relative z-10">
-        <Reveal className="mx-auto max-w-[36rem] text-center">
-          <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
-            What’s under the roof?
-          </h2>
-          <p className="mt-3 text-base leading-relaxed text-meridian-muted">
-            One proper online home. The useful stuff, quietly handled—including the behind the
-            scenes bits.
-          </p>
+        <Reveal className="mx-auto max-w-[36rem]">
+          <SectionHeading
+            title="What’s under the roof?"
+            lede="One proper online home. The useful stuff, quietly handled—including the behind the scenes bits."
+          />
         </Reveal>
 
         <div className="mt-14 grid items-center gap-12 sm:mt-16 lg:mt-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14 xl:gap-16">
@@ -94,7 +93,8 @@ export function WhatMerevoDoes() {
             <IllustrationSlot
               label="Your own website"
               brief="Friendly shop window with the business name and a clear Book now moment."
-              className="aspect-auto h-[min(48vh,26rem)] w-full max-w-[22rem] bg-white/60 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65 lg:max-w-none"
+              className="aspect-auto h-[min(48vh,26rem)] w-full max-w-[22rem] bg-white/60 lg:max-w-none"
+              tone="ink"
             />
           </Reveal>
 
@@ -105,7 +105,8 @@ export function WhatMerevoDoes() {
                 <Reveal key={room.title} delayMs={index * 50} as="li">
                   <article
                     className={[
-                      'h-full rounded-[1.25rem] bg-white p-5 shadow-[0_10px_28px_rgb(22_105_122_/_0.12)] md:p-6',
+                      'h-full p-5 md:p-6',
+                      featureCard,
                       'origin-center transition-transform duration-500',
                       room.tilt,
                     ].join(' ')}

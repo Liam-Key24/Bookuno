@@ -8,8 +8,15 @@ import type { Icon } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/Button'
 import { PageCta } from '@/components/sections/PageCta'
 import { Section } from '@/components/sections/Section'
+import { SectionHeading } from '@/components/ui/SectionHeading'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 import { Reveal } from '@/components/motion/Reveal'
+import {
+  contentShell,
+  featureCard,
+  sectionBandPadLoose,
+  splitGridReverse,
+} from '@/lib/uiClasses'
 
 export const metadata: Metadata = {
   title: 'About',
@@ -50,8 +57,10 @@ const pillars: readonly {
 export default function AboutPage() {
   return (
     <main className="bg-white">
-      <section className="flex min-h-[min(90svh,44rem)] w-full flex-col justify-center bg-white px-4 py-20 sm:px-6 md:px-8 md:py-28 lg:px-10 lg:py-32">
-        <div className="mx-auto grid w-full max-w-[72rem] items-center gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16 xl:gap-20">
+      <section
+        className={`flex min-h-[min(90svh,44rem)] w-full flex-col justify-center bg-white ${sectionBandPadLoose}`}
+      >
+        <div className={`${contentShell} ${splitGridReverse}`}>
           <Reveal>
             <h1 className="max-w-[22rem] font-display text-[2.35rem] font-bold leading-[1.05] tracking-tight text-meridian-ink sm:max-w-[28rem] sm:text-[3rem] lg:text-[3.35rem]">
               Made for businesses that are already busy.
@@ -71,7 +80,8 @@ export default function AboutPage() {
             <IllustrationSlot
               label="About Merevo"
               brief="Warm portrait of a founder and a family restaurant doorway, soft teal light."
-              className="aspect-[5/4] w-full max-w-[26rem] bg-meridian-soft/40 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65 lg:max-w-none"
+              tone="ink"
+              className="aspect-[5/4] w-full max-w-[26rem] bg-meridian-soft/40 lg:max-w-none"
             />
           </Reveal>
         </div>
@@ -88,7 +98,8 @@ export default function AboutPage() {
             <IllustrationSlot
               label="The restaurant that started it"
               brief="Quiet restaurant front with a bookings notepad and a soft orange lamp on the counter."
-              className="aspect-auto h-[min(44vh,24rem)] w-full max-w-[22rem] bg-white/60 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65 lg:max-w-none"
+              tone="ink"
+              className="aspect-auto h-[min(44vh,24rem)] w-full max-w-[22rem] bg-white/60 lg:max-w-none"
             />
           </Reveal>
 
@@ -120,14 +131,11 @@ export default function AboutPage() {
         />
 
         <div className="relative z-10">
-          <Reveal className="mx-auto max-w-[36rem] text-center">
-            <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
-              What we believe
-            </h2>
-            <p className="mt-3 text-base leading-relaxed text-meridian-muted">
-              Tech should help you get on with the work—not add another pile of logins, plugins and
-              guesswork.
-            </p>
+          <Reveal className="mx-auto max-w-[36rem]">
+            <SectionHeading
+              title="What we believe"
+              lede="Tech should help you get on with the work—not add another pile of logins, plugins and guesswork."
+            />
           </Reveal>
 
           <ul className="mx-auto mt-14 grid max-w-[64rem] gap-5 sm:mt-16 sm:grid-cols-3 sm:gap-6">
@@ -137,8 +145,8 @@ export default function AboutPage() {
                 <Reveal key={pillar.title} delayMs={index * 70} as="li">
                   <article
                     className={[
-                      'h-full rounded-[1.25rem] bg-white p-6 shadow-[0_10px_28px_rgb(22_105_122_/_0.12)] md:p-7',
-                      'origin-center transition-transform duration-500',
+                      'h-full origin-center transition-transform duration-500',
+                      featureCard,
                       pillar.tilt,
                     ].join(' ')}
                   >

@@ -1,6 +1,8 @@
 import { Section } from '@/components/sections/Section'
+import { SectionHeading } from '@/components/ui/SectionHeading'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 import { Reveal } from '@/components/motion/Reveal'
+import { featureCardSurface } from '@/lib/uiClasses'
 
 const steps = [
   {
@@ -64,13 +66,11 @@ function PencilArrowSlot({ flip }: { flip?: boolean }) {
 export function HowItWorks() {
   return (
     <Section className="bg-white">
-      <Reveal className="mx-auto max-w-[34rem] text-center">
-        <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
-          Pick a template. Send your bits. We’ll bring it together.
-        </h2>
-        <p className="mt-3 text-base leading-relaxed text-meridian-muted">
-          Quick setup. Very little work from you. No plugin head-scratching.
-        </p>
+      <Reveal className="mx-auto max-w-[34rem]">
+        <SectionHeading
+          title="Pick a template. Send your bits. We’ll bring it together."
+          lede="Quick setup. Very little work from you. No plugin head-scratching."
+        />
       </Reveal>
 
       <ol className="relative mx-auto mt-14 max-w-[64rem] sm:mt-20">
@@ -85,7 +85,7 @@ export function HowItWorks() {
           const card = (
             <article
               className={[
-                'rounded-[1.25rem] bg-meridian-surface p-6 shadow-[0_10px_28px_rgb(22_105_122_/_0.1)] md:p-8',
+                featureCardSurface,
                 'origin-center transition-transform duration-500',
                 cardTilt,
               ].join(' ')}
