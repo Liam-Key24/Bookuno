@@ -55,6 +55,7 @@ h3,
 .reveal {
   opacity: 0;
   transform: translate3d(0, 1.5rem, 0);
+  max-width: 100%;
   transition:
     opacity var(--reveal-duration) var(--reveal-ease),
     transform var(--reveal-duration) var(--reveal-ease);

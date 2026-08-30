@@ -13,7 +13,7 @@ export const sectionBandPadLoose =
   'px-4 py-20 sm:px-6 md:px-8 md:py-28 lg:px-10 lg:py-32'
 
 /** Centred content column used inside sections. */
-export const contentShell = 'mx-auto w-full max-w-[72rem]'
+export const contentShell = 'mx-auto w-full min-w-0 max-w-[72rem]'
 
 /** Narrow centred copy block for intros and CTAs. */
 export const copyShellNarrow = 'mx-auto max-w-[36rem]'
@@ -33,9 +33,17 @@ export const sectionHeading =
 export const pageTitle =
   'font-display text-[2.15rem] font-bold leading-[1.05] tracking-tight text-meridian-ink sm:text-[2.6rem] lg:text-[3.1rem]'
 
+/** Vertical feature-card list — matches Sound familiar sizing on mobile. */
+export const stackedFeatureList =
+  'mx-auto flex w-full min-w-0 max-w-full flex-col gap-6 lg:mx-0 lg:max-w-none lg:gap-7'
+
+/** Illustration + card stack on landing feature sections. */
+export const featureSectionLayout =
+  'mt-12 grid w-full min-w-0 grid-cols-1 items-stretch gap-12 md:mt-16 lg:mt-20 lg:grid-cols-2 lg:gap-16'
+
 /** Marketing feature / pillar card shell (20px radius language). */
 export const featureCard =
-  'rounded-[1.25rem] bg-white p-6 shadow-[0_10px_28px_rgb(22_105_122_/_0.12)] md:p-7'
+  'box-border w-full max-w-full rounded-[1.25rem] bg-white p-6 shadow-[0_10px_28px_rgb(22_105_122_/_0.12)] md:p-7'
 
 export const featureCardSurface =
   'rounded-[1.25rem] bg-meridian-surface p-6 shadow-[0_10px_28px_rgb(22_105_122_/_0.1)] md:p-8'
