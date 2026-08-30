@@ -1,8 +1,10 @@
 'use client'
 
 import Link from 'next/link'
+import { useEffect, useRef } from 'react'
 import { useSyncExternalStore } from 'react'
 import { ANALYTICS_CONSENT_KEY, setAnalyticsConsent } from '@/lib/analytics'
+import { focusRing } from '@/lib/uiClasses'
 
 function subscribe(onStoreChange: () => void) {
   window.addEventListener('storage', onStoreChange)
@@ -22,13 +24,21 @@ function getServerConsentSnapshot() {
 }
 
 export function CookieNotice() {
+  const dialogRef = useRef<HTMLDivElement>(null)
   const stored = useSyncExternalStore(
     subscribe,
     getConsentSnapshot,
     getServerConsentSnapshot,
   )
 
-  if (stored === 'pending' || stored !== null) return null
+  const visible = stored !== 'pending' && stored === null
+
+  useEffect(() => {
+    if (!visible) return
+    dialogRef.current?.focus()
+  }, [visible])
+
+  if (!visible) return null
 
   function accept() {
     setAnalyticsConsent(true)
@@ -40,8 +50,11 @@ export function CookieNotice() {
 
   return (
     <div
+      ref={dialogRef}
       role="dialog"
+      aria-modal="true"
       aria-label="Cookie preferences"
+      tabIndex={-1}
       className="fixed inset-x-0 bottom-0 z-[60] px-2.5 pb-2.5 md:px-3 lg:px-4"
     >
       <div className="mx-auto flex w-full max-w-[96rem] flex-col gap-3 rounded-meridian border border-meridian-surface-strong bg-white p-4 shadow-[0_18px_40px_rgb(15_23_32_/_0.12)] md:flex-row md:items-center md:justify-between md:p-5">
@@ -60,14 +73,14 @@ export function CookieNotice() {
           <button
             type="button"
             onClick={reject}
-            className="rounded-meridian bg-meridian-surface px-[1rem] py-[0.55rem] text-sm font-medium text-meridian-ink transition-colors hover:bg-meridian-surface-strong"
+            className={`rounded-meridian bg-meridian-surface px-[1rem] py-[0.65rem] text-sm font-medium text-meridian-ink transition-colors hover:bg-meridian-surface-strong ${focusRing}`}
           >
             Essential only
           </button>
           <button
             type="button"
             onClick={accept}
-            className="rounded-meridian bg-meridian-accent px-[1rem] py-[0.55rem] text-sm font-medium text-meridian-ink transition-colors hover:brightness-105"
+            className={`rounded-meridian bg-meridian-accent px-[1rem] py-[0.65rem] text-sm font-medium text-meridian-ink transition-colors hover:brightness-105 ${focusRing}`}
           >
             Accept analytics
           </button>

@@ -10,6 +10,7 @@
   --color-meridian-surface: #f4f7f8;
   --color-meridian-surface-strong: #e8eef0;
   --radius-meridian: 10px;
+  /* Marketing cards use rounded-[1.25rem] (20px) via featureCard in uiClasses.ts */
   --font-sans: var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-satoshi), var(--font-plus-jakarta), ui-sans-serif, system-ui, sans-serif;
 }

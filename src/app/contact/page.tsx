@@ -1,12 +1,14 @@
-import type { Metadata } from 'next'
 import { Button } from '@/components/ui/Button'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
+import { createPageMetadata } from '@/lib/metadata'
 import { CONTACT_EMAIL, CONTACT_LABEL } from '@/lib/site'
+import { sectionBandPad } from '@/lib/uiClasses'
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: 'Contact',
   description: 'Contact Merevo about the founding offer for independent service businesses.',
-}
+  path: '/contact',
+})
 
 const details = [
   {
@@ -28,8 +30,8 @@ const details = [
 export default function ContactPage() {
   return (
     <main className="bg-white">
-      <section className="flex min-h-[min(80vh,44rem)] w-full flex-col justify-center px-4 py-16 sm:px-6 md:px-8 md:py-24 lg:px-10">
-        <div className="relative mx-auto w-full overflow-hidden rounded-meridian px-6 py-10 sm:px-8 sm:py-12 md:w-2/3 md:px-10 md:py-14">
+      <section className={`flex min-h-[min(80vh,44rem)] w-full flex-col justify-center ${sectionBandPad}`}>
+        <div className="relative mx-auto w-full max-w-3xl overflow-hidden rounded-meridian px-5 py-10 sm:px-8 sm:py-12 md:px-10 md:py-14">
           <div
             aria-hidden
             className="pointer-events-none absolute inset-0 bg-gradient-to-b from-[#c5e4eb] via-meridian-soft to-meridian-mid/70"
@@ -50,7 +52,8 @@ export default function ContactPage() {
               <IllustrationSlot
                 label="Contact"
                 brief="Calm desk scene with a soft envelope and a friendly wave."
-                className="mt-8 aspect-[4/3] w-full max-w-[16rem] bg-white/45 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65"
+                tone="ink"
+                className="mt-8 aspect-[4/3] w-full max-w-[16rem] bg-white/45"
               />
               <Button
                 href="/#contact"

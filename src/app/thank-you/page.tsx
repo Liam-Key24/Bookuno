@@ -1,11 +1,13 @@
-import type { Metadata } from 'next'
+import { createPageMetadata } from '@/lib/metadata'
 import { Button } from '@/components/ui/Button'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 
-export const metadata: Metadata = {
+export const metadata = createPageMetadata({
   title: 'Thank you',
   description: 'We received your message and sent a confirmation email.',
-}
+  path: '/thank-you',
+  noIndex: true,
+})
 
 export default function ThankYouPage() {
   return (
@@ -21,7 +23,8 @@ export default function ThankYouPage() {
           <IllustrationSlot
             label="Thanks"
             brief="Soft tick and a calm kettle on — message received, follow-up brewing."
-            className="mx-auto mt-8 aspect-[5/4] w-full max-w-[18rem] bg-meridian-soft/40 text-meridian-ink [&_p]:text-meridian-ink [&_p:last-child]:text-meridian-ink/65"
+            tone="ink"
+            className="mx-auto mt-8 aspect-[5/4] w-full max-w-[18rem] bg-meridian-soft/40"
           />
           <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
             <Button href="/" variant="accent">

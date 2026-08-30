@@ -6,10 +6,21 @@ import { useEffect, useId, useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { navLinks } from '@/components/layout/navLinks'
 import { trackEvent } from '@/lib/analytics'
+import { focusRing } from '@/lib/uiClasses'
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
   const menuId = useId()
+
+  useEffect(() => {
+    if (!open) return
+
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [open])
 
   useEffect(() => {
     if (!open) return
@@ -75,7 +86,7 @@ export function Navbar() {
 
           <button
             type="button"
-            className="inline-flex size-10 items-center justify-center rounded-meridian bg-meridian-surface text-meridian-ink transition-colors hover:bg-meridian-surface-strong md:hidden"
+            className={`inline-flex size-11 items-center justify-center rounded-meridian bg-meridian-surface text-meridian-ink transition-colors hover:bg-meridian-surface-strong md:hidden ${focusRing}`}
             aria-expanded={open}
             aria-controls={menuId}
             aria-label={open ? 'Close menu' : 'Open menu'}
