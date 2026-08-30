@@ -16,6 +16,7 @@ import {
   featureCard,
   sectionBandPadLoose,
   splitGridReverse,
+  tabletActionsCenter,
 } from '@/lib/uiClasses'
 
 export const metadata = createPageMetadata({
@@ -61,16 +62,16 @@ export default function AboutPage() {
       <section
         className={`flex min-h-[min(90svh,44rem)] w-full flex-col justify-center bg-white ${sectionBandPadLoose}`}
       >
-        <div className={`${contentShell} ${splitGridReverse}`}>
-          <Reveal>
-            <h1 className="max-w-[22rem] font-display text-[2.35rem] font-bold leading-[1.05] tracking-tight text-meridian-ink sm:max-w-[28rem] sm:text-[3rem] lg:text-[3.35rem]">
+        <div className={`${contentShell} ${splitGridReverse} ${tabletActionsCenter}`}>
+          <Reveal className="max-lg:mx-auto max-lg:max-w-[34rem]">
+            <h1 className="max-w-[22rem] font-display text-[2.35rem] font-bold leading-[1.05] tracking-tight text-meridian-ink sm:max-w-[28rem] sm:text-[3rem] lg:max-w-none lg:text-[3.35rem]">
               Made for businesses that are already busy.
             </h1>
             <p className="mt-5 max-w-[30rem] text-base leading-relaxed text-meridian-muted sm:text-lg">
               Merevo exists because small places deserve a proper online home—without needing a tech
               team, a plugin maze, or another evening lost to admin.
             </p>
-            <div className="mt-8">
+            <div className="mt-8 flex justify-center lg:justify-start">
               <Button href="/#contact" variant="accent">
                 Get started with Merevo
               </Button>
@@ -94,7 +95,7 @@ export default function AboutPage() {
           className="pointer-events-none absolute top-1/2 left-1/2 size-[min(18rem,42vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-meridian-soft/20 blur-3xl"
         />
 
-        <div className="relative z-10 grid items-center gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14 xl:gap-16">
+        <div className="relative z-10 grid items-center gap-12 max-lg:justify-items-center max-lg:text-center lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:justify-items-stretch lg:text-left lg:gap-14 xl:gap-16">
           <Reveal className="flex justify-center lg:justify-start">
             <IllustrationSlot
               label="The restaurant that started it"
@@ -104,7 +105,7 @@ export default function AboutPage() {
             />
           </Reveal>
 
-          <Reveal delayMs={60}>
+          <Reveal delayMs={60} className="max-lg:mx-auto max-lg:max-w-[36rem]">
             <h2 className="font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.4rem]">
               It started with my dad’s restaurant.
             </h2>

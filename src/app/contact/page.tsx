@@ -5,7 +5,7 @@ import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Reveal } from '@/components/motion/Reveal'
 import { createPageMetadata } from '@/lib/metadata'
 import { CONTACT_EMAIL, CONTACT_LABEL } from '@/lib/site'
-import { contentShell, sectionBandPad, sectionBandPadLoose, splitGrid } from '@/lib/uiClasses'
+import { contentShell, sectionBandPad, sectionBandPadLoose, splitGrid, tabletActionsCenter } from '@/lib/uiClasses'
 
 export const metadata = createPageMetadata({
   title: 'Contact',
@@ -44,8 +44,8 @@ export default function ContactPage() {
             className="pointer-events-none absolute -inset-[20%] bg-[radial-gradient(ellipse_at_35%_15%,rgb(197_228_235_/_0.9),transparent_55%),radial-gradient(ellipse_at_75%_85%,rgb(72_159_181_/_0.35),transparent_50%)] blur-2xl"
           />
 
-          <div className="relative z-10 grid items-center gap-10 md:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] md:gap-12">
-            <div>
+          <div className="relative z-10 grid items-center gap-10 max-lg:justify-items-center max-lg:text-center lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:justify-items-stretch lg:text-left lg:gap-12">
+            <div className="max-lg:mx-auto max-lg:flex max-lg:max-w-[28rem] max-lg:flex-col max-lg:items-center">
               <h1 className="font-display text-[2rem] font-bold tracking-tight text-meridian-accent sm:text-[2.5rem]">
                 Say hello
               </h1>
@@ -63,7 +63,7 @@ export default function ContactPage() {
               </Button>
             </div>
 
-            <ul className="grid gap-8">
+            <ul className="grid w-full max-w-[28rem] gap-8 lg:max-w-none">
               {details.map((item) => (
                 <li key={item.title}>
                   <h2 className="font-display text-lg font-bold tracking-tight text-meridian-ink md:text-xl">
@@ -92,18 +92,19 @@ export default function ContactPage() {
       </section>
 
       <section id="contact-form" className={`w-full scroll-mt-24 bg-white ${sectionBandPadLoose}`}>
-        <div className={`${contentShell} ${splitGrid} items-start`}>
+        <div className={`${contentShell} ${splitGrid} ${tabletActionsCenter} lg:items-start`}>
           <Reveal>
             <SectionHeading
               title="Get started with Merevo"
               lede="Share a little about your business and we’ll follow up personally."
               align="left"
+              centerOnTablet
               className="max-w-none"
-              titleClassName="max-w-[18rem] sm:max-w-[22rem]"
+              titleClassName="max-w-[18rem] sm:max-w-[22rem] lg:max-w-[22rem]"
             />
           </Reveal>
 
-          <Reveal delayMs={80} className="min-w-0 w-full">
+          <Reveal delayMs={80} className="min-w-0 w-full max-lg:mx-auto max-lg:max-w-[28rem]">
             <LeadForm />
           </Reveal>
         </div>

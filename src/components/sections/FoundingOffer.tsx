@@ -83,8 +83,8 @@ export function FoundingOffer() {
         id="pricing"
         className="flex min-h-[100svh] w-full flex-col justify-center bg-white px-4 py-20 sm:px-6 md:px-8 md:py-28 lg:px-10 lg:py-32"
       >
-        <div className="mx-auto grid w-full max-w-[72rem] items-center gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16 xl:gap-20">
-          <Reveal>
+        <div className="mx-auto grid w-full max-w-[72rem] items-center gap-12 max-lg:justify-items-center max-lg:text-center lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:justify-items-stretch lg:text-left lg:gap-16 xl:gap-20">
+          <Reveal className="max-lg:mx-auto max-lg:max-w-[34rem]">
             <h1 className="max-w-[18rem] font-display text-[2.35rem] font-bold leading-[1.05] tracking-tight text-meridian-ink sm:max-w-[22rem] sm:text-[3rem] lg:text-[3.35rem]">
               A whole lot of useful. One simple price.
             </h1>
@@ -92,7 +92,7 @@ export function FoundingOffer() {
               Built for busy service businesses who want a proper online home—without stacking
               tools, plugins or another Sunday night of DIY.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
               <Button href="/#contact" variant="accent">
                 Get started with Merevo
               </Button>
@@ -102,7 +102,7 @@ export function FoundingOffer() {
             </div>
           </Reveal>
 
-          <Reveal delayMs={100}>
+          <Reveal delayMs={100} className="w-full max-lg:mx-auto max-lg:max-w-[28rem]">
             <div className="relative flex min-h-0 flex-col overflow-hidden rounded-[1.25rem] bg-gradient-to-br from-meridian-accent via-[#ffb84d] to-[#ffd27a] p-7 shadow-[0_20px_50px_rgb(255_166_43_/_0.28)] sm:p-8 md:p-9">
               <div
                 aria-hidden
@@ -156,7 +156,7 @@ export function FoundingOffer() {
             </p>
           </Reveal>
 
-          <ul className="mx-auto mt-12 grid max-w-[64rem] gap-5 sm:mt-14 md:grid-cols-3 md:gap-6">
+          <ul className="mx-auto mt-12 grid max-w-[64rem] gap-5 sm:mt-14 lg:grid-cols-3 lg:gap-6">
             {coveredGroups.map((group, index) => (
               <Reveal key={group.title} delayMs={index * 70} as="li">
                 <article className="flex h-full flex-col rounded-[1.25rem] bg-meridian-surface p-6 shadow-[0_10px_28px_rgb(22_105_122_/_0.1)] md:p-8">
@@ -194,7 +194,7 @@ export function FoundingOffer() {
             </p>
           </Reveal>
 
-          <div className="mt-16 grid w-full grid-cols-1 gap-8 sm:mt-20 sm:grid-cols-2 sm:gap-x-8 lg:gap-x-10 lg:gap-y-0">
+          <div className="mx-auto mt-16 grid w-full max-w-[64rem] grid-cols-1 gap-8 sm:mt-20 lg:grid-cols-2 lg:gap-x-10 lg:gap-y-0">
             <div className="flex flex-col gap-8 lg:gap-10">
               {extras.slice(0, 2).map((block, index) => (
                 <Reveal key={block.title} delayMs={index * 50}>

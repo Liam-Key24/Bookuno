@@ -7,12 +7,12 @@ export function Footer() {
   return (
     <footer className="w-full bg-meridian-accent px-2.5 py-2.5 md:px-3 md:py-3 lg:px-4">
       <div className="w-full rounded-meridian bg-meridian-surface px-4 py-6 md:px-6 md:py-7 lg:px-8 lg:py-8">
-        <div className="grid gap-[1.75rem] lg:grid-cols-[minmax(0,1.35fr)_repeat(2,minmax(0,0.75fr))] lg:gap-[1.5rem]">
-          <div className="max-w-[24rem]">
+        <div className="grid gap-[1.75rem] max-lg:justify-items-center max-lg:text-center lg:grid-cols-[minmax(0,1.35fr)_repeat(2,minmax(0,0.75fr))] lg:justify-items-stretch lg:text-left lg:gap-[1.5rem]">
+          <div className="w-full max-w-[24rem] max-lg:mx-auto">
             <NewsletterSignupForm />
           </div>
 
-          <div className="grid grid-cols-2 gap-x-6 gap-y-[1.75rem] lg:contents">
+          <div className="grid grid-cols-2 gap-x-6 gap-y-[1.75rem] max-lg:mx-auto max-lg:max-w-[20rem] lg:contents">
             <FooterColumn title="Explore">
               {exploreLinks.map((link) => (
                 <FooterLink key={link.href} href={link.href}>
@@ -36,7 +36,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-[1.75rem] flex flex-col gap-[0.75rem] border-t border-meridian-surface-strong pt-[1rem] md:flex-row md:items-center md:justify-between">
+        <div className="mt-[1.75rem] flex flex-col items-center gap-[0.75rem] border-t border-meridian-surface-strong pt-[1rem] text-center lg:flex-row lg:items-center lg:justify-between lg:text-left">
           <p className="text-xs text-meridian-muted">
             © {new Date().getFullYear()} Merevo. Your website, bookings, payments and customer
             marketing—managed for service businesses.

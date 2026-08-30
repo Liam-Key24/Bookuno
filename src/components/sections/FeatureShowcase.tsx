@@ -38,17 +38,22 @@ export function FeatureShowcase({
   reverse = false,
 }: FeatureShowcaseProps) {
   const copy = (
-    <div className={reverse ? 'lg:order-1' : 'lg:order-2'}>
+    <div
+      className={[
+        'max-lg:mx-auto max-lg:max-w-[34rem] max-lg:text-center',
+        reverse ? 'lg:order-1 lg:text-left' : 'lg:order-2 lg:text-left',
+      ].join(' ')}
+    >
       <Reveal>
-        <h2 className="max-w-[22rem] font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.35rem]">
+        <h2 className="mx-auto max-w-[22rem] font-display text-[1.85rem] font-bold tracking-tight text-meridian-ink sm:text-[2.35rem] lg:mx-0">
           {title}
         </h2>
-        <p className="mt-3 max-w-[28rem] text-base leading-relaxed text-meridian-muted">
+        <p className="mx-auto mt-3 max-w-[28rem] text-base leading-relaxed text-meridian-muted lg:mx-0">
           {lede}
         </p>
       </Reveal>
 
-      <ul className="mt-10 flex max-w-[30rem] flex-col gap-8 sm:mt-12 sm:gap-9">
+      <ul className="mx-auto mt-10 flex max-w-[30rem] flex-col gap-8 sm:mt-12 sm:gap-9 lg:mx-0">
         {points.map((point, index) => {
           const Icon = point.icon
           return (
@@ -106,7 +111,7 @@ export function FeatureShowcase({
 
   return (
     <section className="flex min-h-[100svh] w-full flex-col justify-center px-4 py-20 sm:px-6 md:px-8 md:py-28 lg:px-10 lg:py-32">
-      <div className="mx-auto grid w-full max-w-[72rem] items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+      <div className="mx-auto grid w-full max-w-[72rem] items-center gap-12 max-lg:justify-items-center lg:grid-cols-2 lg:justify-items-stretch lg:gap-16 xl:gap-20">
         {reverse ? (
           <>
             {copy}

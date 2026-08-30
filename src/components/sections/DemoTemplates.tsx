@@ -28,7 +28,7 @@ export function DemoTemplates({ showPageLink = true }: DemoTemplatesProps) {
         />
       </div>
 
-      <div className="mt-12 grid gap-8 sm:mt-14 md:grid-cols-2 md:gap-10">
+      <div className="mt-12 grid justify-items-center gap-8 sm:mt-14 lg:grid-cols-2 lg:justify-items-stretch lg:gap-10">
         {demoTemplates.map((demo) => (
           <DemoCard key={demo.id} demo={demo} />
         ))}

@@ -11,6 +11,7 @@ import {
   sectionBandPadLoose,
   splitGrid,
   splitGridReverse,
+  tabletActionsCenter,
 } from '@/lib/uiClasses'
 
 export const metadata = createPageMetadata({
@@ -24,15 +25,15 @@ export default function FaqPage() {
   return (
     <main className="bg-white">
       <section className={`flex min-h-[100svh] w-full flex-col justify-center bg-white ${sectionBandPadLoose}`}>
-        <div className={`${contentShell} ${splitGridReverse}`}>
-          <Reveal>
-            <h1 className="max-w-[20rem] font-display text-[2.35rem] font-bold leading-[1.05] tracking-tight text-meridian-ink sm:max-w-[24rem] sm:text-[3rem] lg:text-[3.35rem]">
+        <div className={`${contentShell} ${splitGridReverse} ${tabletActionsCenter}`}>
+          <Reveal className="max-lg:mx-auto max-lg:max-w-[34rem]">
+            <h1 className="max-w-[20rem] font-display text-[2.35rem] font-bold leading-[1.05] tracking-tight text-meridian-ink sm:max-w-[24rem] sm:text-[3rem] lg:max-w-none lg:text-[3.35rem]">
               Questions, answered plainly
             </h1>
             <p className="mt-5 max-w-[28rem] text-base leading-relaxed text-meridian-muted sm:text-lg">
               Product, pricing and the fine print—without the jargon. Still unsure? Ask us.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-3">
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
               <Button href="#contact" variant="accent">
                 Contact us if you’re unsure
               </Button>
@@ -67,18 +68,19 @@ export default function FaqPage() {
       />
 
       <section id="contact" className={`w-full scroll-mt-24 bg-white ${sectionBandPadLoose}`}>
-        <div className={`${contentShell} ${splitGrid} items-start`}>
+        <div className={`${contentShell} ${splitGrid} ${tabletActionsCenter} lg:items-start`}>
           <Reveal>
             <SectionHeading
               title="Still unsure? Ask us"
               lede="Share a little about your business and we’ll follow up personally."
               align="left"
+              centerOnTablet
               className="max-w-none"
-              titleClassName="max-w-[18rem] sm:max-w-[22rem]"
+              titleClassName="max-w-[18rem] sm:max-w-[22rem] lg:max-w-[22rem]"
             />
           </Reveal>
 
-          <Reveal delayMs={80} className="min-w-0 w-full">
+          <Reveal delayMs={80} className="min-w-0 w-full max-lg:mx-auto max-lg:max-w-[28rem]">
             <LeadForm />
           </Reveal>
         </div>
