@@ -24,12 +24,15 @@ export function Hero() {
               Website, bookings and payments—managed for you. So you can get on with the work.
             </p>
 
-            <div className="mt-8">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <Button
-                href="#features"
+                href="#contact"
                 size="sm"
                 className="bg-white text-meridian-deep hover:bg-white/90"
               >
+                Get started
+              </Button>
+              <Button href="#features" size="sm" variant="onDeep">
                 Learn more
               </Button>
             </div>

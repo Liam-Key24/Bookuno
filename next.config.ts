@@ -15,6 +15,15 @@ const securityHeaders = [
 ]
 
 const nextConfig: NextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/features',
+        destination: '/whats-included',
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {

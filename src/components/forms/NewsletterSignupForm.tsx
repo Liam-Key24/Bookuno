@@ -112,7 +112,7 @@ export function NewsletterSignupForm() {
           I agree to receive promotional emails from Merevo. I understand I can unsubscribe at any
           time. See our{' '}
           <Link href="/privacy" className="underline-offset-2 hover:underline">
-            Privacy Policy
+            Privacy Notice
           </Link>
           .
         </span>

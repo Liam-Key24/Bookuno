@@ -38,10 +38,9 @@ export function buildUnsubscribeUrl(token: string) {
 }
 
 export function getNewsletterPostalAddress() {
-  return (
-    process.env.NEWSLETTER_POSTAL_ADDRESS ||
-    '[Merevo business address — set NEWSLETTER_POSTAL_ADDRESS]'
-  )
+  const configured = process.env.NEWSLETTER_POSTAL_ADDRESS?.trim()
+  if (configured) return configured
+  return `Contact ${CONTACT_EMAIL} for our postal address.`
 }
 
 function getResend() {

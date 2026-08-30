@@ -1,5 +1,9 @@
-import { createPageMetadata } from '@/lib/metadata'
 import { LegalLayout, LegalSection } from '@/components/sections/LegalLayout'
+import { LEGAL_EFFECTIVE_DATE } from '@/lib/legal'
+import { createPageMetadata } from '@/lib/metadata'
+import { CONTACT_EMAIL, SITE_URL } from '@/lib/site'
+
+const siteHost = SITE_URL.replace(/^https?:\/\//, '')
 
 export const metadata = createPageMetadata({
   title: 'Privacy Notice',
@@ -29,28 +33,29 @@ const nav = [
 
 export default function PrivacyPage() {
   return (
-    <LegalLayout title="Meridian Privacy Notice" updated="[EFFECTIVE DATE]" nav={nav}>
+    <LegalLayout title="Merevo Privacy Notice" updated={LEGAL_EFFECTIVE_DATE} nav={nav}>
       <div className="space-y-4 text-sm leading-relaxed text-black md:text-base">
         <p>
-          Meridian is operated by <strong>[MERIDIAN LEGAL NAME]</strong>, registered at{' '}
-          <strong>[REGISTERED ADDRESS]</strong>, company number <strong>[COMPANY NUMBER]</strong>.
+          Merevo is the trading name for our managed website, booking and customer marketing
+          service for independent businesses. Registered company details are available on request at{' '}
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
         </p>
         <p>
           This notice explains how we collect and use personal information when you visit{' '}
-          [WEBSITE URL], contact us, subscribe to our newsletter, use a Meridian-managed website, or
-          use a booking or enquiry service powered by Meridian.
+          <a href={SITE_URL}>{siteHost}</a>, contact us, subscribe to our newsletter, use a
+          Merevo-managed website, or use a booking or enquiry service powered by Merevo.
         </p>
       </div>
 
       <LegalSection id="our-role" title="1. Our role">
-        <p>For visitors to the Meridian marketing website, Meridian is the data controller.</p>
+        <p>For visitors to the Merevo marketing website, Merevo is the data controller.</p>
         <p>
-          For marketing enquiries and newsletter subscribers, Meridian decides why and how the
+          For marketing enquiries and newsletter subscribers, Merevo decides why and how the
           information is used.
         </p>
         <p>
-          For booking and customer information submitted through a client’s Meridian-managed
-          website, the client business is normally the data controller and Meridian acts as its
+          For booking and customer information submitted through a client’s Merevo-managed
+          website, the client business is normally the data controller and Merevo acts as its
           data processor. The client remains responsible for deciding what information it collects
           and why. Our processing for client businesses is governed by a separate Data Processing
           Addendum.
@@ -69,7 +74,7 @@ export default function PrivacyPage() {
           <li>business type, website requirements and enquiry details;</li>
           <li>account, billing and subscription information;</li>
           <li>booking information submitted through a client website;</li>
-          <li>communications between you and Meridian;</li>
+          <li>communications between you and Merevo;</li>
           <li>newsletter subscription status and consent records;</li>
           <li>IP address, browser type, device information and security logs;</li>
           <li>cookie preferences, analytics events and marketing preferences;</li>
@@ -85,14 +90,14 @@ export default function PrivacyPage() {
         <p>We use information to:</p>
         <ul>
           <li>respond to enquiries and consultation requests;</li>
-          <li>provide, maintain and support Meridian services;</li>
+          <li>provide, maintain and support Merevo services;</li>
           <li>create and administer client websites;</li>
           <li>process bookings and enquiries according to the client’s instructions;</li>
           <li>send service, security and account messages;</li>
           <li>process payments and maintain accounting records;</li>
           <li>prevent abuse, fraud, spam and unauthorised access;</li>
           <li>measure website performance where you have consented to analytics;</li>
-          <li>send Meridian marketing emails where you have separately opted in;</li>
+          <li>send Merevo marketing emails where you have separately opted in;</li>
           <li>comply with legal obligations;</li>
           <li>improve our service using aggregated or anonymised information.</li>
         </ul>
@@ -175,7 +180,7 @@ export default function PrivacyPage() {
 
       <LegalSection id="service-providers" title="7. Service providers">
         <p>
-          We may share information with carefully selected providers that help us operate Meridian,
+          We may share information with carefully selected providers that help us operate Merevo,
           including:
         </p>
         <ul>
@@ -187,7 +192,8 @@ export default function PrivacyPage() {
           <li>professional advisers, insurers and legal authorities where necessary.</li>
         </ul>
         <p>
-          A current subprocessor list is available at <strong>[SUBPROCESSOR URL]</strong>.
+          A current subprocessor list is available on request at{' '}
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
         </p>
         <p>
           Each processor must provide appropriate contractual and security safeguards. Where
@@ -197,14 +203,14 @@ export default function PrivacyPage() {
       </LegalSection>
 
       <LegalSection id="client-booking-data" title="8. Client booking data">
-        <p>Where Meridian processes booking or enquiry information for a client business:</p>
+        <p>Where Merevo processes booking or enquiry information for a client business:</p>
         <ul>
           <li>the client decides what data is collected;</li>
           <li>the client is responsible for its customer-facing privacy notice;</li>
-          <li>Meridian processes the information only on documented instructions;</li>
-          <li>Meridian does not use identifiable booking data for its own marketing;</li>
+          <li>Merevo processes the information only on documented instructions;</li>
+          <li>Merevo does not use identifiable booking data for its own marketing;</li>
           <li>
-            Meridian may use aggregated, non-identifying statistics to operate and improve the
+            Merevo may use aggregated, non-identifying statistics to operate and improve the
             platform;
           </li>
           <li>
@@ -222,9 +228,9 @@ export default function PrivacyPage() {
           additional condition.
         </p>
         <p>
-          Meridian does not require sensitive information for general marketing enquiries. If a
+          Merevo does not require sensitive information for general marketing enquiries. If a
           client instructs us to process it, the client remains responsible for the legal basis,
-          notices and instructions provided to Meridian.{' '}
+          notices and instructions provided to Merevo.{' '}
           <a
             href="https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/special-category-data/what-is-special-category-data/"
             target="_blank"
@@ -241,7 +247,7 @@ export default function PrivacyPage() {
         <ul>
           <li>marketing enquiries: up to 12 months after the last meaningful contact;</li>
           <li>newsletter records: until unsubscribe, plus a limited suppression record;</li>
-          <li>security logs: [30/90] days;</li>
+          <li>security logs: 90 days;</li>
           <li>billing and tax records: for the period required by law;</li>
           <li>client booking data: according to the client’s written retention instructions;</li>
           <li>
@@ -267,8 +273,9 @@ export default function PrivacyPage() {
           <li>stop direct marketing.</li>
         </ul>
         <p>
-          Contact <strong>[CONTACT EMAIL]</strong>. We may need to verify your identity before
-          responding.
+          Contact{' '}
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. We may need to verify your
+          identity before responding.
         </p>
         <p>
           You may complain to the Information Commissioner’s Office at{' '}
@@ -298,7 +305,7 @@ export default function PrivacyPage() {
 
       <LegalSection id="children" title="13. Children">
         <p>
-          Meridian is intended for business users and is not directed at children. We do not
+          Merevo is intended for business users and is not directed at children. We do not
           knowingly collect children’s information through the marketing website.
         </p>
       </LegalSection>
@@ -320,11 +327,9 @@ export default function PrivacyPage() {
       <LegalSection id="contact" title="16. Contact">
         <p>Privacy questions should be sent to:</p>
         <p>
-          <strong>[MERIDIAN LEGAL NAME]</strong>
+          Merevo
           <br />
-          <strong>[REGISTERED ADDRESS]</strong>
-          <br />
-          <strong>[CONTACT EMAIL]</strong>
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
         </p>
       </LegalSection>
     </LegalLayout>

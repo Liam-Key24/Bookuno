@@ -1,5 +1,9 @@
-import { createPageMetadata } from '@/lib/metadata'
 import { LegalLayout, LegalSection } from '@/components/sections/LegalLayout'
+import { LEGAL_EFFECTIVE_DATE, LEGAL_JURISDICTION } from '@/lib/legal'
+import { createPageMetadata } from '@/lib/metadata'
+import { CONTACT_EMAIL, SITE_URL } from '@/lib/site'
+
+const siteHost = SITE_URL.replace(/^https?:\/\//, '')
 
 export const metadata = createPageMetadata({
   title: 'Terms and Conditions',
@@ -9,7 +13,7 @@ export const metadata = createPageMetadata({
 })
 
 const nav = [
-  { id: 'about-meridian', label: '1. About Meridian' },
+  { id: 'about-merevo', label: '1. About Merevo' },
   { id: 'website-use', label: '2. Website use' },
   { id: 'service-scope', label: '3. Service scope' },
   { id: 'client-responsibilities', label: '4. Client responsibilities' },
@@ -37,24 +41,26 @@ const nav = [
 export default function TermsPage() {
   return (
     <LegalLayout
-      title="Meridian Website and Service Terms"
-      updated="[EFFECTIVE DATE]"
+      title="Merevo Website and Service Terms"
+      updated={LEGAL_EFFECTIVE_DATE}
       nav={nav}
     >
       <div className="space-y-4 text-sm leading-relaxed text-black md:text-base">
         <p>
-          These terms apply to use of [WEBSITE URL]. Paid clients must also accept the applicable
-          order form, pricing schedule, Service Terms and Data Processing Addendum.
+          These terms apply to use of{' '}
+          <a href={SITE_URL}>{siteHost}</a>. Paid clients must also accept the applicable order
+          form, pricing schedule, Service Terms and Data Processing Addendum.
         </p>
       </div>
 
-      <LegalSection id="about-meridian" title="1. About Meridian">
+      <LegalSection id="about-merevo" title="1. About Merevo">
         <p>
-          Meridian is operated by <strong>[MERIDIAN LEGAL NAME]</strong>, registered at{' '}
-          <strong>[REGISTERED ADDRESS]</strong>, company number <strong>[COMPANY NUMBER]</strong>.
+          Merevo is the trading name for our managed website, booking and customer marketing
+          service. Registered company details are available on request at{' '}
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.
         </p>
         <p>
-          Contact: <strong>[CONTACT EMAIL]</strong>
+          Contact: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
         </p>
       </LegalSection>
 
@@ -66,7 +72,7 @@ export default function TermsPage() {
           <li>submit malicious, unlawful or misleading material;</li>
           <li>impersonate another person or business;</li>
           <li>use the website to distribute spam or harmful code;</li>
-          <li>copy Meridian branding, templates or content without permission.</li>
+          <li>copy Merevo branding, templates or content without permission.</li>
         </ul>
         <p>
           We may restrict access where necessary to protect the website, users or our legal
@@ -113,10 +119,10 @@ export default function TermsPage() {
           <li>
             ensure its services, prices, claims and promotions comply with applicable law;
           </li>
-          <li>keep staff access secure and notify Meridian of suspected compromise.</li>
+          <li>keep staff access secure and notify Merevo of suspected compromise.</li>
         </ul>
         <p>
-          Meridian is not responsible for losses caused by inaccurate, late or unlawful client
+          Merevo is not responsible for losses caused by inaccurate, late or unlawful client
           instructions.
         </p>
       </LegalSection>
@@ -136,14 +142,14 @@ export default function TermsPage() {
           <li>ensuring the booking flow matches its real-world operation.</li>
         </ul>
         <p>
-          Meridian does not guarantee that every email, SMS, external integration or calendar
+          Merevo does not guarantee that every email, SMS, external integration or calendar
           connection will be delivered or remain available.
         </p>
       </LegalSection>
 
       <LegalSection id="existing-domains" title="6. Existing domains">
         <p>
-          A domain already owned by a client remains the client’s property. Meridian receives
+          A domain already owned by a client remains the client’s property. Merevo receives
           permission only to manage technical settings required to provide the service.
         </p>
         <p>
@@ -153,13 +159,13 @@ export default function TermsPage() {
       </LegalSection>
 
       <LegalSection id="domains-purchased" title="7. Domains purchased for a client">
-        <p>Where Meridian purchases a new domain for a client:</p>
+        <p>Where Merevo purchases a new domain for a client:</p>
         <ul>
           <li>
             it should be registered in the client’s legal or trading name where the registrar
             permits;
           </li>
-          <li>Meridian may manage the registrar account and DNS on the client’s behalf;</li>
+          <li>Merevo may manage the registrar account and DNS on the client’s behalf;</li>
           <li>domain availability is not guaranteed;</li>
           <li>premium, additional and renewal costs require client approval;</li>
           <li>
@@ -168,7 +174,7 @@ export default function TermsPage() {
           </li>
           <li>completion is subject to registrar, registry and transfer-lock rules.</li>
         </ul>
-        <p>Meridian will not represent a client-owned domain as Meridian’s asset.</p>
+        <p>Merevo will not represent a client-owned domain as Merevo’s asset.</p>
       </LegalSection>
 
       <LegalSection id="content-and-changes" title="8. Content and changes">
@@ -182,12 +188,12 @@ export default function TermsPage() {
 
       <LegalSection id="third-party-services" title="9. Third-party services">
         <p>
-          Meridian may rely on third-party providers such as hosting, databases, email delivery,
+          Merevo may rely on third-party providers such as hosting, databases, email delivery,
           payment processors, domain registrars, security services and analytics providers.
         </p>
         <p>
           Those providers have their own terms, pricing, availability and privacy practices.
-          Meridian is not responsible for a third party’s independent outage, policy change,
+          Merevo is not responsible for a third party’s independent outage, policy change,
           account suspension or failure, although we will take reasonable steps to assist with
           troubleshooting.
         </p>
@@ -217,20 +223,20 @@ export default function TermsPage() {
 
       <LegalSection id="cancellation-and-termination" title="11. Cancellation and termination">
         <p>
-          Either party may terminate after the minimum term by giving <strong>[30 days]</strong>{' '}
+          Either party may terminate after the minimum term by giving <strong>30 days</strong>{' '}
           written notice.
         </p>
-        <p>Meridian may terminate or suspend immediately where necessary for:</p>
+        <p>Merevo may terminate or suspend immediately where necessary for:</p>
         <ul>
           <li>serious breach;</li>
           <li>unlawful use;</li>
           <li>security or abuse risk;</li>
           <li>non-payment after notice;</li>
           <li>insolvency;</li>
-          <li>instructions that would place Meridian in breach of law.</li>
+          <li>instructions that would place Merevo in breach of law.</li>
         </ul>
         <p>
-          On termination, Meridian will provide reasonable handover assistance, subject to the
+          On termination, Merevo will provide reasonable handover assistance, subject to the
           agreed exit process and payment of applicable handover, domain or third-party charges.
         </p>
         <p>
@@ -242,12 +248,12 @@ export default function TermsPage() {
       <LegalSection id="intellectual-property" title="12. Intellectual property">
         <p>The client owns content, branding and materials supplied by the client.</p>
         <p>
-          Meridian retains ownership of its pre-existing code, systems, templates, design
+          Merevo retains ownership of its pre-existing code, systems, templates, design
           components, processes and know-how.
         </p>
         <p>
-          During the paid service, Meridian grants the client a limited licence to use the supplied
-          website and Meridian components for the client’s own business.
+          During the paid service, Merevo grants the client a limited licence to use the supplied
+          website and Merevo components for the client’s own business.
         </p>
         <p>
           Any transfer of source code, reusable components or ownership rights must be expressly
@@ -267,8 +273,8 @@ export default function TermsPage() {
       <LegalSection id="data-protection" title="14. Data protection">
         <p>The parties must comply with applicable UK data-protection law.</p>
         <p>
-          For marketing leads, Meridian normally acts as controller. For client booking and
-          customer data, the client normally acts as controller and Meridian as processor.
+          For marketing leads, Merevo normally acts as controller. For client booking and
+          customer data, the client normally acts as controller and Merevo as processor.
         </p>
         <p>
           The parties must sign the applicable Data Processing Addendum before production
@@ -305,7 +311,7 @@ export default function TermsPage() {
       </LegalSection>
 
       <LegalSection id="disclaimers" title="17. Disclaimers">
-        <p>Meridian does not guarantee:</p>
+        <p>Merevo does not guarantee:</p>
         <ul>
           <li>a particular number of leads, bookings or sales;</li>
           <li>search-engine ranking;</li>
@@ -327,12 +333,12 @@ export default function TermsPage() {
           fraudulent misrepresentation, or mandatory statutory rights.
         </p>
         <p>
-          Subject to that limitation, Meridian’s total liability arising from a client’s service
+          Subject to that limitation, Merevo’s total liability arising from a client’s service
           will be limited to{' '}
-          <strong>[the fees paid in the previous 12 months / a solicitor-approved amount]</strong>.
+          <strong>the fees paid in the previous 12 months</strong>.
         </p>
         <p>
-          Meridian will not be liable for indirect or consequential loss, loss of profit, loss of
+          Merevo will not be liable for indirect or consequential loss, loss of profit, loss of
           goodwill, loss of anticipated savings or losses caused by third-party services,
           inaccurate client information or events outside reasonable control.
         </p>
@@ -344,7 +350,7 @@ export default function TermsPage() {
 
       <LegalSection id="client-indemnity" title="19. Client indemnity">
         <p>
-          The client will reimburse Meridian for reasonable losses, claims and costs arising from:
+          The client will reimburse Merevo for reasonable losses, claims and costs arising from:
         </p>
         <ul>
           <li>unlawful client content;</li>
@@ -353,7 +359,7 @@ export default function TermsPage() {
           <li>misuse of the service;</li>
           <li>the client’s products, services, bookings or customer policies.</li>
         </ul>
-        <p>This does not apply to losses caused by Meridian’s own breach or negligence.</p>
+        <p>This does not apply to losses caused by Merevo’s own breach or negligence.</p>
       </LegalSection>
 
       <LegalSection id="changes-to-these-terms" title="20. Changes to these terms">
@@ -366,7 +372,8 @@ export default function TermsPage() {
 
       <LegalSection id="complaints" title="21. Complaints">
         <p>
-          Complaints should be sent to <strong>[CONTACT EMAIL]</strong>. We will acknowledge the
+          Complaints should be sent to{' '}
+          <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. We will acknowledge the
           complaint and try to resolve it fairly and promptly.
         </p>
       </LegalSection>
@@ -374,7 +381,7 @@ export default function TermsPage() {
       <LegalSection id="governing-law" title="22. Governing law">
         <p>
           These terms are governed by the law of{' '}
-          <strong>[England and Wales / Scotland / Northern Ireland]</strong>. The courts of that
+          <strong>{LEGAL_JURISDICTION}</strong>. The courts of that
           jurisdiction will have authority, subject to any mandatory rights that apply to a
           consumer or other protected party.
         </p>

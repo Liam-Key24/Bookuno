@@ -58,7 +58,6 @@ export function Footer() {
         <div className="mt-[2.25rem] overflow-x-clip md:mt-[3rem]">
           <p className="font-display select-none text-[clamp(3.5rem,18vw,12rem)] leading-none font-bold tracking-tight text-meridian-accent lowercase">
             merevo
-            <sup className="ml-[0.15em] align-super text-[0.18em] font-medium">®</sup>
           </p>
         </div>
       </div>

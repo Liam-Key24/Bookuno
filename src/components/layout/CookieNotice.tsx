@@ -93,7 +93,7 @@ export function CookieNotice() {
               href="/privacy"
               className="font-medium text-meridian-deep underline-offset-2 hover:underline"
             >
-              Privacy Policy
+              Privacy Notice
             </Link>
             .
           </p>

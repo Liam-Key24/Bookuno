@@ -1,4 +1,4 @@
-/** Shared Tailwind class groups for the Meridian marketing UI. */
+/** Shared Tailwind class groups for the Merevo marketing UI. */
 
 export function cn(...parts: (string | false | null | undefined)[]) {
   return parts.filter(Boolean).join(' ')

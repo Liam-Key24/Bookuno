@@ -1,8 +1,11 @@
+import { LeadForm } from '@/components/forms/LeadForm'
 import { Button } from '@/components/ui/Button'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
+import { SectionHeading } from '@/components/ui/SectionHeading'
+import { Reveal } from '@/components/motion/Reveal'
 import { createPageMetadata } from '@/lib/metadata'
 import { CONTACT_EMAIL, CONTACT_LABEL } from '@/lib/site'
-import { sectionBandPad } from '@/lib/uiClasses'
+import { contentShell, sectionBandPad, sectionBandPadLoose, splitGrid } from '@/lib/uiClasses'
 
 export const metadata = createPageMetadata({
   title: 'Contact',
@@ -55,11 +58,8 @@ export default function ContactPage() {
                 tone="ink"
                 className="mt-8 aspect-[4/3] w-full max-w-[16rem] bg-white/45"
               />
-              <Button
-                href="/#contact"
-                className="mt-8 bg-white text-meridian-deep hover:bg-white/90"
-              >
-                Get started with Merevo
+              <Button href="#contact-form" className="mt-8 bg-white text-meridian-deep hover:bg-white/90">
+                Send an enquiry
               </Button>
             </div>
 
@@ -88,6 +88,24 @@ export default function ContactPage() {
               ))}
             </ul>
           </div>
+        </div>
+      </section>
+
+      <section id="contact-form" className={`w-full scroll-mt-24 bg-white ${sectionBandPadLoose}`}>
+        <div className={`${contentShell} ${splitGrid} items-start`}>
+          <Reveal>
+            <SectionHeading
+              title="Get started with Merevo"
+              lede="Share a little about your business and we’ll follow up personally."
+              align="left"
+              className="max-w-none"
+              titleClassName="max-w-[18rem] sm:max-w-[22rem]"
+            />
+          </Reveal>
+
+          <Reveal delayMs={80} className="min-w-0 w-full">
+            <LeadForm />
+          </Reveal>
         </div>
       </section>
     </main>

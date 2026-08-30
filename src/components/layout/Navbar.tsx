@@ -113,9 +113,7 @@ export function Navbar() {
     return () => media.removeEventListener('change', onChange)
   }, [])
 
-  const menuTop = detached
-    ? 'top-[calc(var(--nav-height)+0.85rem)]'
-    : 'top-[var(--nav-height)]'
+  const mobileChrome = isMobile && (detached || open)
 
   return (
     <>
@@ -130,8 +128,8 @@ export function Navbar() {
         <div
           className={cn(
             'transition-[background-color,box-shadow,border-radius] duration-300 ease-out',
-            isMobile && detached
-              ? 'overflow-hidden rounded-meridian border border-meridian-surface-strong/80 bg-white/90 shadow-[0_10px_28px_rgb(15_23_32_/_0.1)] backdrop-blur-md'
+            mobileChrome
+              ? 'overflow-hidden rounded-meridian border border-meridian-surface-strong/80 bg-white/95 shadow-[0_10px_28px_rgb(15_23_32_/_0.1)] backdrop-blur-md'
               : isMobile
                 ? 'bg-transparent'
                 : '',
@@ -182,74 +180,66 @@ export function Navbar() {
               </button>
             </div>
           </nav>
-        </div>
-      </header>
 
-      {/* Mobile menu — full width, below header */}
-      <div
-        className={cn(
-          'fixed inset-x-0 z-40 md:hidden',
-          menuTop,
-          'transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none',
-          open
-            ? 'pointer-events-auto translate-y-0 opacity-100'
-            : 'pointer-events-none -translate-y-2 opacity-0',
-        )}
-        aria-hidden={!open}
-      >
-        <div
-          id={menuId}
-          className="w-full border-b border-meridian-surface-strong bg-white/95 shadow-[0_20px_40px_rgb(15_23_32_/_0.1)] backdrop-blur-md"
-        >
-          <ul className="flex flex-col px-2 py-2">
-            {navLinks.map((link, index) => (
-              <li
-                key={link.label}
-                className={cn(
-                  'transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none',
-                  open ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0',
-                )}
-                style={open ? { transitionDelay: `${index * 35}ms` } : undefined}
-              >
-                <Link
-                  href={link.href}
-                  className="block rounded-meridian px-4 py-3.5 text-base font-medium tracking-tight text-meridian-ink transition-colors hover:bg-meridian-surface hover:text-meridian-deep"
-                  onClick={() => setOpen(false)}
-                  tabIndex={open ? 0 : -1}
+          {/* Mobile menu — attached to header so no gap under the bar */}
+          <div
+            className={cn(
+              'grid transition-[grid-template-rows,opacity] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none md:hidden',
+              open ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0',
+            )}
+            aria-hidden={!open}
+          >
+            <div id={menuId} className="overflow-hidden">
+              <ul className="flex flex-col border-t border-meridian-surface-strong px-2 py-2">
+                {navLinks.map((link, index) => (
+                  <li
+                    key={link.label}
+                    className={cn(
+                      'transition-[opacity,transform] duration-300 ease-out motion-reduce:transition-none',
+                      open ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0',
+                    )}
+                    style={open ? { transitionDelay: `${index * 35}ms` } : undefined}
+                  >
+                    <Link
+                      href={link.href}
+                      className="block rounded-meridian px-4 py-3.5 text-base font-medium tracking-tight text-meridian-ink transition-colors hover:bg-meridian-surface hover:text-meridian-deep"
+                      onClick={() => setOpen(false)}
+                      tabIndex={open ? 0 : -1}
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="border-t border-meridian-surface-strong px-2 py-3">
+                <Button
+                  href="/#contact"
+                  size="sm"
+                  className="w-full"
+                  onClick={() => {
+                    trackEvent('cta_click', {
+                      location: 'navbar_mobile',
+                      label: 'Get started with Merevo',
+                    })
+                    setOpen(false)
+                  }}
                 >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-
-          <div className="border-t border-meridian-surface-strong px-2 py-3">
-            <Button
-              href="/#contact"
-              size="sm"
-              className="w-full"
-              onClick={() => {
-                trackEvent('cta_click', {
-                  location: 'navbar_mobile',
-                  label: 'Get started with Merevo',
-                })
-                setOpen(false)
-              }}
-            >
-              Get started with Merevo
-              <ArrowUpRight size={16} weight="bold" className="text-meridian-accent" />
-            </Button>
+                  Get started with Merevo
+                  <ArrowUpRight size={16} weight="bold" className="text-meridian-accent" />
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </header>
 
       <button
         type="button"
         aria-label="Close menu"
         tabIndex={open ? 0 : -1}
         className={cn(
-          'fixed inset-x-0 bottom-0 z-30 bg-meridian-ink/15 transition-opacity duration-300 md:hidden',
-          menuTop,
+          'fixed inset-0 z-40 bg-meridian-ink/15 transition-opacity duration-300 md:hidden',
           open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0',
         )}
         onClick={() => setOpen(false)}
