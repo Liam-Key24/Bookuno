@@ -4,26 +4,26 @@ import { SectionHeading } from '@/components/ui/SectionHeading'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 import { Reveal } from '@/components/motion/Reveal'
 import { PeekFade } from '@/components/motion/PeekFade'
-import { featureCard } from '@/lib/uiClasses'
+import { featureCard, stackedFeatureList, featureSectionLayout } from '@/lib/uiClasses'
 
 const problems = [
   {
     icon: Devices,
     title: 'Too many tools and costs',
     body: 'Another login, another bill, another evening spent clicking instead of cutting, coaching or cleaning.',
-    tilt: '-rotate-2',
+    tilt: 'md:-rotate-2',
   },
   {
     icon: Storefront,
     title: 'A website that gets visits but not bookings',
     body: 'People find you online, admire the photos, then wander off without booking a thing.',
-    tilt: 'rotate-2',
+    tilt: 'md:rotate-2',
   },
   {
     icon: EnvelopeSimple,
     title: 'Bookings scattered like confetti',
     body: 'DMs, texts, missed calls and inbox chaos. The diary never quite knows what is going on.',
-    tilt: '-rotate-2',
+    tilt: 'md:-rotate-2',
   },
 ] as const
 
@@ -42,8 +42,8 @@ export function ProblemBenefit() {
           />
         </Reveal>
 
-        <div className="mt-12 grid items-center gap-12 md:mt-16 lg:mt-20 lg:grid-cols-2 lg:gap-16">
-          <Reveal className="flex justify-center">
+        <div className={featureSectionLayout}>
+          <Reveal className="flex w-full min-w-0 justify-center">
             <IllustrationSlot
               label="Struggling person holding lots of shapes"
               brief="Busy owner juggling mismatched tools, tabs and shapes. The everyday tangle Merevo tidies up."
@@ -51,11 +51,11 @@ export function ProblemBenefit() {
             />
           </Reveal>
 
-          <ul className="mx-auto flex w-full max-w-[30rem] flex-col gap-9 lg:mx-0 lg:max-w-none">
+          <ul className={stackedFeatureList}>
             {problems.map((item, index) => {
               const Icon = item.icon
               return (
-                <Reveal key={item.title} delayMs={index * 90} as="li">
+                <Reveal key={item.title} delayMs={index * 90} as="li" className="w-full min-w-0">
                   <article
                     className={[
                       featureCard,
@@ -70,7 +70,7 @@ export function ProblemBenefit() {
                         className="mt-0.5 shrink-0 text-meridian-accent"
                         aria-hidden
                       />
-                      <div>
+                      <div className="min-w-0 flex-1">
                         <h3 className="font-display text-lg font-bold tracking-tight text-meridian-ink md:text-xl">
                           {item.title}
                         </h3>

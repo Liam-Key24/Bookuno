@@ -56,7 +56,7 @@ export default function RootLayout({
       >
         <SkipLink />
         <Navbar />
-        <div id="main-content" tabIndex={-1} className="pt-[var(--nav-height)] md:pt-0">
+        <div id="main-content" tabIndex={-1} className="pt-[calc(var(--nav-height)+0.5rem)] md:pt-0">
           {children}
         </div>
         <Footer />

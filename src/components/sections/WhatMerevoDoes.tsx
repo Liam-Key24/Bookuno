@@ -11,7 +11,7 @@ import { Section } from '@/components/sections/Section'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { IllustrationSlot } from '@/components/ui/IllustrationSlot'
 import { Reveal } from '@/components/motion/Reveal'
-import { featureCard, illustrationInk } from '@/lib/uiClasses'
+import { featureCard, featureSectionLayout, stackedFeatureList } from '@/lib/uiClasses'
 
 /** What’s included: product + managed bits + branded-home idea. */
 const rooms: readonly {
@@ -69,7 +69,7 @@ export function WhatMerevoDoes() {
   return (
     <Section
       id="features"
-      className="relative flex min-h-[100svh] flex-col justify-center overflow-hidden !py-20 md:!py-28 lg:!py-32"
+      className="relative flex min-h-[100svh] flex-col justify-center overflow-x-clip !py-20 md:!py-28 lg:!py-32"
     >
       <div
         aria-hidden
@@ -80,7 +80,7 @@ export function WhatMerevoDoes() {
         className="pointer-events-none absolute top-1/2 left-1/2 size-[min(36rem,70vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-meridian-accent/12 blur-3xl"
       />
 
-      <div className="relative z-10">
+      <div className="relative z-10 w-full min-w-0">
         <Reveal className="mx-auto max-w-[36rem]">
           <SectionHeading
             title="What’s under the roof?"
@@ -88,8 +88,8 @@ export function WhatMerevoDoes() {
           />
         </Reveal>
 
-        <div className="mt-14 grid min-w-0 items-center gap-12 overflow-x-clip sm:mt-16 lg:mt-20 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-14 xl:gap-16">
-          <Reveal className="flex justify-center lg:justify-start">
+        <div className={featureSectionLayout}>
+          <Reveal className="flex w-full min-w-0 justify-center lg:justify-start">
             <IllustrationSlot
               label="Your own website"
               brief="Friendly shop window with the business name and a clear Book now moment."
@@ -98,14 +98,13 @@ export function WhatMerevoDoes() {
             />
           </Reveal>
 
-          <ul className="grid min-w-0 grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-5">
+          <ul className={`${stackedFeatureList} lg:grid lg:grid-cols-2 lg:gap-5`}>
             {rooms.map((room, index) => {
               const Icon = room.icon
               return (
-                <Reveal key={room.title} delayMs={index * 50} as="li">
+                <Reveal key={room.title} delayMs={index * 50} as="li" className="w-full min-w-0">
                   <article
                     className={[
-                      'h-full p-5 md:p-6',
                       featureCard,
                       'origin-center transition-transform duration-500',
                       room.tilt,
@@ -118,11 +117,11 @@ export function WhatMerevoDoes() {
                         className={['mt-0.5 shrink-0', room.iconClass].join(' ')}
                         aria-hidden
                       />
-                      <div>
+                      <div className="min-w-0 flex-1">
                         <h3 className="font-display text-lg font-bold tracking-tight text-meridian-ink md:text-xl">
                           {room.title}
                         </h3>
-                        <p className="mt-1.5 text-sm leading-relaxed text-meridian-muted md:text-base">
+                        <p className="mt-2 text-sm leading-relaxed text-meridian-muted md:text-base">
                           {room.body}
                         </p>
                       </div>

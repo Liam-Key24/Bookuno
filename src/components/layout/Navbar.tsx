@@ -8,7 +8,8 @@ import { navLinks } from '@/components/layout/navLinks'
 import { trackEvent } from '@/lib/analytics'
 import { cn, focusRing } from '@/lib/uiClasses'
 
-const NAV_IDLE_MS = 1400
+const NAV_IDLE_MS = 1200
+const SCROLL_TOP_THRESHOLD = 12
 const MOBILE_MQ = '(max-width: 767px)'
 
 function subscribeMobileMq(onStoreChange: () => void) {
@@ -31,7 +32,8 @@ function useMobileNavChrome(open: boolean) {
     getMobileMqSnapshot,
     getMobileMqServerSnapshot,
   )
-  const [idleVisible, setIdleVisible] = useState(true)
+  const [showBar, setShowBar] = useState(true)
+  const [detached, setDetached] = useState(false)
   const idleTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   useEffect(() => {
@@ -43,17 +45,19 @@ function useMobileNavChrome(open: boolean) {
 
     const scheduleHide = () => {
       clearIdle()
-      if (open || window.scrollY < 12) return
-      idleTimer.current = setTimeout(() => setIdleVisible(false), NAV_IDLE_MS)
+      if (open || window.scrollY < SCROLL_TOP_THRESHOLD) return
+      idleTimer.current = setTimeout(() => setShowBar(false), NAV_IDLE_MS)
     }
 
     const onScroll = () => {
-      setIdleVisible(true)
+      const atTop = window.scrollY < SCROLL_TOP_THRESHOLD
+      setDetached(!atTop)
+      setShowBar(true)
       scheduleHide()
     }
 
+    onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
-    scheduleHide()
 
     return () => {
       clearIdle()
@@ -61,15 +65,15 @@ function useMobileNavChrome(open: boolean) {
     }
   }, [isMobile, open])
 
-  const visible = !isMobile || open || idleVisible
+  const visible = !isMobile || open || showBar
 
-  return { isMobile, visible }
+  return { isMobile, visible, detached: isMobile && (detached || open) }
 }
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
   const menuId = useId()
-  const { isMobile, visible } = useMobileNavChrome(open)
+  const { isMobile, visible, detached } = useMobileNavChrome(open)
 
   useEffect(() => {
     if (!open) return
@@ -109,87 +113,87 @@ export function Navbar() {
     return () => media.removeEventListener('change', onChange)
   }, [])
 
+  const menuTop = detached
+    ? 'top-[calc(var(--nav-height)+0.85rem)]'
+    : 'top-[var(--nav-height)]'
+
   return (
     <>
       <header
         className={cn(
-          'left-0 right-0 top-0 z-50 w-full transition-[transform,background-color,backdrop-filter] duration-300 ease-out',
-          isMobile ? 'fixed' : 'relative',
-          isMobile && !visible && !open && '-translate-y-full',
-          isMobile && (open || visible)
-            ? open
-              ? 'bg-white shadow-sm'
-              : 'bg-white/75 backdrop-blur-md'
-            : 'bg-white',
+          'left-0 right-0 z-50 transition-[transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none',
+          isMobile ? 'fixed top-0 px-2.5 pt-2' : 'relative w-full bg-white',
+          isMobile && !visible && !open && '-translate-y-[120%] scale-[0.97]',
+          isMobile && visible && 'translate-y-0 scale-100',
         )}
       >
-        <nav
-          aria-label="Primary"
-          className="relative flex h-[var(--nav-height)] w-full items-center justify-between gap-3 px-2.5 md:px-3 lg:px-4"
+        <div
+          className={cn(
+            'transition-[background-color,box-shadow,border-radius] duration-300 ease-out',
+            isMobile && detached
+              ? 'overflow-hidden rounded-meridian border border-meridian-surface-strong/80 bg-white/90 shadow-[0_10px_28px_rgb(15_23_32_/_0.1)] backdrop-blur-md'
+              : isMobile
+                ? 'bg-transparent'
+                : '',
+          )}
         >
-          <Link
-            href="/"
-            className="relative z-10 shrink-0 font-display text-[1.35rem] font-bold tracking-tight text-meridian-ink md:text-[1.5rem]"
-            onClick={() => setOpen(false)}
-            aria-label="Merevo home"
+          <nav
+            aria-label="Primary"
+            className="relative flex h-[var(--nav-height)] w-full items-center justify-between gap-3 px-2 md:px-3 lg:px-4"
           >
-            Merevo
-          </Link>
-
-          <ul className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-8 md:flex">
-            {navLinks.map((link) => (
-              <li key={link.label}>
-                <Link
-                  href={link.href}
-                  className="text-sm font-medium tracking-tight text-meridian-ink/80 transition-colors hover:text-meridian-deep"
-                >
-                  {link.label}
-                </Link>
-              </li>
-            ))}
-          </ul>
-
-          <div className="relative z-10 flex items-center gap-2">
-            <Button
-              href="/#contact"
-              size="sm"
-              className="hidden shrink-0 md:inline-flex"
-              onClick={() =>
-                trackEvent('cta_click', { location: 'navbar', label: 'Get started with Merevo' })
-              }
+            <Link
+              href="/"
+              className="relative z-10 shrink-0 font-display text-[1.35rem] font-bold tracking-tight text-meridian-ink md:text-[1.5rem]"
+              onClick={() => setOpen(false)}
+              aria-label="Merevo home"
             >
-              Get started with Merevo
-              <ArrowUpRight size={16} weight="bold" className="text-meridian-accent" />
-            </Button>
+              Merevo
+            </Link>
 
-            <button
-              type="button"
-              className={cn(
-                'inline-flex size-11 items-center justify-center rounded-meridian text-meridian-ink transition-colors md:hidden',
-                open
-                  ? 'bg-meridian-surface-strong'
-                  : 'bg-meridian-surface hover:bg-meridian-surface-strong',
-                focusRing,
-              )}
-              aria-expanded={open}
-              aria-controls={menuId}
-              aria-label={open ? 'Close menu' : 'Open menu'}
-              onClick={() => setOpen((value) => !value)}
-            >
-              {open ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}
-            </button>
-          </div>
-        </nav>
+            <ul className="absolute top-1/2 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 items-center gap-8 md:flex">
+              {navLinks.map((link) => (
+                <li key={link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm font-medium tracking-tight text-meridian-ink/80 transition-colors hover:text-meridian-deep"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+
+            <div className="relative z-10 flex items-center gap-2">
+              <button
+                type="button"
+                className={cn(
+                  'inline-flex size-11 items-center justify-center rounded-meridian text-meridian-ink transition-colors md:hidden',
+                  open || detached
+                    ? 'bg-meridian-surface hover:bg-meridian-surface-strong'
+                    : 'bg-meridian-surface/90 hover:bg-meridian-surface',
+                  focusRing,
+                )}
+                aria-expanded={open}
+                aria-controls={menuId}
+                aria-label={open ? 'Close menu' : 'Open menu'}
+                onClick={() => setOpen((value) => !value)}
+              >
+                {open ? <X size={20} weight="bold" /> : <List size={20} weight="bold" />}
+              </button>
+            </div>
+          </nav>
+        </div>
       </header>
 
-      {/* Mobile menu — full width, below fixed header */}
+      {/* Mobile menu — full width, below header */}
       <div
         className={cn(
-          'fixed inset-x-0 top-[var(--nav-height)] z-40 md:hidden',
+          'fixed inset-x-0 z-40 md:hidden',
+          menuTop,
           'transition-[opacity,transform] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none',
           open
             ? 'pointer-events-auto translate-y-0 opacity-100'
-            : 'pointer-events-none -translate-y-3 opacity-0',
+            : 'pointer-events-none -translate-y-2 opacity-0',
         )}
         aria-hidden={!open}
       >
@@ -218,16 +222,34 @@ export function Navbar() {
               </li>
             ))}
           </ul>
+
+          <div className="border-t border-meridian-surface-strong px-2 py-3">
+            <Button
+              href="/#contact"
+              size="sm"
+              className="w-full"
+              onClick={() => {
+                trackEvent('cta_click', {
+                  location: 'navbar_mobile',
+                  label: 'Get started with Merevo',
+                })
+                setOpen(false)
+              }}
+            >
+              Get started with Merevo
+              <ArrowUpRight size={16} weight="bold" className="text-meridian-accent" />
+            </Button>
+          </div>
         </div>
       </div>
 
-      {/* Dim overlay while menu open */}
       <button
         type="button"
         aria-label="Close menu"
         tabIndex={open ? 0 : -1}
         className={cn(
-          'fixed inset-0 top-[var(--nav-height)] z-30 bg-meridian-ink/15 transition-opacity duration-300 md:hidden',
+          'fixed inset-x-0 bottom-0 z-30 bg-meridian-ink/15 transition-opacity duration-300 md:hidden',
+          menuTop,
           open ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0',
         )}
         onClick={() => setOpen(false)}
